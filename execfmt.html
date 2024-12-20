@@ -1625,8 +1625,8 @@
 </table>
 <a id="opthdr"/>
 <h2>Optional header</h1>
-<p>The two variants we will consider are the standard Unix a.out header (AOUTHDR) and its extension used on Concurrent DOS 68K.</p>
-<p>Only present in executable files.</p>
+<p>The first variant presented here is the standard Unix a.out header (AOUTHDR).</p>
+<p>The values used by DJGPP and Concurrent DOS 68K will be remarked on.</p>
 <table border='1' align='center'>
 <tr>
 <td><tt><sub>x</sub>00</tt></td>	<td>i16</td>
@@ -1672,31 +1672,31 @@
 <table border='1' align='center'>
 <tr>
 <td><tt><sub>x</sub>00</tt></td>	<td>i16</td>
-<td><tt>magic</tt> - Magic (CDOS COFF utility<a href="#CDOS"><sup title="COFF.C source from Concurrent DOS 68K disks">[5]</sup></a>: 0)</td></tr>
+<td><tt>magic</tt> - Magic</td></tr>
 <tr>
 <td><tt><sub>x</sub>02</tt></td>	<td>i16</td>
-<td><tt>vstamp</tt> - Version stamp<a href="#SCO"><sup title="Common Object File Format (COFF) - SCO OpenServer 5 Documentation">[1]</sup></a><a href="#DJGPP"><sup title="DJGPP COFF Spec">[4]</sup></a> (DJGPP ignores this field<a href="#DJGPP"><sup title="DJGPP COFF Spec">[4]</sup></a>, CDOS COFF utility<a href="#CDOS"><sup title="COFF.C source from Concurrent DOS 68K disks">[5]</sup></a>: 0)</td></tr>
+<td><tt>vstamp</tt> - Version stamp</td></tr>
 <tr>
 <td><tt><sub>x</sub>04</tt></td>	<td>i32</td>
-<td><tt>tsize</tt> - Text size in bytes (DJGPP ignores this field<a href="#DJGPP"><sup title="DJGPP COFF Spec">[4]</sup></a>)</td></tr>
+<td><tt>tsize</tt> - Text size in bytes</td></tr>
 <tr>
 <td><tt><sub>x</sub>08</tt></td>	<td>i32</td>
-<td><tt>dsize</tt> - Data size in bytes (DJGPP ignores this field<a href="#DJGPP"><sup title="DJGPP COFF Spec">[4]</sup></a>)</td></tr>
+<td><tt>dsize</tt> - Data size in bytes</td></tr>
 <tr>
 <td><tt><sub>x</sub>0C</tt></td>	<td>i32</td>
-<td><tt>bsize</tt> - Bss size in byte (DJGPP ignores this field<a href="#DJGPP"><sup title="DJGPP COFF Spec">[4]</sup></a>)</td></tr>
+<td><tt>bsize</tt> - Bss size in byte</td></tr>
 <tr>
 <td><tt><sub>x</sub>10</tt></td>	<td>c[8]</td>
 <td>Padding</td></tr>
 <tr>
 <td><tt><sub>x</sub>18</tt></td>	<td>i32</td>
-<td><tt>entry</tt> - Entry point (CDOS COFF utility<a href="#CDOS"><sup title="COFF.C source from Concurrent DOS 68K disks">[5]</sup></a>: 0)</td></tr>
+<td><tt>entry</tt> - Entry point</td></tr>
 <tr>
 <td><tt><sub>x</sub>1C</tt></td>	<td>i32</td>
-<td><tt>text_start</tt> - Address of text start (DJGPP ignores this field<a href="#DJGPP"><sup title="DJGPP COFF Spec">[4]</sup></a>, CDOS COFF utility<a href="#CDOS"><sup title="COFF.C source from Concurrent DOS 68K disks">[5]</sup></a>: 0)</td></tr>
+<td><tt>text_start</tt> - Address of text start</td></tr>
 <tr>
 <td><tt><sub>x</sub>20</tt></td>	<td>i32</td>
-<td><tt>data_start</tt> - Address of data start (DJGPP ignores this field<a href="#DJGPP"><sup title="DJGPP COFF Spec">[4]</sup></a>)</td></tr>
+<td><tt>data_start</tt> - Address of data start</td></tr>
 </table>
 <h3>NS32000 fields</h2>
 <table border='1' align='center'>
@@ -1780,7 +1780,7 @@
 </td></tr>
 </table>
 <h3>Concurrent DOS additional fields</h2>
-<p>The following additional fields are defined:<a href="#CDOS"><sup title="COFF.C source from Concurrent DOS 68K disks">[5]</sup></a></p>
+<p>The following additional fields are defined, after regular AOUTHDR fields in <a href="#opthdr">Optional header</a>:<a href="#CDOS"><sup title="COFF.C source from Concurrent DOS 68K disks">[5]</sup></a></p>
 <table border='1' align='center'>
 <tr>
 <td><tt><sub>x</sub>1C</tt></td>	<td>i32</td>
@@ -1790,7 +1790,7 @@
 <td><tt>ssize</tt> - Stack size</td></tr>
 </table>
 <h3>GNU_AOUT header fields</h2>
-<p>DJGPP seems to support the following format side from the original System V format<sup>[<a href="https://www.pcorner.com/list/UPLOAD/DPMIGCC5.ZIP/GNUAOUT.H/" target="_blank">GNUAOUT.H</a>]</sup></p>
+<p>DJGPP seems to support the following format aside from the original System V format<sup>[<a href="https://www.pcorner.com/list/UPLOAD/DPMIGCC5.ZIP/GNUAOUT.H/" target="_blank">GNUAOUT.H</a>]</sup></p>
 <h3>Additional optional header fields for MIPS</h2>
 <p>The following fields are used additionally for MIPS.<a href="#MIPS"><sup title="https://web.archive.org/web/20140723105157/http://www-scf.usc.edu/~csci402/ncode/coff_8h-source.html">[10]</sup></a></p>
 <table border='1' align='center'>
@@ -3009,11 +3009,11 @@
 <a id="_references"/>
 <h2>References</h1>
 <ul>
-<li>[1] <a href="# p141" target='_blank'>XENIX 286 C Library Guide, Appendix B (1984-11)</a></li>
+<li>[1] XENIX 286 C Library Guide, Appendix B (1984-11)</li>
 <li>[2] ACS-586 XENIX C Compiler Release Notes (1984-05-29)</li>
 <li>[3] XENIX System V Development System C Language Guide, Section 7.17 (1987-06-28)</li>
 <li>[4] XENIX System V Development System C Language Guide, Section 7.17 (1988-10)</li>
-<li>[5] <a href="# p415" target='_blank'>XENIX System V Operating System User's Guide</a></li>
+<li>[5] XENIX System V Operating System User's Guide</li>
 </ul>
 <hr/>
 <h1 id="macho">Mach-O format (for Mach object)</h1>

@@ -1003,8 +1003,8 @@ SECTION 1/:XCOFF64 file header
 
 SECTION opthdr:Optional header
 
-> The two variants we will consider are the standard Unix a.out header (AOUTHDR) and its extension used on Concurrent DOS 68K.
-> Only present in executable files.
+> The first variant presented here is the standard Unix a.out header (AOUTHDR).
+> The values used by DJGPP and Concurrent DOS 68K will be remarked on.
 
 @00	i16	<tt>magic</tt> - Magic (CDOS COFF utility{CDOS}: 0)
 		0x0107	OMAGIC<br>Contiguous text and data segments<br>Text segment is not write-protected or sharable{SCO}
@@ -1021,15 +1021,15 @@ SECTION opthdr:Optional header
 
 SECTION 1/:3B20 optional header
 
-@00	i16	<tt>magic</tt> - Magic (CDOS COFF utility{CDOS}: 0)
-@02	i16	<tt>vstamp</tt> - Version stamp{SCO}{DJGPP} (DJGPP ignores this field{DJGPP}, CDOS COFF utility{CDOS}: 0)
-@04	i32	<tt>tsize</tt> - Text size in bytes (DJGPP ignores this field{DJGPP})
-@08	i32	<tt>dsize</tt> - Data size in bytes (DJGPP ignores this field{DJGPP})
-@0C	i32	<tt>bsize</tt> - Bss size in byte (DJGPP ignores this field{DJGPP})
+@00	i16	<tt>magic</tt> - Magic
+@02	i16	<tt>vstamp</tt> - Version stamp
+@04	i32	<tt>tsize</tt> - Text size in bytes
+@08	i32	<tt>dsize</tt> - Data size in bytes
+@0C	i32	<tt>bsize</tt> - Bss size in byte
 @10	c[8]	Padding
-@18	i32	<tt>entry</tt> - Entry point (CDOS COFF utility{CDOS}: 0)
-@1C	i32	<tt>text_start</tt> - Address of text start (DJGPP ignores this field{DJGPP}, CDOS COFF utility{CDOS}: 0)
-@20	i32	<tt>data_start</tt> - Address of data start (DJGPP ignores this field{DJGPP})
+@18	i32	<tt>entry</tt> - Entry point
+@1C	i32	<tt>text_start</tt> - Address of text start
+@20	i32	<tt>data_start</tt> - Address of data start
 
 SECTION 1/:NS32000 fields
 
@@ -1060,14 +1060,14 @@ SECTION 1/:NS32000 fields
 
 SECTION 1/:Concurrent DOS additional fields
 
-> The following additional fields are defined:{CDOS}
+> The following additional fields are defined, after regular AOUTHDR fields in {opthdr}:{CDOS}
 
 @1C	i32	<tt>relptr</tt> - Relocation information (CDOS coff utility: directly after text, data and bss images)
 @20	i32	<tt>ssize</tt> - Stack size
 
 SECTION 1/:GNU_AOUT header fields
 
-> DJGPP seems to support the following format side from the original System V format<sup>[{https://www.pcorner.com/list/UPLOAD/DPMIGCC5.ZIP/GNUAOUT.H/|GNUAOUT.H}]</sup>
+> DJGPP seems to support the following format aside from the original System V format<sup>[{https://www.pcorner.com/list/UPLOAD/DPMIGCC5.ZIP/GNUAOUT.H/|GNUAOUT.H}]</sup>
 
 SECTION 1/:Additional optional header fields for MIPS
 
@@ -1502,13 +1502,15 @@ SECTION :Further work
 
 > This format requires further research.
 
-REFERENCE {} "XENIX 286 C Library Guide, Appendix B (1984-11)" # p141
+REFERENCE {} "XENIX 286 C Library Guide, Appendix B (1984-11)"
+# p141
 REFERENCE {} "ACS-586 XENIX C Compiler Release Notes (1984-05-29)"
 REFERENCE {} "XENIX System V Development System C Language Guide, Section 7.17 (1987-06-28)"
 # p651
 REFERENCE {} "XENIX System V Development System C Language Guide, Section 7.17 (1988-10)"
 # p189
-REFERENCE {} "XENIX System V Operating System User's Guide" # p415
+REFERENCE {} "XENIX System V Operating System User's Guide"
+# p415
 
 ######## Mach-O
 

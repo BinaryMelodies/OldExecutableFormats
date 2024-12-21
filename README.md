@@ -5,7 +5,7 @@ The focus has mostly revolved around old UNIXen, DOS-like systems and related op
 
 Most of this information is available online, scattered in different locations, but this file also includes information on more obscure and obsolete sources and formats, and in general information that often gets left out from the most up to date documentations.
 This document also attempts to provide a diachronic overview, focusing on which versions introduced which entries or features, instead of just presenting the latest versions of each file format.
-The author has strived for completeness and preservation of as much information as possible, at the potential detriment of consistency and correctness.
+The author has strived for completeness and preservation of as much information as possible.
 
 When possible, the runtime memory layout is also mentioned.
 

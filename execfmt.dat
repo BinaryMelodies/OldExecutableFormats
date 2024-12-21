@@ -167,7 +167,7 @@
 .sys_date:1983
 .sys:Human68k
 .sys_date:1987-03-28
-.sys:<a href="http://www.vcfed.org/forum/archive/index.php/t-10780.html">DOS/65</a>
+.sys:<a href="https://web.archive.org/web/20200224162400/http://www.vcfed.org/forum/archive/index.php/t-10780.html">DOS/65</a>
 .sys_date:1989
 .sys:DX-DOS
 .sys_date:1995
@@ -792,7 +792,7 @@ REFERENCE {UNIX2} "UNIX Programmer's Manual, Second Edition - K. Thompson, D. M.
 #p215
 REFERENCE {TUHS} "The Unix Tree" https://www.tuhs.org/cgi-bin/utree.pl
 REFERENCE {386BSD} "exec.h - 386BSD sources" https://github.com/386bsd/386bsd/blob/2.0/usr/src/kernel/include/sys/exec.h
-REFERENCE {XENIX} "XENIX System V man page" http://www.polarhome.com/service/man/?qf=a.out&tf=2&of=Xenix&sf=F
+REFERENCE {XENIX} "XENIX System V man page" https://web.archive.org/web/20230410013743/http://www.polarhome.com/service/man/?qf=a.out&tf=2&of=Xenix&sf=F
 REFERENCE {LINUX1} "a.out.h - Early Linux sources" https://elixir.bootlin.com/linux/1.0/source/include/linux/a.out.h
 REFERENCE {LINUX} "a.out.h - Linux 6.7 RC1 sources" https://elixir.bootlin.com/linux/v6.7-rc1/source/include/uapi/linux/a.out.h
 REFERENCE {FREEBSD} "imgact_aout.h - FreeBSD sources" https://github.com/FreeBSDDesktop/freebsd-base/blob/master/sys/sys/imgact_aout.h
@@ -2446,8 +2446,10 @@ REFERENCE {CDOS68K} "LOAD68K.H from Concurrent DOS 68K disks" http://www.cpm.z80
 REFERENCE {CRUNCH} "CRUNCH.C source from Concurrent DOS 68K disks" http://www.cpm.z80.de/download/cdos3.zip
 REFERENCE {GEMDOS} "Atari GEMDOS Reference Manual (1986-04-04)" http://www.bitsavers.org/pdf/atari/ST/Atari_ST_GEM_Programming_1986/GEM_0042.pdf
 REFERENCE {AC} "GEMDOS Overview" http://cd.textfiles.com/ataricompendium/BOOK/HTML/CHAP2.HTM
-REFERENCE {TOSHYP1} "The documentation for TOS: The program file format" http://toshyp.atari.org/en/005005.html
-REFERENCE {TOSHYP2} "The documentation for TOS: Shared libraries" http://toshyp.atari.org/en/00b017.html#PH_BIT3.TTP
+REFERENCE {TOSHYP1} "The documentation for TOS: The program file format" https://freemint.github.io/tos.hyp/en/gemdos_programs.html
+# old link: http://toshyp.atari.org/en/005005.html
+REFERENCE {TOSHYP2} "The documentation for TOS: Shared libraries" https://freemint.github.io/tos.hyp/en/magic_sharelib.html#PH_BIT3.TTP
+# old link: http://toshyp.atari.org/en/00b017.html#PH_BIT3.TTP
 REFERENCE {X68KPM} "Sharp X68000 Programmer's Manual" https://datacrystal.romhacking.net/wiki/X68k:PM
 
 ######## Z8K
@@ -2961,7 +2963,7 @@ SECTION 1/:Import by name
 
 SECTION 1/:OSFIXUP
 
-> Represents a floating point instruction that Windows will "fix up" when the coprocessor is emulated.
+> Represents a floating point instruction that Windows will "fix up" when the coprocessor is emulated.{QB}
 
 @04	i16le	Fixup type
 		=0x0001	<tt>FIARQQ, FJARQQ</tt> &mdash; <tt>wait; DS: esc</tt> turns into <tt>int 0x3C; byte 0x18-0x1F</tt> by adding 0xFE32 and 0x4000
@@ -2972,8 +2974,8 @@ SECTION 1/:OSFIXUP
 		=0x0006	<tt>FIWRQQ</tt> &mdash; <tt>nop; wait</tt> turns into <tt>int 0x3D</tt> by adding 0xA23D
 @06	i16le	0
 
-REFERENCE {WIN3.0} "Windows 3.0 16-bit NE Executable Format" http://bytepointer.com/resources/win16_ne_exe_format_win3.0.htm
-REFERENCE {WIN3.1} "Windows 3.1 16-bit NE Executable Format" http://bytepointer.com/resources/win16_ne_exe_format_win3.1.htm
+REFERENCE {WIN3.0} "Windows 3.0 16-bit NE Executable Format" https://web.archive.org/web/20240422070115/http://bytepointer.com/resources/win16_ne_exe_format_win3.0.htm
+REFERENCE {WIN3.1} "Windows 3.1 16-bit NE Executable Format" https://web.archive.org/web/20240615140011/http://bytepointer.com/resources/win16_ne_exe_format_win3.1.htm
 REFERENCE {OW} "OpenWatcom sources" https://github.com/open-watcom/open-watcom-v2
 REFERENCE {RB} "Ralf Brown's interrupt list" http://www.delorie.com/djgpp/doc/rbinter/ix/
 REFERENCE {QB} "QB CULT MAGAZINE - Vol. 4 Iss. 1 - January 2004" http://qbcm.hybd.net/issues/4-1/

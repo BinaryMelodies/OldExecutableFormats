@@ -135,6 +135,7 @@
 .arch:various
 .sys:System V Release 4.0 (replacing <a href="#coff">COFF</a>)
 .sys_date:1988-10-18
+.sys:BeOS Developer Release 4 for AT&T Hobbit
 .sys:Linux 1.2 (replacing <a href="#aout32">a.out</a>)
 .sys_date:1995-03
 .sys:OS/2 Warp PowerPC Edition (replacing <a href="#le">LE</a>)
@@ -240,8 +241,8 @@
 .ext:<tt>.acc</tt> for GEMDOS and Atari TOS graphical accessories
 .ext:<tt>.tos</tt> for Atari TOS text applications
 .ext:<tt>.ttp</tt> for Atari TOS text applications that take parameters
-.ext:<tt>.gtp</tt> for Atari TOS graphical applications that take parameters
-.ext:<tt>.slb</tt> for shared libraries for MagiC (Atari TOS extension)
+.ext:<tt>.gtp</tt> for Atari TOS (since version 2.0) graphical applications that take parameters
+.ext:<tt>.slb</tt> for shared libraries for <a href="https://en.wikipedia.org/wiki/MagiC">MagiC</a> (Atari TOS extension)
 .ext:<tt>.z</tt> for Human68k
 .magic:<tt><sub>x</sub>60<sub>x</sub>1A</tt> for contiguous executables (all of them)
 .magic:<tt><sub>x</sub>60<sub>x</sub>1B</tt> for non-contiguous executables (CP/M-68K only)
@@ -282,7 +283,7 @@
 .title:MZ executable
 .title_comment:(named after Mark Zbikowski)
 .title_target:PC
-.ext:<tt>.exe</tt>, sometimes <tt>.com</tt> for console applications
+.ext:<tt>.exe</tt>, sometimes <tt>.com</tt> for console applications (<tt>.com</tt> extension supported since MS-DOS 2.0)
 .ext:<tt>.ovl</tt> for overlays
 .ext:<tt>.app</tt> for GEM graphics applications
 .ext:<tt>.acc</tt> for GEM graphics accessories
@@ -299,7 +300,7 @@
 .title_comment:(NE)
 .title_target:PC
 
-.ext:<tt>.exe</tt>, <tt>.dll</tt> for OS/2 libraries
+.ext:<tt>.exe</tt>, <tt>.dll</tt> for OS/2 libraries (Multitasking MS-DOS and usually 16-bit Windows uses <tt>.exe</tt> for libraries as well)
 .magic:<tt>"NE"</tt> (<tt>"DX"</tt> for DOS/16M DOS extender)
 .arch:Intel 8086/80286
 .sys:Windows 1.0
@@ -316,7 +317,7 @@
 .title:Linear executable
 .title_comment:(LE, LX)
 .title_target:PC
-.ext:<tt>.exe</tt>, <tt>.dll</tt> for libraries, <tt>.386</tt> for Windows/386, <tt>.vxd</tt> for Windows 95 and later
+.ext:<tt>.exe</tt>, <tt>.dll</tt> for libraries, <tt>.386</tt> for Windows/386 virtual device drivers, <tt>.vxd</tt> for Windows 95 virtual device drivers and later
 .magic:<tt>"LE"</tt> or <tt>"LX"</tt> for OS/2
 .arch:various, mostly Intel 80386
 .sys:Windows/386 drivers (LE)
@@ -325,6 +326,7 @@
 .sys_date:1990-05-22
 .sys:Rational Systems DOS/4G DOS extender (LE)
 .sys_date:1991-07
+.sys:OS/2 2.0 beta (LE)
 .sys:OS/2 2.0 Limited Availability (LX)
 .sys_date:1991-10
 .sys:EMX DOS extender (LX)
@@ -356,7 +358,7 @@
 .arch:Intel 80386
 .sys:Phar Lap 386|DOS-Extender
 .sys_date:1986-08
-.sys:FM Towns OS
+.sys:FM Towns OS (via Phar Lap 386|DOS-Extender)
 .inf:<a href="#mz">MZ</a>
 
 .fmt:bw
@@ -387,7 +389,7 @@
 .magic:<tt>"P2"</tt> for Intel 80286, <tt>P3</tt> for Intel 80386
 .arch:Intel 80286, Intel 80386
 .sys:Phar Lap 386|DOS-Extender
-.sys:FM Towns OS
+.sys:FM Towns OS (via Phar Lap 386|DOS-Extender)
 # unsure: 286|DOS-Extender came out in 1991-05 which is probably the first version with P2
 .sys_date:1991
 .inf:<a href="#mz">MP</a>
@@ -435,7 +437,7 @@
 .arch:Motorola 68000, PowerPC
 .sys:System 7.1.2 for Power Macintosh 6100
 .sys_date:1994-03-14
-.sys:BeOS Developer Release 6 on PowerPC
+.sys:BeOS Developer Release 6 on PowerPC (replacing <a href="#elf">ELF</a>)
 .sys_date:1996-01
 .inf:partially replaced <a href="#mac">Macintosh CODE resources</a>, based on <a href="#coff">XCOFF</a>
 
@@ -1952,6 +1954,10 @@ SECTION :OS/2 export table (<tt>.exports</tt>)
 @08	i32	<tt>exp_name</tt>, string table index for name, or 0 if exported by ordinal
 @0C	i32	<tt>exp_reserved</tt>, reserved
 
+SECTION :BeOS Developer Release 4 resources
+
+> This section requires documentation, see {HB}.
+
 SECTION :Segment contents
 
 > A <tt>PT_INTERP</tt> segment will contain an <tt>.interp</tt> section.
@@ -1979,6 +1985,7 @@ SECTION :Further work
 REFERENCE {SCO} "System V Application Binary Interface (Draft, 2013-06-10)" https://www.sco.com/developers/gabi/latest/contents.html
 REFERENCE {binutils} "common.h - GNU Binutils sources" https://github.com/bminor/binutils-gdb/blob/master/include/elf/common.h
 REFERENCE {OS2} "OS/2 Application Binary Interface for PowerPC (32-bit), 1995-12-08" https://archive.org/details/OS2PowerPCBinaryInterface
+REFERENCE {HB} "Tools for Hobbit-based BeOS machines" https://sourceforge.net/projects/hobbitbeos/
 
 ######## Flat binary
 

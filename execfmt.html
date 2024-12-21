@@ -3068,6 +3068,7 @@
 <dt>Operating systems</td>
 <dd><ul>
 <li>1988-10-18: System V Release 4.0 (replacing <a href="#coff">COFF</a>)</li>
+<li>?: BeOS Developer Release 4 for AT&T Hobbit</li>
 <li>1995-03: Linux 1.2 (replacing <a href="#aout32">a.out</a>)</li>
 <li>1995-12: OS/2 Warp PowerPC Edition (replacing <a href="#le">LE</a>)</li>
 <li>1997-05-12<sup>?</sup>: PowerUP for Amiga (replacing <a href="#hunk">Hunk</a>)</li>
@@ -3111,6 +3112,8 @@
 <li><a href="#">OS/2 import table (<tt>.imports</tt>)</a>
 </li>
 <li><a href="#">OS/2 export table (<tt>.exports</tt>)</a>
+</li>
+<li><a href="#">BeOS Developer Release 4 resources</a>
 </li>
 <li><a href="#">Segment contents</a>
 </li>
@@ -4310,6 +4313,8 @@
 <td><tt><sub>x</sub>0C</tt></td>	<td>i32</td>
 <td><tt>exp_reserved</tt>, reserved</td></tr>
 </table>
+<h2>BeOS Developer Release 4 resources</h1>
+<p>This section requires documentation, see <a href="#HB"><sup title="Tools for Hobbit-based BeOS machines">[4]</sup></a>.</p>
 <h2>Segment contents</h1>
 <p>A <tt>PT_INTERP</tt> segment will contain an <tt>.interp</tt> section.</p>
 <p>A <tt>PT_PHDR</tt> segment will point to the program header section.</p>
@@ -4328,6 +4333,7 @@
 <li>[1] <a href="https://www.sco.com/developers/gabi/latest/contents.html" target='_blank'>System V Application Binary Interface (Draft, 2013-06-10)</a></li>
 <li>[2] <a href="https://github.com/bminor/binutils-gdb/blob/master/include/elf/common.h" target='_blank'>common.h - GNU Binutils sources</a></li>
 <li>[3] <a href="https://archive.org/details/OS2PowerPCBinaryInterface" target='_blank'>OS/2 Application Binary Interface for PowerPC (32-bit), 1995-12-08</a></li>
+<li>[4] <a href="https://sourceforge.net/projects/hobbitbeos/" target='_blank'>Tools for Hobbit-based BeOS machines</a></li>
 </ul>
 <hr/>
 <h1 id="cpm">flat binary CP/M</h1>
@@ -5058,8 +5064,8 @@
 <li><tt>.acc</tt> for GEMDOS and Atari TOS graphical accessories</li>
 <li><tt>.tos</tt> for Atari TOS text applications</li>
 <li><tt>.ttp</tt> for Atari TOS text applications that take parameters</li>
-<li><tt>.gtp</tt> for Atari TOS graphical applications that take parameters</li>
-<li><tt>.slb</tt> for shared libraries for MagiC (Atari TOS extension)</li>
+<li><tt>.gtp</tt> for Atari TOS (since version 2.0) graphical applications that take parameters</li>
+<li><tt>.slb</tt> for shared libraries for <a href="https://en.wikipedia.org/wiki/MagiC">MagiC</a> (Atari TOS extension)</li>
 <li><tt>.z</tt> for Human68k</li>
 </ul></dd>
 <dl>
@@ -5992,7 +5998,7 @@
 <dl>
 <dt>File extensions</td>
 <dd><ul>
-<li><tt>.exe</tt>, sometimes <tt>.com</tt> for console applications</li>
+<li><tt>.exe</tt>, sometimes <tt>.com</tt> for console applications (<tt>.com</tt> extension supported since MS-DOS 2.0)</li>
 <li><tt>.ovl</tt> for overlays</li>
 <li><tt>.app</tt> for GEM graphics applications</li>
 <li><tt>.acc</tt> for GEM graphics accessories</li>
@@ -6209,7 +6215,7 @@
 <h1 id="ne">New executable (NE)</h1>
 <dl>
 <dt>File extensions</td>
-<dd><tt>.exe</tt>, <tt>.dll</tt> for OS/2 libraries</dd>
+<dd><tt>.exe</tt>, <tt>.dll</tt> for OS/2 libraries (Multitasking MS-DOS and usually 16-bit Windows uses <tt>.exe</tt> for libraries as well)</dd>
 <dl>
 <dt>Magic code</td>
 <dd><tt>"NE"</tt> (<tt>"DX"</tt> for DOS/16M DOS extender)</dd>
@@ -7095,7 +7101,7 @@
 <h1 id="le">Linear executable (LE, LX)</h1>
 <dl>
 <dt>File extensions</td>
-<dd><tt>.exe</tt>, <tt>.dll</tt> for libraries, <tt>.386</tt> for Windows/386, <tt>.vxd</tt> for Windows 95 and later</dd>
+<dd><tt>.exe</tt>, <tt>.dll</tt> for libraries, <tt>.386</tt> for Windows/386 virtual device drivers, <tt>.vxd</tt> for Windows 95 virtual device drivers and later</dd>
 <dl>
 <dt>Magic code</td>
 <dd><tt>"LE"</tt> or <tt>"LX"</tt> for OS/2</dd>
@@ -7108,6 +7114,7 @@
 <li>probably 1987-09: Windows/386 drivers (LE)</li>
 <li>1990-05-22: Windows 3.0 and Windows 95 drivers (LE)</li>
 <li>1991-07: Rational Systems DOS/4G DOS extender (LE)</li>
+<li>?: OS/2 2.0 beta (LE)</li>
 <li>1991-10: OS/2 2.0 Limited Availability (LX)</li>
 <li>?: EMX DOS extender (LX)</li>
 </ul></dd>
@@ -9544,7 +9551,7 @@
 <dt>Operating systems</td>
 <dd><ul>
 <li>1986-08: Phar Lap 386|DOS-Extender</li>
-<li>?: FM Towns OS</li>
+<li>?: FM Towns OS (via Phar Lap 386|DOS-Extender)</li>
 </ul></dd>
 </dl>
 <dl>
@@ -10308,7 +10315,7 @@
 <dt>Operating systems</td>
 <dd><ul>
 <li>?: Phar Lap 386|DOS-Extender</li>
-<li>1991: FM Towns OS</li>
+<li>1991: FM Towns OS (via Phar Lap 386|DOS-Extender)</li>
 </ul></dd>
 </dl>
 <dl>
@@ -13053,7 +13060,7 @@
 <dt>Operating systems</td>
 <dd><ul>
 <li>1994-03-14: System 7.1.2 for Power Macintosh 6100</li>
-<li>1996-01: BeOS Developer Release 6 on PowerPC</li>
+<li>1996-01: BeOS Developer Release 6 on PowerPC (replacing <a href="#elf">ELF</a>)</li>
 </ul></dd>
 </dl>
 <dl>

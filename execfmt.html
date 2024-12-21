@@ -1025,6 +1025,7 @@
 <a id="_references"/>
 <h2>References</h1>
 <ul>
+<li>[1] <a href="https://github.com/lkundrak/dev86" target='_blank'>dev86 sources</a></li>
 </ul>
 <hr/>
 <h1 id="coff">COFF format (Common Object File Format)</h1>
@@ -3085,6 +3086,8 @@
 <ol>
 <li><a href="#_contents">Contents</a>
 </li>
+<li><a href="#">Notes on the format</a>
+</li>
 <li><a href="#">Overall layout</a>
 </li>
 <li><a href="#eheader">ELF header</a>
@@ -3116,6 +3119,8 @@
 <li><a href="#">Further work</a>
 </li><li><a href="#_references">References</a></li>
 </ol>
+<h2>Notes on the format</h1>
+<p>The ELF format is well documented in an accessible format online. This section also focuses on some of the more obscure features, such as the extensions provided by IBM's port of <a href="https://en.wikipedia.org/wiki/Workplace_OS">OS/2 to the PowerPC architecture</a>.<a href="#OS2"><sup title="OS/2 Application Binary Interface for PowerPC (32-bit), 1995-12-08">[3]</sup></a></p>
 <h2>Overall layout</h1>
 <table border='1' align='center'>
 <tr>
@@ -3228,7 +3233,7 @@
 </td></tr>
 <tr>
 <td colspan='2'><tt><sub>x</sub>12</tt></td>	<td colspan='2'>i16</td>
-<td><tt>e_machine</tt>, architecture type
+<td><tt>e_machine</tt>, architecture type (partial list)
 <table border='1'>
 <tr>
 <td>0x0000</td>
@@ -4354,12 +4359,12 @@
 <ol>
 <li><a href="#_contents">Contents</a>
 </li>
-<li><a href="#pifed">Program Information</a>
+<li><a href="#flat_pifed">Program Information</a>
 </li><li><a href="#_references">References</a></li>
 </ol>
-<a id="pifed"/>
+<a id="flat_pifed"/>
 <h2>Program Information</h1>
-<p>For MS-DOS <tt>.com</tt> files, the <tt>PIFED</tt><a href="#PIFED"><sup title="Concurrent DOS 386 PIFED.EXE">[1]</sup></a> utility from Concurrent DOS 386 embeds a special structure to encode program information data. It immediately follows the last data byte in the file. It can be recognized by its special signature. For the layout, refer to the <a href='pifed'>Program Information section</a> for the MZ format.</p>
+<p>For MS-DOS <tt>.com</tt> files, the <tt>PIFED</tt><a href="#PIFED"><sup title="Concurrent DOS 386 PIFED.EXE">[1]</sup></a> utility from Concurrent DOS 386 embeds a special structure to encode program information data. It immediately follows the last data byte in the file. It can be recognized by its special signature. For the layout, refer to the <a href='#pifed'>Program Information section</a> for the MZ format.</p>
 <a id="_references"/>
 <h2>References</h1>
 <ul>
@@ -7031,17 +7036,17 @@
 <table border='1' align='center'>
 <tr>
 <td><tt><sub>x</sub>04</tt></td>	<td>i16le</td>
-<td>Fixup type
+<td>Fixup type<br>(apparently the relocations containing the J are supposed to refer to the second byte of the command sequence<a href="#OW"><sup title="OpenWatcom sources">[3]</sup></a>)<br>(including relocations and interrupts supported by other platforms for completeness sake)
 <table border='1'>
 <tr>
 <td>0x0001</td>
-<td><tt>FIARQQ, FJARQQ</tt> &mdash; <tt>wait; DS: esc</tt> turns into <tt>int <tt><sub>x</sub>3C</tt>; byte <tt><sub>x</sub>18</tt>-<tt><sub>x</sub>1F</tt></tt> by adding <tt><sub>x</sub>FE32</tt> and <tt><sub>x</sub>4000</tt></td></tr>
+<td><tt>FIARQQ, FJARQQ</tt> &mdash; <tt>wait; DS: esc</tt> turns into <tt>int <tt><sub>x</sub>3C</tt>; byte <tt><sub>x</sub>18</tt>-<tt><sub>x</sub>1F</tt></tt> by adding <tt><sub>x</sub>FE32</tt> and <tt><sub>x</sub>4000</tt> respectively</td></tr>
 <tr>
 <td>0x0002</td>
-<td><tt>FISRQQ, FJSRQQ</tt> &mdash; <tt>wait; SS: esc</tt> turns into <tt>int <tt><sub>x</sub>3C</tt>; byte <tt><sub>x</sub>58</tt>-<tt><sub>x</sub>5F</tt></tt> by adding <tt><sub>x</sub>0632</tt> and <tt><sub>x</sub>8000</tt></td></tr>
+<td><tt>FISRQQ, FJSRQQ</tt> &mdash; <tt>wait; SS: esc</tt> turns into <tt>int <tt><sub>x</sub>3C</tt>; byte <tt><sub>x</sub>58</tt>-<tt><sub>x</sub>5F</tt></tt> by adding <tt><sub>x</sub>0632</tt> and <tt><sub>x</sub>8000</tt> respectively</td></tr>
 <tr>
 <td>0x0003</td>
-<td><tt>FICRQQ, FJCRQQ</tt> &mdash; <tt>wait; CS: esc</tt> turns into <tt>int <tt><sub>x</sub>3C</tt>; byte <tt><sub>x</sub>98</tt>-<tt><sub>x</sub>9F</tt></tt> by adding <tt><sub>x</sub>0E32</tt> and <tt><sub>x</sub>C000</tt></td></tr>
+<td><tt>FICRQQ, FJCRQQ</tt> &mdash; <tt>wait; CS: esc</tt> turns into <tt>int <tt><sub>x</sub>3C</tt>; byte <tt><sub>x</sub>98</tt>-<tt><sub>x</sub>9F</tt></tt> by adding <tt><sub>x</sub>0E32</tt> and <tt><sub>x</sub>C000</tt> respectively</td></tr>
 <tr>
 <td>0x0004</td>
 <td><tt>FIERQQ</tt> &mdash; <tt>wait; ES: esc</tt> turns into <tt>int <tt><sub>x</sub>3C</tt></tt> by adding <tt><sub>x</sub>1632</tt></td></tr>
@@ -7051,6 +7056,24 @@
 <tr>
 <td>0x0006</td>
 <td><tt>FIWRQQ</tt> &mdash; <tt>nop; wait</tt> turns into <tt>int <tt><sub>x</sub>3D</tt></tt> by adding <tt><sub>x</sub>A23D</tt></td></tr>
+<tr>
+<td>&mdash;</td>
+<td><tt>FIFRQQ, FJFRQQ</tt> &mdash; <tt>wait; FS: esc</tt><a href="#OW"><sup title="OpenWatcom sources">[3]</sup></a></td></tr>
+<tr>
+<td>&mdash;</td>
+<td><tt>FIGRQQ, FJGRQQ</tt> &mdash; <tt>wait; GS: esc</tt><a href="#OW"><sup title="OpenWatcom sources">[3]</sup></a></td></tr>
+<tr>
+<td>&mdash;</td>
+<td>the sequence <tt>int <tt><sub>x</sub>3E</tt>; byte <tt><sub>x</sub>DC</tt>, <tt><sub>x</sub>01</tt>-<tt><sub>x</sub>08</tt></tt><br>Load 8087 registers to 8086 stack, count specified in byte<a href="#RB"><sup title="Ralf Brown's interrupt list">[4]</sup></a></td></tr>
+<tr>
+<td>&mdash;</td>
+<td>the sequence <tt>int <tt><sub>x</sub>3E</tt>; byte <tt><sub>x</sub>DE</tt>, <tt><sub>x</sub>01</tt>-<tt><sub>x</sub>08</tt></tt><br>Load 8086 stack to 8087 registers, count specified in byte<a href="#RB"><sup title="Ralf Brown's interrupt list">[4]</sup></a></td></tr>
+<tr>
+<td>&mdash;</td>
+<td>the sequence <tt>int <tt><sub>x</sub>3E</tt>; byte <tt><sub>x</sub>E0</tt>; nop</tt><br>Round, compare and pop the two top elements on the<br>8087 stack as single precision, store status word in<br>AX and condition bits in FLAGS<a href="#RB"><sup title="Ralf Brown's interrupt list">[4]</sup></a></td></tr>
+<tr>
+<td>&mdash;</td>
+<td>the sequence <tt>int <tt><sub>x</sub>3E</tt>; byte <tt><sub>x</sub>E2</tt>; nop</tt><br>Round, compare and pop the two top elements on the<br>8087 stack as double precision, store status word in<br>AX and condition bits in FLAGS<a href="#RB"><sup title="Ralf Brown's interrupt list">[4]</sup></a></td></tr>
 </table>
 </td></tr>
 <tr>
@@ -10268,6 +10291,7 @@
 <a id="_references"/>
 <h2>References</h1>
 <ul>
+<li>[1] DMPEXP.EXE (OS/286)</li>
 </ul>
 <hr/>
 <h1 id="p3">P2/P3 executable</h1>

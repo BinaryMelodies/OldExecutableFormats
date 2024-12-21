@@ -842,6 +842,8 @@ SECTION header:Header
 @28	i32	Base of text relocations
 @2C	i32	Base of data relocations
 
+REFERENCE {DEV86} "dev86 sources" https://github.com/lkundrak/dev86
+
 ######## COFF
 
 TITLE coff:COFF format
@@ -1524,6 +1526,10 @@ SECTION :Further work
 
 TITLE elf:ELF binary file
 
+SECTION :Notes on the format
+
+> The ELF format is well documented in an accessible format online. This section also focuses on some of the more obscure features, such as the extensions provided by IBM's port of <a href="https://en.wikipedia.org/wiki/Workplace_OS">OS/2 to the PowerPC architecture</a>.{OS2}
+
 SECTION :Overall layout
 
 {eheader}
@@ -1562,7 +1568,7 @@ SECTION eheader:ELF header
 		=0xFEFF	<tt>ET_HIOS</tt>, last operating system specific
 		=0xFF00	<tt>ET_LOPROC</tt>, first processor specific
 		=0xFFFF	<tt>ET_HIPROC</tt>, last processor specific
-@12	i16	<tt>e_machine</tt>, architecture type
+@12	i16	<tt>e_machine</tt>, architecture type (partial list)
 		=0x0000	<tt>EM_NONE</tt>, no machine
 		=0x0001	<tt>EM_M32</tt>, "AT&T WE 32100"
 		=0x0002	<tt>EM_SPARC</tt>, "SPARC"
@@ -1978,9 +1984,9 @@ REFERENCE {OS2} "OS/2 Application Binary Interface for PowerPC (32-bit), 1995-12
 
 TITLE cpm:Flat binary file
 
-SECTION pifed:Program Information
+SECTION flat_pifed:Program Information
 
-> For MS-DOS <tt>.com</tt> files, the <tt>PIFED</tt>{PIFED} utility from Concurrent DOS 386 embeds a special structure to encode program information data. It immediately follows the last data byte in the file. It can be recognized by its special signature. For the layout, refer to the <a href='pifed'>Program Information section</a> for the MZ format.
+> For MS-DOS <tt>.com</tt> files, the <tt>PIFED</tt>{PIFED} utility from Concurrent DOS 386 embeds a special structure to encode program information data. It immediately follows the last data byte in the file. It can be recognized by its special signature. For the layout, refer to the <a href='#pifed'>Program Information section</a> for the MZ format.
 
 REFERENCE {PIFED} "Concurrent DOS 386 PIFED.EXE"
 
@@ -2965,13 +2971,20 @@ SECTION 1/:OSFIXUP
 
 > Represents a floating point instruction that Windows will "fix up" when the coprocessor is emulated.{QB}
 
-@04	i16le	Fixup type
-		=0x0001	<tt>FIARQQ, FJARQQ</tt> &mdash; <tt>wait; DS: esc</tt> turns into <tt>int 0x3C; byte 0x18-0x1F</tt> by adding 0xFE32 and 0x4000
-		=0x0002	<tt>FISRQQ, FJSRQQ</tt> &mdash; <tt>wait; SS: esc</tt> turns into <tt>int 0x3C; byte 0x58-0x5F</tt> by adding 0x0632 and 0x8000
-		=0x0003	<tt>FICRQQ, FJCRQQ</tt> &mdash; <tt>wait; CS: esc</tt> turns into <tt>int 0x3C; byte 0x98-0x9F</tt> by adding 0x0E32 and 0xC000
+@04	i16le	Fixup type<br>(apparently the relocations containing the J are supposed to refer to the second byte of the command sequence{OW})<br>(including relocations and interrupts supported by other platforms for completeness sake)
+		=0x0001	<tt>FIARQQ, FJARQQ</tt> &mdash; <tt>wait; DS: esc</tt> turns into <tt>int 0x3C; byte 0x18-0x1F</tt> by adding 0xFE32 and 0x4000 respectively
+		=0x0002	<tt>FISRQQ, FJSRQQ</tt> &mdash; <tt>wait; SS: esc</tt> turns into <tt>int 0x3C; byte 0x58-0x5F</tt> by adding 0x0632 and 0x8000 respectively
+		=0x0003	<tt>FICRQQ, FJCRQQ</tt> &mdash; <tt>wait; CS: esc</tt> turns into <tt>int 0x3C; byte 0x98-0x9F</tt> by adding 0x0E32 and 0xC000 respectively
 		=0x0004	<tt>FIERQQ</tt> &mdash; <tt>wait; ES: esc</tt> turns into <tt>int 0x3C</tt> by adding 0x1632
 		=0x0005	<tt>FIDRQQ</tt> &mdash; <tt>wait; esc</tt> turns into <tt>int 0x34-0x3B</tt> by adding 0x5C32
 		=0x0006	<tt>FIWRQQ</tt> &mdash; <tt>nop; wait</tt> turns into <tt>int 0x3D</tt> by adding 0xA23D
+		&mdash;	<tt>FIFRQQ, FJFRQQ</tt> &mdash; <tt>wait; FS: esc</tt>{OW}
+		&mdash;	<tt>FIGRQQ, FJGRQQ</tt> &mdash; <tt>wait; GS: esc</tt>{OW}
+		&mdash;	the sequence <tt>int 0x3E; byte 0xDC, 0x01-0x08</tt><br>Load 8087 registers to 8086 stack, count specified in byte{RB}
+		&mdash;	the sequence <tt>int 0x3E; byte 0xDE, 0x01-0x08</tt><br>Load 8086 stack to 8087 registers, count specified in byte{RB}
+		&mdash;	the sequence <tt>int 0x3E; byte 0xE0; nop</tt><br>Round, compare and pop the two top elements on the<br>8087 stack as single precision, store status word in<br>AX and condition bits in FLAGS{RB}
+		&mdash;	the sequence <tt>int 0x3E; byte 0xE2; nop</tt><br>Round, compare and pop the two top elements on the<br>8087 stack as double precision, store status word in<br>AX and condition bits in FLAGS{RB}
+
 @06	i16le	0
 
 REFERENCE {WIN3.0} "Windows 3.0 16-bit NE Executable Format" https://web.archive.org/web/20240422070115/http://bytepointer.com/resources/win16_ne_exe_format_win3.0.htm
@@ -4254,6 +4267,8 @@ SECTION desctab:Segment Table
 SECTION :Needing more information
 
 > The format of the fixups is currently not known. The meaning of extents is not understood. There may be additional unknown flags or entries. The runtime layout is not known. It is also not known if OS/386 uses the same file format, however based on the structure of the file, whether an executable is 16-bit or 32-bit can be determined from the segment table.
+
+REFERENCE {OS286} "DMPEXP.EXE (OS/286)"
 
 ######## P3
 

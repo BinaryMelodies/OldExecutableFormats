@@ -9,6 +9,8 @@ The author has strived for completeness and preservation of as much information 
 
 When possible, the runtime memory layout is also mentioned.
 
+(The current up to date version is accessible via this link.)[https://html-preview.github.io/?url=https://github.com/BinaryMelodies/OldExecutableFormats/blob/main/execfmt.html]
+
 # HTML Generation
 
 The repository already contains a generated HTML file, however it is possible to rerun the generation if needed.

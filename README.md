@@ -9,7 +9,7 @@ The author has strived for completeness and preservation of as much information 
 
 When possible, the runtime memory layout is also mentioned.
 
-[The current up to date version is accessible via this link.](https://binarymelodies.github.io/OldExecutableFormats/index.html)
+[The current up to date version is accessible via this link](https://binarymelodies.github.io/OldExecutableFormats/).
 
 # HTML Generation
 

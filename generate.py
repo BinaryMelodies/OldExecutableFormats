@@ -79,10 +79,10 @@ class Document:
 			else:
 				entity = self.by_name.get(ref)
 				if type(entity) is Section:
-					subst = f"<a href=\"#{make_ref(entity.idn)}\">{entity.title}</a>"
+					subst = f"<a href=\"#{self.idn}_{make_ref(entity.idn)}\">{entity.title}</a>"
 				elif type(entity) is Reference:
 					assert type(entity.idn) is str and entity.idn != ""
-					subst = f"<a href=\"#{entity.idn}\"><sup title=\"{entity.title}\">[{entity.number}]</sup></a>"
+					subst = f"<a href=\"#{self.idn}_{entity.idn}\"><sup title=\"{entity.title}\">[{entity.number}]</sup></a>"
 				else:
 					subst = f"<u title=\"{ref}\">???</u>"
 			result += text[:ix] + subst
@@ -473,6 +473,7 @@ for entry in entries:
 		member = members.pop(0)
 		if '.fmt' in member:
 			members = member['.fmt'] + members
+		fmt = member['fmt']
 		if SPLITHTML and PAGE_FEED_CONDITION(member) and not ignore_toc_entries:
 			print("""</body>
 </html>""", file = file)
@@ -550,10 +551,10 @@ for entry in entries:
 		if document is None:
 			continue
 
-		print(f"""<a id="_contents"/>
+		print(f"""<a id="{fmt}__contents"/>
 <h{member['.level'] + 1}>Contents</h1>
 <ol>
-<li><a href="#_contents">Contents</a>""", file = file)
+<li><a href="#{fmt}__contents">Contents</a>""", file = file)
 
 		last_level = 1
 		for section in document.sections:
@@ -565,16 +566,16 @@ for entry in entries:
 				while last_level > section.level:
 					print("</ol></li>", file = file)
 					last_level -= 1
-			print(f"<li><a href=\"#{make_ref(section.idn)}\">{section.title}</a>", file = file)
+			print(f"<li><a href=\"#{fmt}_{make_ref(section.idn)}\">{section.title}</a>", file = file)
 			last_level = section.level
 		while last_level > 1:
 			print("</ol></li>", file = file)
 			last_level -= 1
-		print("""</li><li><a href="#_references">References</a></li>
+		print(f"""</li><li><a href="#{fmt}__references">References</a></li>
 </ol>""", file = file)
 		for section in document.sections:
 			#print("<hr/>", file = file)
-			print(f"<a id=\"{make_ref(section.idn)}\"/>", file = file)
+			print(f"<a id=\"{fmt}_{make_ref(section.idn)}\"/>", file = file)
 			print(f"<h{member['.level'] + section.level}>{section.title}</h{section.level}>", file = file)
 			table = False
 
@@ -602,14 +603,14 @@ for entry in entries:
 			if table:
 				print("</table>", file = file)
 		#print("""<hr/>
-		print(f"""<a id="_references"/>
+		print(f"""<a id="{fmt}__references"/>
 <h{member['.level'] + 1}>References</h1>
 <ul>""", file = file)
 		for reference in document.references:
 			if reference.url is None:
 				print(f"<li>[{reference.number}] {reference.title if reference.title is not None else reference.url}</li>", file = file)
 			else:
-				print(f"<li>[{reference.number}] <a href=\"{reference.url}\" target='_blank'>{reference.title}</a></li>", file = file)
+				print(f"<li id=\"{fmt}_{reference.idn}\">[{reference.number}] <a href=\"{reference.url}\" target='_blank'>{reference.title}</a></li>", file = file)
 		print("</ul>", file = file)
 
 print("""</body>

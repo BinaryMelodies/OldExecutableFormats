@@ -47,6 +47,13 @@ def count_start(text, c):
 			return i
 	return len(text)
 
+def make_ref(idn):
+	if type(idn) is int:
+		return f"node{idn}"
+	else:
+		assert idn != ""
+		return idn
+
 class Document:
 	def __init__(self, idn, title):
 		self.idn = idn
@@ -72,8 +79,9 @@ class Document:
 			else:
 				entity = self.by_name.get(ref)
 				if type(entity) is Section:
-					subst = f"<a href=\"#{entity.idn}\">{entity.title}</a>"
+					subst = f"<a href=\"#{make_ref(entity.idn)}\">{entity.title}</a>"
 				elif type(entity) is Reference:
+					assert type(entity.idn) is str and entity.idn != ""
 					subst = f"<a href=\"#{entity.idn}\"><sup title=\"{entity.title}\">[{entity.number}]</sup></a>"
 				else:
 					subst = f"<u title=\"{ref}\">???</u>"
@@ -133,6 +141,7 @@ DOCUMENTS = {}
 
 filename = os.path.splitext(sys.argv[0])[0] + '.dat' if len(sys.argv) < 2 else sys.argv[1]
 basename = os.path.splitext(sys.argv[0] if len(sys.argv) < 2 else sys.argv[1])[0]
+node_counter = 0
 
 with open(filename, 'r') as file:
 	for line in file:
@@ -205,6 +214,7 @@ with open(filename, 'r') as file:
 				data = line[len("TITLE "):].strip()
 				ix = data.find(':')
 				idn = data[:ix].strip()
+				assert idn != ""
 				title = data[ix + 1:].strip()
 				CURRENT_DOCUMENT = Document(idn, title)
 				DOCUMENTS[idn] = CURRENT_DOCUMENT
@@ -222,10 +232,13 @@ with open(filename, 'r') as file:
 				else:
 					level = 1
 				idn = data[:ix].strip()
+				if idn == "":
+					idn = node_counter
+					node_counter += 1
 				title = data[ix + 1:].strip()
 				section = Section(idn, title, level)
 				CURRENT_DOCUMENT.sections.append(section)
-				if idn != "":
+				if type(idn) is str:
 					assert idn not in CURRENT_DOCUMENT.by_name
 					CURRENT_DOCUMENT.by_name[idn] = section
 			elif line.startswith(">"):
@@ -241,6 +254,9 @@ with open(filename, 'r') as file:
 				assert data[0] == '{'
 				ix = data.find('}')
 				idn = data[1:ix]
+				if idn == "":
+					idn = node_counter
+					node_counter += 1
 				data = data[ix + 1:].strip()
 				if data[0] == '"':
 					ix = data.find('"', 1)
@@ -549,7 +565,7 @@ for entry in entries:
 				while last_level > section.level:
 					print("</ol></li>", file = file)
 					last_level -= 1
-			print(f"<li><a href=\"#{section.idn}\">{section.title}</a>", file = file)
+			print(f"<li><a href=\"#{make_ref(section.idn)}\">{section.title}</a>", file = file)
 			last_level = section.level
 		while last_level > 1:
 			print("</ol></li>", file = file)
@@ -558,8 +574,7 @@ for entry in entries:
 </ol>""", file = file)
 		for section in document.sections:
 			#print("<hr/>", file = file)
-			if section.idn != "":
-				print(f"<a id=\"{section.idn}\"/>", file = file)
+			print(f"<a id=\"{make_ref(section.idn)}\"/>", file = file)
 			print(f"<h{member['.level'] + section.level}>{section.title}</h{section.level}>", file = file)
 			table = False
 

@@ -69,44 +69,46 @@
 <ol>
 <li><a href="#_contents">Contents</a>
 </li>
-<li><a href="#">a.out header</a>
+<li><a href="#node0">a.out header</a>
 <ol>
-<li><a href="#">Magic numbers</a>
+<li><a href="#node1">Magic numbers</a>
 </li>
-<li><a href="#">UNIX v1 PDP-11 a.out header</a>
+<li><a href="#node2">UNIX v1 PDP-11 a.out header</a>
 </li>
-<li><a href="#">UNIX 16-bit PDP-11 a.out header</a>
+<li><a href="#node3">UNIX 16-bit PDP-11 a.out header</a>
 </li>
-<li><a href="#">UNIX 32-bit a.out header</a>
+<li><a href="#node4">UNIX 32-bit a.out header</a>
 <ol>
-<li><a href="#">UNIX/32V for VAX</a>
+<li><a href="#node5">UNIX/32V for VAX</a>
 </li>
-<li><a href="#">System III format</a>
+<li><a href="#node6">System III format</a>
 </li>
-<li><a href="#">Ultrix</a>
+<li><a href="#node7">Ultrix</a>
 </li>
-<li><a href="#">SunOS</a>
+<li><a href="#node8">SunOS</a>
 </li>
-<li><a href="#">Linux</a>
+<li><a href="#node9">Linux</a>
 </li>
-<li><a href="#">The BSDs</a>
+<li><a href="#node10">The BSDs</a>
 </li>
 </ol></li>
-<li><a href="#">UNIX 32-bit Interdata 7/32 a.out header</a>
+<li><a href="#node11">UNIX 32-bit Interdata 7/32 a.out header</a>
 </li>
-<li><a href="#">UNIX 32-bit IBM 370 a.out header</a>
+<li><a href="#node12">UNIX 32-bit IBM 370 a.out header</a>
 </li>
-<li><a href="#">UNIX 32-bit NS16032 a.out header</a>
+<li><a href="#node13">UNIX 32-bit NS16032 a.out header</a>
 </li>
-<li><a href="#">Xenix b.out header</a>
+<li><a href="#node14">Xenix b.out header</a>
 </li>
-<li><a href="#">HP-UX a.out header</a>
+<li><a href="#node15">HP-UX a.out header</a>
 </li>
 </ol></li>
-<li><a href="#">Runtime memory layout</a>
+<li><a href="#node16">Runtime memory layout</a>
 </li><li><a href="#_references">References</a></li>
 </ol>
+<a id="node0"/>
 <h2>a.out header</h1>
+<a id="node1"/>
 <h3>Magic numbers</h2>
 <p>The first word in an a.out file contains a 16-bit magic number, which specifies how the file should be processed, linked and loaded. The types and values have evolved through the various branches of UNIX-like systems.</p>
 <p>The first versions of UNIX were produced by AT&T for the 16-bit PDP-11. Later these were ported to various 32-bit architectures, most notably the VAX, Motorola 68000 and Intel 80386. The AT&T versions progressed from version 1 to 7, after which UNIX was commercialized and sold as System III and then System V.</p>
@@ -222,6 +224,7 @@
 <td>system overlay, separated instruction and data</td></tr>
 </table>
 <p>The following sections will discuss the layout of the headers of the various versions.</p>
+<a id="node2"/>
 <h3>UNIX v1 PDP-11 a.out header</h2>
 <p>Version 1 had a different header format from later versions.</p>
 <table border='1' align='center'>
@@ -244,6 +247,7 @@
 <td><tt><sub>x</sub>0A</tt></td>	<td>i16le</td>
 <td>unused</td></tr>
 </table>
+<a id="node3"/>
 <h3>UNIX 16-bit PDP-11 a.out header</h2>
 <p>This format was introduced in Version 2 and targetted the PDP-11 architecture.</p>
 <p>The 16-bit header format evolved through various branches. Version 6 and 7 is the last common version, then it evolved separately at BSD (from 2.11BSD on) and AT&T. Version 7 was followed by System III then System V. Internally, Version 7 evolved to Version 8, 9, 10, separately from the commercial branch. These were allegedly based on the 4.1cBSD codebase and later, but the 16-bit a.out format is more similar to the commercial versions.</p>
@@ -340,9 +344,11 @@
 <td><tt><sub>x</sub>10</tt></td>	<td>i32le</td>
 <td>filler (only Version 8 and later)</td></tr>
 </table>
+<a id="node4"/>
 <h3>UNIX 32-bit a.out header</h2>
 <p>The first version was created for UNIX/32V for the VAX (little endian). It was later extended to other 32-bit targets as well. By System V, all 32-bit versions switched to COFF except for the IBM 370 (the Interdata 7/32 port was apparently not maintained). However, competitors to AT&T such as SunOS and the BSD variants still kept using the format.</p>
 <p>While most formats had a similar layout, the first word was often subdivided into various fields for machine type and flags. Most variants use the native byte order to store the values, which further complicates determination of the file type.</p>
+<a id="node5"/>
 <h4>UNIX/32V for VAX</h3>
 <p>The entries were extended from the 16-bit version to full 32 bits. Also the last two fields were replaced with the size of the relocation section for text and initialized data, respectively.</p>
 <table border='1' align='center'>
@@ -416,6 +422,7 @@
 <td><tt><sub>x</sub>1C</tt></td>	<td>i32</td>
 <td>Size of relocations for initialized data</td></tr>
 </table>
+<a id="node6"/>
 <h4>System III format</h3>
 <p>Since System III, subfields of the extended magic number field got reused for additional information. The ways this was extended was sometimes incompatible between systems. System III VAX introduced an environment stamp, similarly to System III PDP-11 (albeit at a different position). 4.3BSD-Reno also switched over to this format for non-VAX targets, possibly to stay compatible with SunOS, and early NetBSD kept this format.</p>
 <table border='1' align='center'>
@@ -432,6 +439,7 @@
 </table>
 </td></tr>
 </table>
+<a id="node7"/>
 <h4>Ultrix</h3>
 <p>Ultrix had a different use for the new field:</p>
 <table border='1' align='center'>
@@ -460,6 +468,7 @@
 </table>
 </td></tr>
 </table>
+<a id="node8"/>
 <h4>SunOS</h3>
 <p>SunOS versions had a different format for the first word:</p>
 <table border='1' align='center'>
@@ -509,6 +518,7 @@
 <td><tt><sub>x</sub>3C</tt></td>	<td>i32</td>
 <td>0 (spare segment)</td></tr>
 </table>
+<a id="node9"/>
 <h4>Linux</h3>
 <p>Linux used the following format:</p>
 <table border='1' align='center'>
@@ -528,6 +538,7 @@
 </table>
 </td></tr>
 </table>
+<a id="node10"/>
 <h4>The BSDs</h3>
 <p>4.4BSD-Lite2<a href="#44BSDLite2"><sup title="https://github.com/sergev/4.4BSD-Lite2">[14]</sup></a> used different versions for different targets: it used the UNIX/32V VAX version for VAX and Intel 386, the SunOS version (without additional fields) for SPARC, the System III format with machine type for HP300 and MIPS, and COFF for other systems.</p>
 <p>Since FreeBSD 2.0 and NetBSD 0.9, the following layout is used for the magic number field. FreeBSD prior to 2.0 for all ports and NetBSD prior to 0.9 on VAX and 386 used the UNIX/32V VAX format.</p>
@@ -703,6 +714,7 @@
 </table>
 <p>In NetBSD and OpenBSD, the fields are in the native byte order, except for the magic number which is in the big endian ("network") format (most significant byte first, like the Motorola 68000). As an exception, on little endian machines, little endian order is allowed if the machine type field and flags are 0.</p>
 <p>In FreeBSD since <a href="https://github.com/freebsd/freebsd-legacy/commit/8abf9484aa165999b93d86ff28183b14db4f75ab" target="_blank">2004-06-22</a>, entries are always stored in the little endian format (least significant byte first, like the VAX and Intel 80386). However since <a href="https://github.com/freebsd/freebsd-legacy/commit/2469c867a164210ce96143517059f21db7f1fd17" target="_blank">1994-05-25</a> it recognizes big endian entries for the magic number (the other entries are still read in the little endian order).</p>
+<a id="node11"/>
 <h3>UNIX 32-bit Interdata 7/32 a.out header</h2>
 <p>This version was introduced in Version 7 for the Interdata 7/32 (big endian). It is identical to the PDP-11 version, except that the word sizes are 32-bit and the byte order is big endian.</p>
 <table border='1' align='center'>
@@ -731,6 +743,7 @@
 <td><tt><sub>x</sub>1C</tt></td>	<td>i32be</td>
 <td>Non-zero if relocations have been suppressed</td></tr>
 </table>
+<a id="node12"/>
 <h3>UNIX 32-bit IBM 370 a.out header</h2>
 <p>This version was introduced in System V for the IBM 370 (big endian). It is a variant of the VAX format.</p>
 <table border='1' align='center'>
@@ -771,6 +784,7 @@
 <td><tt><sub>x</sub>2C</tt></td>	<td>i32be</td>
 <td>Size of initialized data without padding to page boundary</td></tr>
 </table>
+<a id="node13"/>
 <h3>UNIX 32-bit NS16032 a.out header</h2>
 <p>There was a different version for National Semiconductor NS32K executables (little endian).</p>
 <table border='1' align='center'>
@@ -811,6 +825,7 @@
 <td><tt><sub>x</sub>2C</tt></td>	<td>i32le</td>
 <td>Size of string table</td></tr>
 </table>
+<a id="node14"/>
 <h3>Xenix b.out header</h2>
 <p>The Xenix b.out header is very similar to the 32-bit VAX a.out header, with the field order slightly changed:</p>
 <table border='1' align='center'>
@@ -839,6 +854,7 @@
 <td><tt><sub>x</sub>1C</tt></td>	<td>i32</td>
 <td>Entry location</td></tr>
 </table>
+<a id="node15"/>
 <h3>HP-UX a.out header</h2>
 <p>HP-UX used a different format for a.out.<a href="#44BSDLite2"><sup title="https://github.com/sergev/4.4BSD-Lite2">[14]</sup></a></p>
 <table border='1' align='center'>
@@ -873,6 +889,7 @@
 <td><tt><sub>x</sub>30</tt></td>	<td>i32be[4]</td>
 <td>Reserved</td></tr>
 </table>
+<a id="node16"/>
 <h2>Runtime memory layout</h1>
 <p>This section requires further work.</p>
 <a id="_references"/>
@@ -1055,44 +1072,44 @@
 <ol>
 <li><a href="#_contents">Contents</a>
 </li>
-<li><a href="#">Overall layout</a>
+<li><a href="#node17">Overall layout</a>
 </li>
 <li><a href="#filehdr">File header</a>
 <ol>
-<li><a href="#">ECOFF file header</a>
+<li><a href="#node18">ECOFF file header</a>
 </li>
-<li><a href="#">XCOFF64 file header</a>
+<li><a href="#node19">XCOFF64 file header</a>
 </li>
 </ol></li>
 <li><a href="#opthdr">Optional header</a>
 <ol>
-<li><a href="#">3B20 optional header</a>
+<li><a href="#node20">3B20 optional header</a>
 </li>
-<li><a href="#">NS32000 fields</a>
+<li><a href="#node21">NS32000 fields</a>
 </li>
-<li><a href="#">Concurrent DOS additional fields</a>
+<li><a href="#node22">Concurrent DOS additional fields</a>
 </li>
-<li><a href="#">GNU_AOUT header fields</a>
+<li><a href="#node23">GNU_AOUT header fields</a>
 </li>
-<li><a href="#">Additional optional header fields for MIPS</a>
+<li><a href="#node24">Additional optional header fields for MIPS</a>
 </li>
-<li><a href="#">ECOFF optional header</a>
+<li><a href="#node25">ECOFF optional header</a>
 </li>
-<li><a href="#">XCOFF32 additional fields</a>
+<li><a href="#node26">XCOFF32 additional fields</a>
 </li>
-<li><a href="#">XCOFF64 format</a>
+<li><a href="#node27">XCOFF64 format</a>
 </li>
 </ol></li>
 <li><a href="#secthdr">Section header</a>
 <ol>
-<li><a href="#">ECOFF section header</a>
+<li><a href="#node28">ECOFF section header</a>
 </li>
-<li><a href="#">XCOFF64 section header</a>
+<li><a href="#node29">XCOFF64 section header</a>
 </li>
 </ol></li>
 <li><a href="#relocs">Relocation information</a>
 <ol>
-<li><a href="#">Concurrent DOS 68K relocation information</a>
+<li><a href="#node30">Concurrent DOS 68K relocation information</a>
 </li>
 </ol></li>
 <li><a href="#linenos">Line numbers</a>
@@ -1101,9 +1118,10 @@
 </li>
 <li><a href="#strtab">String table</a>
 </li>
-<li><a href="#">Further work</a>
+<li><a href="#node31">Further work</a>
 </li><li><a href="#_references">References</a></li>
 </ol>
+<a id="node17"/>
 <h2>Overall layout</h1>
 <table border='1' align='center'>
 <tr>
@@ -1574,6 +1592,7 @@
 </table>
 </td></tr>
 </table>
+<a id="node18"/>
 <h3>ECOFF file header</h2>
 <p>The ECOFF header is nearly identical to the standard COFF header, with one field enlarged.<a href="#ECOFF"><sup title="Tru64 UNIX (eCOFF)">[9]</sup></a></p>
 <table border='1' align='center'>
@@ -1599,6 +1618,7 @@
 <td><tt><sub>x</sub>16</tt></td>	<td>i16</td>
 <td>f_flags, Flags</td></tr>
 </table>
+<a id="node19"/>
 <h3>XCOFF64 file header</h2>
 <p>The XCOFF32 header is identical to the standard COFF header. However, the XCOFF64 header has an 8-byte <tt>f_symptr</tt> entry, requiring <tt>f_nsyms</tt> to be moved after the final field.<a href="#XCOFF"><sup title="XCOFF Object File Format">[8]</sup></a></p>
 <table border='1' align='center'>
@@ -1669,6 +1689,7 @@
 <td><tt><sub>x</sub>18</tt></td>	<td>i32</td>
 <td><tt>data_start</tt> - Address of data start (DJGPP ignores this field<a href="#DJGPP"><sup title="DJGPP COFF Spec">[4]</sup></a>)</td></tr>
 </table>
+<a id="node20"/>
 <h3>3B20 optional header</h2>
 <table border='1' align='center'>
 <tr>
@@ -1699,6 +1720,7 @@
 <td><tt><sub>x</sub>20</tt></td>	<td>i32</td>
 <td><tt>data_start</tt> - Address of data start</td></tr>
 </table>
+<a id="node21"/>
 <h3>NS32000 fields</h2>
 <table border='1' align='center'>
 <tr>
@@ -1780,6 +1802,7 @@
 </table>
 </td></tr>
 </table>
+<a id="node22"/>
 <h3>Concurrent DOS additional fields</h2>
 <p>The following additional fields are defined, after regular AOUTHDR fields in <a href="#opthdr">Optional header</a>:<a href="#CDOS"><sup title="COFF.C source from Concurrent DOS 68K disks">[5]</sup></a></p>
 <table border='1' align='center'>
@@ -1790,8 +1813,10 @@
 <td><tt><sub>x</sub>20</tt></td>	<td>i32</td>
 <td><tt>ssize</tt> - Stack size</td></tr>
 </table>
+<a id="node23"/>
 <h3>GNU_AOUT header fields</h2>
 <p>DJGPP seems to support the following format aside from the original System V format<sup>[<a href="https://www.pcorner.com/list/UPLOAD/DPMIGCC5.ZIP/GNUAOUT.H/" target="_blank">GNUAOUT.H</a>]</sup></p>
+<a id="node24"/>
 <h3>Additional optional header fields for MIPS</h2>
 <p>The following fields are used additionally for MIPS.<a href="#MIPS"><sup title="https://web.archive.org/web/20140723105157/http://www-scf.usc.edu/~csci402/ncode/coff_8h-source.html">[10]</sup></a></p>
 <table border='1' align='center'>
@@ -1808,6 +1833,7 @@
 <td><tt><sub>x</sub>34</tt></td>	<td>i32</td>
 <td><tt>gp_value</tt> - the gp value for this object</td></tr>
 </table>
+<a id="node25"/>
 <h3>ECOFF optional header</h2>
 <table border='1' align='center'>
 <tr>
@@ -1877,6 +1903,7 @@
 <td><tt><sub>x</sub>48</tt></td>	<td>i64</td>
 <td><tt>gp_value</tt> - Initial value of the GP (global pointer) register</td></tr>
 </table>
+<a id="node26"/>
 <h3>XCOFF32 additional fields</h2>
 <p>XCOFF redefines the value of the <tt>magic</tt> field.<a href="#XCOFF"><sup title="XCOFF Object File Format">[8]</sup></a></p>
 <table border='1' align='center'>
@@ -1992,6 +2019,7 @@
 <td><tt><sub>x</sub>46</tt></td>	<td>i16</td>
 <td><tt>sntbss</tt> - Section number for tbss segment</td></tr>
 </table>
+<a id="node27"/>
 <h3>XCOFF64 format</h2>
 <p>The 64-bit version enlarges some fields and moves them around, maintaining their natural alignment:<a href="#XCOFF"><sup title="XCOFF Object File Format">[8]</sup></a></p>
 <table border='1' align='center'>
@@ -2234,6 +2262,7 @@
 </table>
 </td></tr>
 </table>
+<a id="node28"/>
 <h3>ECOFF section header</h2>
 <table border='1' align='center'>
 <tr>
@@ -2267,6 +2296,7 @@
 <td><tt><sub>x</sub>3C</tt></td>	<td>i32</td>
 <td><tt>s_flags</tt> - Flags</td></tr>
 </table>
+<a id="node29"/>
 <h3>XCOFF64 section header</h2>
 <table border='1' align='center'>
 <tr>
@@ -2335,6 +2365,7 @@
 </table>
 </td></tr>
 </table>
+<a id="node30"/>
 <h3>Concurrent DOS 68K relocation information</h2>
 <p>Concurrent DOS 68K uses a different relocation structure. Its position is stored in the optional header instead of the file header. The contents of the relocations are identical to crunched relocations in the CP/M-68K file format.</p>
 <a id="linenos"/>
@@ -2549,6 +2580,7 @@
 <a id="strtab"/>
 <h2>String table</h1>
 <p>A sequence of null-terminated strings. The first 4 bytes specify the size of the string table in bytes, including the first 4 bytes. References to string must be between 4 and this value.</p>
+<a id="node31"/>
 <h2>Further work</h1>
 <p>The XCOFF and ECOFF formats require further work.</p>
 <a id="_references"/>
@@ -2594,7 +2626,7 @@
 </li>
 <li><a href="#segtab">Segment table</a>
 </li>
-<li><a href="#">Further work</a>
+<li><a href="#node32">Further work</a>
 </li><li><a href="#_references">References</a></li>
 </ol>
 <a id="header"/>
@@ -3005,6 +3037,7 @@
 <td><tt><sub>x</sub>1C</tt></td>	<td>i32</td>
 <td>xs_lres, reserved</td></tr>
 </table>
+<a id="node32"/>
 <h2>Further work</h1>
 <p>This format requires further research.</p>
 <a id="_references"/>
@@ -3044,9 +3077,10 @@
 <ol>
 <li><a href="#_contents">Contents</a>
 </li>
-<li><a href="#">Further work</a>
+<li><a href="#node38">Further work</a>
 </li><li><a href="#_references">References</a></li>
 </ol>
+<a id="node38"/>
 <h2>Further work</h1>
 <p>This format requires documentation.</p>
 <a id="_references"/>
@@ -3087,9 +3121,9 @@
 <ol>
 <li><a href="#_contents">Contents</a>
 </li>
-<li><a href="#">Notes on the format</a>
+<li><a href="#node39">Notes on the format</a>
 </li>
-<li><a href="#">Overall layout</a>
+<li><a href="#node40">Overall layout</a>
 </li>
 <li><a href="#eheader">ELF header</a>
 </li>
@@ -3097,33 +3131,35 @@
 </li>
 <li><a href="#sheader">Section header</a>
 <ol>
-<li><a href="#">Symbol table</a>
+<li><a href="#node41">Symbol table</a>
 </li>
 </ol></li>
-<li><a href="#">OS/2 resource file format</a>
+<li><a href="#node42">OS/2 resource file format</a>
 <ol>
-<li><a href="#">Resource collection array entry</a>
+<li><a href="#node43">Resource collection array entry</a>
 </li>
-<li><a href="#">Resource collection</a>
+<li><a href="#node44">Resource collection</a>
 </li>
 </ol></li>
-<li><a href="#">OS/2 operating system information (<tt>.osinfo</tt>)</a>
+<li><a href="#node45">OS/2 operating system information (<tt>.osinfo</tt>)</a>
 </li>
-<li><a href="#">OS/2 import table (<tt>.imports</tt>)</a>
+<li><a href="#node46">OS/2 import table (<tt>.imports</tt>)</a>
 </li>
-<li><a href="#">OS/2 export table (<tt>.exports</tt>)</a>
+<li><a href="#node47">OS/2 export table (<tt>.exports</tt>)</a>
 </li>
-<li><a href="#">BeOS Developer Release 4 resources</a>
+<li><a href="#node48">BeOS Developer Release 4 resources</a>
 </li>
-<li><a href="#">Segment contents</a>
+<li><a href="#node49">Segment contents</a>
 </li>
-<li><a href="#">Dynamic linking</a>
+<li><a href="#node50">Dynamic linking</a>
 </li>
-<li><a href="#">Further work</a>
+<li><a href="#node51">Further work</a>
 </li><li><a href="#_references">References</a></li>
 </ol>
+<a id="node39"/>
 <h2>Notes on the format</h1>
 <p>The ELF format is well documented in an accessible format online. This section also focuses on some of the more obscure features, such as the extensions provided by IBM's port of <a href="https://en.wikipedia.org/wiki/Workplace_OS">OS/2 to the PowerPC architecture</a>.<a href="#OS2"><sup title="OS/2 Application Binary Interface for PowerPC (32-bit), 1995-12-08">[3]</sup></a></p>
+<a id="node40"/>
 <h2>Overall layout</h1>
 <table border='1' align='center'>
 <tr>
@@ -3930,6 +3966,7 @@
 <td><tt>SHT_RES</tt></td>
 <td>0</td></tr>
 </table>
+<a id="node41"/>
 <h3>Symbol table</h2>
 <p>A symbol table is a section that contains an array of the following entries.</p>
 <table border='1' align='center'>
@@ -4070,6 +4107,7 @@
 <td><tt>st_size</tt>, size of symbol or 0 if unknown</td></tr>
 </table>
 <p>Symbols are indexed from 0, but the first symbol entry should contain all zeroes and <tt>st_shndx</tt> should be <tt>SHN_UNDEF</tt>.</p>
+<a id="node42"/>
 <h2>OS/2 resource file format</h1>
 <p>A resource file begins with a <tt>Res32_File</tt> header.<a href="#OS2"><sup title="OS/2 Application Binary Interface for PowerPC (32-bit), 1995-12-08">[3]</sup></a></p>
 <table border='1' align='center'>
@@ -4137,6 +4175,7 @@
 <td><tt><sub>x</sub>18</tt></td>	<td>i32</td>
 <td><tt>rf_rcoff</tt>, offset of resource collection array, from the start of the resource file<br>expected value: <tt><sub>x</sub>1C</tt></td></tr>
 </table>
+<a id="node43"/>
 <h3>Resource collection array entry</h2>
 <p>A resource collection array entry is a <tt>Res32_Col</tt> structure.<a href="#OS2"><sup title="OS/2 Application Binary Interface for PowerPC (32-bit), 1995-12-08">[3]</sup></a></p>
 <table border='1' align='center'>
@@ -4147,6 +4186,7 @@
 <td><tt><sub>x</sub>04</tt></td>	<td>i32</td>
 <td><tt>rc_size</tt>, total size of the resource collection in bytes</td></tr>
 </table>
+<a id="node44"/>
 <h3>Resource collection</h2>
 <p>A resource collection starts with the following header <tt>Res32_Hdr</tt>.<a href="#OS2"><sup title="OS/2 Application Binary Interface for PowerPC (32-bit), 1995-12-08">[3]</sup></a></p>
 <table border='1' align='center'>
@@ -4205,6 +4245,7 @@
 <td><tt><sub>x</sub>10</tt></td>	<td>i32</td>
 <td><tt>ri_size</tt>, size of resource data</td></tr>
 </table>
+<a id="node45"/>
 <h2>OS/2 operating system information (<tt>.osinfo</tt>)</h1>
 <p>The system information is stored in a structure named <tt>Elf32_Os</tt>.<a href="#OS2"><sup title="OS/2 Application Binary Interface for PowerPC (32-bit), 1995-12-08">[3]</sup></a></p>
 <table border='1' align='center'>
@@ -4260,6 +4301,7 @@
 <td><tt><sub>x</sub>0A</tt></td>	<td>c[0xE]</td>
 <td><tt>os2_reserved</tt>, reserved</td></tr>
 </table>
+<a id="node46"/>
 <h2>OS/2 import table (<tt>.imports</tt>)</h1>
 <p>Each import table entry has the following structure.<a href="#OS2"><sup title="OS/2 Application Binary Interface for PowerPC (32-bit), 1995-12-08">[3]</sup></a></p>
 <table border='1' align='center'>
@@ -4297,6 +4339,7 @@
 <td><tt><sub>x</sub>0C</tt></td>	<td>i32</td>
 <td><tt>imp_reserved</tt>, reserved</td></tr>
 </table>
+<a id="node47"/>
 <h2>OS/2 export table (<tt>.exports</tt>)</h1>
 <p>Each export table entry has the following structure.<a href="#OS2"><sup title="OS/2 Application Binary Interface for PowerPC (32-bit), 1995-12-08">[3]</sup></a></p>
 <table border='1' align='center'>
@@ -4313,8 +4356,10 @@
 <td><tt><sub>x</sub>0C</tt></td>	<td>i32</td>
 <td><tt>exp_reserved</tt>, reserved</td></tr>
 </table>
+<a id="node48"/>
 <h2>BeOS Developer Release 4 resources</h1>
 <p>This section requires documentation, see <a href="#HB"><sup title="Tools for Hobbit-based BeOS machines">[4]</sup></a>.</p>
+<a id="node49"/>
 <h2>Segment contents</h1>
 <p>A <tt>PT_INTERP</tt> segment will contain an <tt>.interp</tt> section.</p>
 <p>A <tt>PT_PHDR</tt> segment will point to the program header section.</p>
@@ -4323,8 +4368,10 @@
 <p>A <tt>PT_DYNAMIC</tt> segment will point to a <tt>.dynamic</tt> section.</p>
 <p>A <tt>PT_OS</tt> segment will contain a <tt>.osinfo</tt> section. It should precede all other segments.<a href="#OS2"><sup title="OS/2 Application Binary Interface for PowerPC (32-bit), 1995-12-08">[3]</sup></a></p>
 <p>A <tt>PT_RES</tt> segment will contain a <tt>.res</tt> section. It should follow all other segments.<a href="#OS2"><sup title="OS/2 Application Binary Interface for PowerPC (32-bit), 1995-12-08">[3]</sup></a></p>
+<a id="node50"/>
 <h2>Dynamic linking</h1>
 <p>TODO</p>
+<a id="node51"/>
 <h2>Further work</h1>
 <p>This format requires documentation.</p>
 <a id="_references"/>
@@ -4399,17 +4446,19 @@
 <ol>
 <li><a href="#_contents">Contents</a>
 </li>
-<li><a href="#">Overall layout</a>
+<li><a href="#node52">Overall layout</a>
 </li>
-<li><a href="#">Binary record</a>
+<li><a href="#node53">Binary record</a>
 </li>
-<li><a href="#">Transfer address record</a>
+<li><a href="#node54">Transfer address record</a>
 </li>
-<li><a href="#">Terminating record</a>
+<li><a href="#node55">Terminating record</a>
 </li><li><a href="#_references">References</a></li>
 </ol>
+<a id="node52"/>
 <h2>Overall layout</h1>
 <p>A binary file is composed of several binary records.</p>
+<a id="node53"/>
 <h2>Binary record</h1>
 <p>Load a series of bytes into a specified address in memory.</p>
 <table border='1' align='center'>
@@ -4426,6 +4475,7 @@
 <td><tt><sub>x</sub>04</tt></td>	<td>c[*]</td>
 <td>Binary data</td></tr>
 </table>
+<a id="node54"/>
 <h2>Transfer address record</h1>
 <p>Specifies the entry point of a command.</p>
 <table border='1' align='center'>
@@ -4437,6 +4487,7 @@
 <td>Transfer address</td></tr>
 </table>
 <p>Only the last transfer address is used</p>
+<a id="node55"/>
 <h2>Terminating record</h1>
 <p>Terminates the list of records.<a href="#FLEXEMU"><sup title="Flexemu emulator">[2]</sup></a></p>
 <table border='1' align='center'>
@@ -4485,13 +4536,14 @@
 <ol>
 <li><a href="#_contents">Contents</a>
 </li>
-<li><a href="#">Overall layout</a>
+<li><a href="#node56">Overall layout</a>
 </li>
 <li><a href="#header">Executable Header</a>
 </li>
 <li><a href="#relocs">Relocation information</a>
 </li><li><a href="#_references">References</a></li>
 </ol>
+<a id="node56"/>
 <h2>Overall layout</h1>
 <table border='1' align='center'>
 <tr>
@@ -4564,7 +4616,7 @@
 <ol>
 <li><a href="#_contents">Contents</a>
 </li>
-<li><a href="#">Overall layout</a>
+<li><a href="#node57">Overall layout</a>
 </li>
 <li><a href="#header">Executable Header</a>
 <ol>
@@ -4572,6 +4624,7 @@
 </ol></li>
 </li><li><a href="#_references">References</a></li>
 </ol>
+<a id="node57"/>
 <h2>Overall layout</h1>
 <table border='1' align='center'>
 <tr>
@@ -4687,7 +4740,7 @@
 <ol>
 <li><a href="#_contents">Contents</a>
 </li>
-<li><a href="#">Overall layout</a>
+<li><a href="#node58">Overall layout</a>
 </li>
 <li><a href="#header">Executable Header</a>
 <ol>
@@ -4702,9 +4755,10 @@
 </li>
 <li><a href="#rsxindex">RSX index</a>
 </li>
-<li><a href="#">CP/M-86 runtime layout</a>
+<li><a href="#node59">CP/M-86 runtime layout</a>
 </li><li><a href="#_references">References</a></li>
 </ol>
+<a id="node58"/>
 <h2>Overall layout</h1>
 <p>The CMD file format has evolved through several versions. The original version only contained the header and group data, with relocations and RSXs added later. Later FlexOS added shared run-time library (SRTL) support, and then a fast load section.</p>
 <table border='1' align='center'>
@@ -5009,6 +5063,7 @@
 <td><tt><sub>x</sub>0A</tt></td>	<td>c[6]</td>
 <td>Reserved</td></tr>
 </table>
+<a id="node59"/>
 <h2>CP/M-86 runtime layout</h1>
 <p>Documentation<a href="#CPMSG"><sup title="CP/M-86 System Guide">[1]</sup></a> describe 3 modes of operation: 8080 model, small model and compact model. However the real difference is between the 8080 model and the other models. The 8080 model is selected when there is no data group. In CP/M-86, only a single code group is permitted.<a href="#OWN"><sup title="own research">[6]</sup></a> Later versions allow other groups as well.</p>
 <p>When starting the program, the first 256 bytes of one of the groups is overwritten by a structure called the zero page. For an 8080 model program, it is the first 256 bytes of the code group, otherwise the data group.</p>
@@ -5095,7 +5150,7 @@
 <ol>
 <li><a href="#_contents">Contents</a>
 </li>
-<li><a href="#">Overall layout</a>
+<li><a href="#node60">Overall layout</a>
 </li>
 <li><a href="#header">Header</a>
 <ol>
@@ -5124,6 +5179,7 @@
 </ol></li>
 </li><li><a href="#_references">References</a></li>
 </ol>
+<a id="node60"/>
 <h2>Overall layout</h1>
 <p>Multiple systems support multiple versions of the file format. Executables can be contiguous or non-contiguous (the latter only supported on CP/M-68K). The header fields have some variations between the various operating systems. The format of the relocations between CP/M-68K, GEMDOS/Atari TOS, and crunched relocations. The symbol table has a standardized format for CP/M-68K, but other linkers can use different formats.</p>
 <table border='1' align='center'>
@@ -5621,7 +5677,7 @@
 <ol>
 <li><a href="#_contents">Contents</a>
 </li>
-<li><a href="#">Overall layout</a>
+<li><a href="#node61">Overall layout</a>
 </li>
 <li><a href="#header">Executable Header</a>
 </li>
@@ -5632,6 +5688,7 @@
 <li><a href="#symtab">Symbol Table</a>
 </li><li><a href="#_references">References</a></li>
 </ol>
+<a id="node61"/>
 <h2>Overall layout</h1>
 <table border='1' align='center'>
 <tr>
@@ -5831,7 +5888,7 @@
 <ol>
 <li><a href="#_contents">Contents</a>
 </li>
-<li><a href="#">Overall layout</a>
+<li><a href="#node62">Overall layout</a>
 </li>
 <li><a href="#header">Executable Header</a>
 </li>
@@ -5840,6 +5897,7 @@
 <li><a href="#symtab">Symbol Table</a>
 </li><li><a href="#_references">References</a></li>
 </ol>
+<a id="node62"/>
 <h2>Overall layout</h1>
 <table border='1' align='center'>
 <tr>
@@ -6025,7 +6083,7 @@
 <ol>
 <li><a href="#_contents">Contents</a>
 </li>
-<li><a href="#">Overall layout</a>
+<li><a href="#node63">Overall layout</a>
 </li>
 <li><a href="#exehdr">EXE Header</a>
 </li>
@@ -6034,6 +6092,7 @@
 <li><a href="#pifed">Program Information</a>
 </li><li><a href="#_references">References</a></li>
 </ol>
+<a id="node63"/>
 <h2>Overall layout</h1>
 <table border='1' align='center'>
 <tr>
@@ -6240,7 +6299,7 @@
 <ol>
 <li><a href="#_contents">Contents</a>
 </li>
-<li><a href="#">Overall layout</a>
+<li><a href="#node64">Overall layout</a>
 </li>
 <li><a href="#segexefmt">Segmented EXE Format</a>
 </li>
@@ -6250,9 +6309,9 @@
 </li>
 <li><a href="#restab">Resource Table</a>
 <ol>
-<li><a href="#">Windows resource table</a>
+<li><a href="#node65">Windows resource table</a>
 </li>
-<li><a href="#">OS/2 resource table</a>
+<li><a href="#node66">OS/2 resource table</a>
 </li>
 </ol></li>
 <li><a href="#rntab">Resident Name Table</a>
@@ -6274,18 +6333,19 @@
 </li>
 <li><a href="#reloc">Relocations</a>
 <ol>
-<li><a href="#">Internal reference to a fixed segment</a>
+<li><a href="#node67">Internal reference to a fixed segment</a>
 </li>
-<li><a href="#">Internal reference to a movable segment</a>
+<li><a href="#node68">Internal reference to a movable segment</a>
 </li>
-<li><a href="#">Import by ordinal</a>
+<li><a href="#node69">Import by ordinal</a>
 </li>
-<li><a href="#">Import by name</a>
+<li><a href="#node70">Import by name</a>
 </li>
-<li><a href="#">OSFIXUP</a>
+<li><a href="#node71">OSFIXUP</a>
 </ol></li>
 </li><li><a href="#_references">References</a></li>
 </ol>
+<a id="node64"/>
 <h2>Overall layout</h1>
 <table border='1' align='center'>
 <tr>
@@ -6671,6 +6731,7 @@
 </table>
 <a id="restab"/>
 <h2>Resource Table</h1>
+<a id="node65"/>
 <h3>Windows resource table</h2>
 <p>The resource table consists of an alignment shift count field, an array of types and a sequence of resource names.</p>
 <table border='1' align='center'>
@@ -6774,6 +6835,7 @@
 <td><tt><sub>x</sub>01</tt></td>	<td>c[*]</td>
 <td>ASCII text of the string name, not terminated with null</td></tr>
 </table>
+<a id="node66"/>
 <h3>OS/2 resource table</h2>
 <p>Contains a series of resources, identified by their type and name IDs. Each entry corresponds to a segment, and the last segments (out of the total list of segments) are the resources.<a href="#OW"><sup title="OpenWatcom sources">[3]</sup></a></p>
 <table border='1' align='center'>
@@ -6994,6 +7056,7 @@
 <td>Relocation data</td></tr>
 </table>
 <p>The interpretation of the relocation data depends on the relocation type.</p>
+<a id="node67"/>
 <h3>Internal reference to a fixed segment</h2>
 <p>References an address within the same module.</p>
 <table border='1' align='center'>
@@ -7007,6 +7070,7 @@
 <td><tt><sub>x</sub>06</tt></td>	<td>i16le</td>
 <td>Offset into the fixed segment</td></tr>
 </table>
+<a id="node68"/>
 <h3>Internal reference to a movable segment</h2>
 <table border='1' align='center'>
 <tr>
@@ -7019,6 +7083,7 @@
 <td><tt><sub>x</sub>06</tt></td>	<td>i16le</td>
 <td>Ordinal index into <a href="#enttab">Entry Table</a></td></tr>
 </table>
+<a id="node69"/>
 <h3>Import by ordinal</h2>
 <table border='1' align='center'>
 <tr>
@@ -7028,6 +7093,7 @@
 <td><tt><sub>x</sub>06</tt></td>	<td>i16le</td>
 <td>Ordinal number for procedure</td></tr>
 </table>
+<a id="node70"/>
 <h3>Import by name</h2>
 <table border='1' align='center'>
 <tr>
@@ -7037,6 +7103,7 @@
 <td><tt><sub>x</sub>06</tt></td>	<td>i16le</td>
 <td>Offset within <a href="#impntab">Imported Name Table</a> to procedure name</td></tr>
 </table>
+<a id="node71"/>
 <h3>OSFIXUP</h2>
 <p>Represents a floating point instruction that Windows will "fix up" when the coprocessor is emulated.<a href="#QB"><sup title="QB CULT MAGAZINE - Vol. 4 Iss. 1 - January 2004">[5]</sup></a></p>
 <table border='1' align='center'>
@@ -7127,7 +7194,7 @@
 <ol>
 <li><a href="#_contents">Contents</a>
 </li>
-<li><a href="#">Overall layout</a>
+<li><a href="#node72">Overall layout</a>
 </li>
 <li><a href="#oldhdr">Old-style EXE header and executable</a>
 </li>
@@ -7199,6 +7266,7 @@
 <li><a href="#debugsect">Debug Section</a>
 </li><li><a href="#_references">References</a></li>
 </ol>
+<a id="node72"/>
 <h2>Overall layout</h1>
 <table border='1' align='center'>
 <tr>
@@ -8281,7 +8349,7 @@
 <ol>
 <li><a href="#_contents">Contents</a>
 </li>
-<li><a href="#">Overall layout</a>
+<li><a href="#node73">Overall layout</a>
 </li>
 <li><a href="#stub">MS-DOS stub</a>
 </li>
@@ -8300,11 +8368,11 @@
 </ol></li>
 <li><a href="#secthdr">Section header</a>
 </li>
-<li><a href="#">Section data</a>
+<li><a href="#node74">Section data</a>
 <ol>
-<li><a href="#">.debug section</a>
+<li><a href="#node75">.debug section</a>
 </li>
-<li><a href="#">.drectve section</a>
+<li><a href="#node76">.drectve section</a>
 </li>
 <li><a href="#edata">Export (.edata) section</a>
 <ol>
@@ -8319,7 +8387,7 @@
 </ol></li>
 <li><a href="#idata">Import (.idata) section</a>
 <ol>
-<li><a href="#">Import directory table</a>
+<li><a href="#node77">Import directory table</a>
 </li>
 <li><a href="#impluptab">Import lookup table</a>
 </li>
@@ -8328,31 +8396,31 @@
 <li><a href="#impadrtab">Import address table</a>
 </li>
 </ol></li>
-<li><a href="#">.pdata section</a>
+<li><a href="#node78">.pdata section</a>
 </li>
 <li><a href="#reloc">Base relocation table (.reloc) section</a>
 <ol>
-<li><a href="#">Base relocation block</a>
+<li><a href="#node79">Base relocation block</a>
 </li>
 </ol></li>
-<li><a href="#">.tls section</a>
+<li><a href="#node80">.tls section</a>
 </li>
-<li><a href="#">Load configuration section</a>
+<li><a href="#node81">Load configuration section</a>
 </li>
 <li><a href="#rsrc">.rsrc section</a>
 <ol>
 <li><a href="#resdirtab">Resource directory table</a>
 </li>
-<li><a href="#">Resource directory strings</a>
+<li><a href="#node82">Resource directory strings</a>
 </li>
-<li><a href="#">Resource data description</a>
+<li><a href="#node83">Resource data description</a>
 </li>
-<li><a href="#">Resource data</a>
+<li><a href="#node84">Resource data</a>
 </li>
 </ol></li>
-<li><a href="#">.cormeta section</a>
+<li><a href="#node85">.cormeta section</a>
 </li>
-<li><a href="#">.sxdata section</a>
+<li><a href="#node86">.sxdata section</a>
 </li>
 </ol></li>
 <li><a href="#relocs">COFF relocations</a>
@@ -8361,19 +8429,20 @@
 </li>
 <li><a href="#symtab">COFF symbol table</a>
 </li>
-<li><a href="#">Auxiliary symbols</a>
+<li><a href="#node87">Auxiliary symbols</a>
 </li>
-<li><a href="#">COMDAT sections</a>
+<li><a href="#node88">COMDAT sections</a>
 </li>
-<li><a href="#">CLR token definition</a>
+<li><a href="#node89">CLR token definition</a>
 </li>
-<li><a href="#">COFF string table</a>
+<li><a href="#node90">COFF string table</a>
 </li>
-<li><a href="#">Attribute certificate table</a>
+<li><a href="#node91">Attribute certificate table</a>
 </li>
-<li><a href="#">Delay-load import tables</a>
+<li><a href="#node92">Delay-load import tables</a>
 </li><li><a href="#_references">References</a></li>
 </ol>
+<a id="node73"/>
 <h2>Overall layout</h1>
 <p>The PE format is probably the most widespread format for personal computer. It is based on the COFF file format, and several fields are similar to it. Similarly to other Microsoft formats, it starts with an MS-DOS stub that typically displays a message that this application can only be run in Windows, and then exits.</p>
 <table border='1' align='center'>
@@ -9006,10 +9075,13 @@
 </table>
 </td></tr>
 </table>
+<a id="node74"/>
 <h2>Section data</h1>
 <p>RVA is an abbreviation of relative virtual address. It is relative to the image base.</p>
+<a id="node75"/>
 <h3>.debug section</h2>
 <p>TODO</p>
+<a id="node76"/>
 <h3>.drectve section</h2>
 <p>TODO</p>
 <a id="edata"/>
@@ -9064,6 +9136,7 @@
 <p>A series of null-terminated ASCII strings, referenced by <a href="#expnamptrtab">Export name pointer table</a>.</p>
 <a id="idata"/>
 <h3>Import (.idata) section</h2>
+<a id="node77"/>
 <h4>Import directory table</h3>
 <p>A sequence of entries for each imported DLL. It is closed by an entry of all zeros.</p>
 <table border='1' align='center'>
@@ -9099,11 +9172,13 @@
 <a id="impadrtab"/>
 <h4>Import address table</h3>
 <p>Identical in format and content to the <a href="#impluptab">Import lookup table</a>, but the values get replaced by the actual addresses when loaded into memory.</p>
+<a id="node78"/>
 <h3>.pdata section</h2>
 <p>TODO</p>
 <a id="reloc"/>
 <h3>Base relocation table (.reloc) section</h2>
 <p>Each 4 KiB page has an associated relocation block that starts on a 4-byte boundary, containing the addresses that should be relocated by the base address.</p>
+<a id="node79"/>
 <h4>Base relocation block</h3>
 <table border='1' align='center'>
 <tr>
@@ -9161,8 +9236,10 @@
 </table>
 </td></tr>
 </table>
+<a id="node80"/>
 <h3>.tls section</h2>
 <p>TODO</p>
+<a id="node81"/>
 <h3>Load configuration section</h2>
 <p>TODO</p>
 <a id="rsrc"/>
@@ -9199,6 +9276,7 @@
 <td><tt><sub>x</sub>04</tt></td>	<td>i32le</td>
 <td>If the high bit is clear, the address of a resource data<br>If the high bit is set, the address of another resource directory</td></tr>
 </table>
+<a id="node82"/>
 <h4>Resource directory strings</h3>
 <p>A sequence of Unicode strings used in <a href="#resdirtab">Resource directory table</a>.</p>
 <table border='1' align='center'>
@@ -9209,6 +9287,7 @@
 <td><tt><sub>x</sub>02</tt></td>	<td>c16[*]</td>
 <td>UTF-16 string</td></tr>
 </table>
+<a id="node83"/>
 <h4>Resource data description</h3>
 <p>Each resource has one entry.</p>
 <table border='1' align='center'>
@@ -9225,9 +9304,12 @@
 <td><tt><sub>x</sub>0C</tt></td>	<td>i32le</td>
 <td>Reserved</td></tr>
 </table>
+<a id="node84"/>
 <h4>Resource data</h3>
+<a id="node85"/>
 <h3>.cormeta section</h2>
 <p>TODO</p>
+<a id="node86"/>
 <h3>.sxdata section</h2>
 <p>TODO</p>
 <a id="relocs"/>
@@ -9515,20 +9597,26 @@
 <td><tt><sub>x</sub>11</tt></td>	<td>i8</td>
 <td>Number of auxiliary entries, each entry occupying a symbol record</td></tr>
 </table>
+<a id="node87"/>
 <h2>Auxiliary symbols</h1>
 <p>TODO</p>
+<a id="node88"/>
 <h2>COMDAT sections</h1>
 <p>Object only.</p>
 <p>TODO</p>
+<a id="node89"/>
 <h2>CLR token definition</h1>
 <p>Object only.</p>
 <p>TODO</p>
+<a id="node90"/>
 <h2>COFF string table</h1>
 <p>Object only.</p>
 <p>TODO</p>
+<a id="node91"/>
 <h2>Attribute certificate table</h1>
 <p>Image only.</p>
 <p>TODO</p>
+<a id="node92"/>
 <h2>Delay-load import tables</h1>
 <p>Image only.</p>
 <p>TODO</p>
@@ -9568,7 +9656,7 @@
 <ol>
 <li><a href="#_contents">Contents</a>
 </li>
-<li><a href="#">Overall layout</a>
+<li><a href="#node93">Overall layout</a>
 </li>
 <li><a href="#stub">Executable stub and loader</a>
 </li>
@@ -9577,6 +9665,7 @@
 <li><a href="#relocs">Relocations</a>
 </li><li><a href="#_references">References</a></li>
 </ol>
+<a id="node93"/>
 <h2>Overall layout</h1>
 <p>This format comes in two modes: load modules '.exp' and relocatable load modules '.rex'. An '.exp' load module consists of a header and the following image data. A '.rex' module is similar but it is followed by relocations.</p>
 <p>The '.exp' or '.rex' file can also be combined with an MS-DOS stub into an '.exe' file that loads the image following the MZ structure. The Win386 does the same but it combines a '.rex' module with a Windows based loader (one that also comes with its own MS-DOS stub).</p>
@@ -9704,7 +9793,7 @@
 <ol>
 <li><a href="#_contents">Contents</a>
 </li>
-<li><a href="#">Overall layout</a>
+<li><a href="#node94">Overall layout</a>
 </li>
 <li><a href="#stub">Executable stub and loader</a>
 </li>
@@ -9714,11 +9803,11 @@
 </li>
 <li><a href="#bwaddhdr">Additional fields in header</a>
 </li>
-<li><a href="#">GDT image</a>
+<li><a href="#node95">GDT image</a>
 <ol>
 <li><a href="#gdthdr">Additional fields, inside GDT image</a>
 </li>
-<li><a href="#">Old run-time selectors</a>
+<li><a href="#node96">Old run-time selectors</a>
 </li>
 <li><a href="#gdtdata">GDT data</a>
 </li>
@@ -9726,12 +9815,13 @@
 </ol></li>
 <li><a href="#relocdata">Relocation data</a>
 <ol>
-<li><a href="#">RSI-1</a>
+<li><a href="#node97">RSI-1</a>
 </li>
-<li><a href="#">RSI-2</a>
+<li><a href="#node98">RSI-2</a>
 </ol></li>
 </li><li><a href="#_references">References</a></li>
 </ol>
+<a id="node94"/>
 <h2>Overall layout</h1>
 <p>An '.exp' load module consists of a header and the following segment data. It can appear on its own, or multiple modules can be spliced together, with an MZ stub attached.</p>
 <p>Information is organized around the concept of a global descriptor table (GDT), as used on the Intel 80286 CPU. Every part of the program is accessed in one of several segments. The physical address, size and access permissions for these segments are stored in a system structure called the GDT. Segments are addressed as 16-bit values, incremented by a value of 8, as an index into the GDT. The BW file format exposes this architecture to a high degree.</p>
@@ -9831,6 +9921,7 @@
 <td><tt><sub>x</sub>2A</tt></td>	<td>c[6]</td>
 <td>Reserved</td></tr>
 </table>
+<a id="node95"/>
 <h3>GDT image</h2>
 <p>The first few GDT entries are overwritten by some additional header fields.</p>
 <a id="gdthdr"/>
@@ -9955,6 +10046,7 @@
 <td><tt><sub>x</sub>70</tt></td>	<td>c[0x20]</td>
 <td>Original .EXP file name</td></tr>
 </table>
+<a id="node96"/>
 <h4>Old run-time selectors</h3>
 <p>At run-time, the first few selectors were originally used by DOS/16M to refer to various system structures.<a href="#CD"><sup title="PMODE.H (1990-10-16), DOS16.H (1990-10-05) - USD-III sources">[2]</sup></a></p>
 <table border='1' align='center'>
@@ -10070,10 +10162,12 @@
 <h2>Relocation data</h1>
 <p>Relocation data is stored in segments, following the image segments. No image data comes after the relocations.</p>
 <p>Each relocation specifies a selector and offset that must be relocated. The data to be relocated contains a selector that will be modified according to what the actual loaded selector values are.</p>
+<a id="node97"/>
 <h3>RSI-1</h2>
 <p>The last two segments contain the relocations. The first of these two segments contains the selector values, the second one the offset values. Each relocation position is specified by the corresponding selector and offset values at the same position in the two segments.</p>
 <p>The list is terminated when the segment data terminates, or when both the selector and offset values are 0.</p>
 <p>Note that this gives a limit of 32768 relocations.</p>
+<a id="node98"/>
 <h3>RSI-2</h2>
 <p>The last several segments contain the relocations. Relocations are provided as a sequence of variable length structures of the following form:</p>
 <table border='1' align='center'>
@@ -10123,15 +10217,16 @@
 <ol>
 <li><a href="#_contents">Contents</a>
 </li>
-<li><a href="#">Overall layout</a>
+<li><a href="#node99">Overall layout</a>
 </li>
 <li><a href="#header">Header</a>
 </li>
 <li><a href="#desctab">Segment Table</a>
 </li>
-<li><a href="#">Needing more information</a>
+<li><a href="#node100">Needing more information</a>
 </li><li><a href="#_references">References</a></li>
 </ol>
+<a id="node99"/>
 <h2>Overall layout</h1>
 <p>Much of the format is deduced through reverse engineering.</p>
 <p>The file consists of a header, a segment table, followed by the binary image.</p>
@@ -10299,6 +10394,7 @@
 <td>Base, most significant 1 byte</td></tr>
 </table>
 <p>The <tt>EXPRESS</tt> command seemingly generates pairs of data and an optional code segment. The first segment is supposed to correspond to the PSP.</p>
+<a id="node100"/>
 <h2>Needing more information</h1>
 <p>The format of the fixups is currently not known. The meaning of extents is not understood. There may be additional unknown flags or entries. The runtime layout is not known. It is also not known if OS/386 uses the same file format, however based on the structure of the file, whether an executable is 16-bit or 32-bit can be determined from the segment table.</p>
 <a id="_references"/>
@@ -10332,11 +10428,11 @@
 <ol>
 <li><a href="#_contents">Contents</a>
 </li>
-<li><a href="#">Overall layout</a>
+<li><a href="#node101">Overall layout</a>
 <ol>
-<li><a href="#">Flat model</a>
+<li><a href="#node102">Flat model</a>
 </li>
-<li><a href="#">Multi-segmented model</a>
+<li><a href="#node103">Multi-segmented model</a>
 </li>
 </ol></li>
 <li><a href="#header">Header</a>
@@ -10358,12 +10454,12 @@
 </ol></li>
 <li><a href="#tss">Intel Task State Segment</a>
 <ol>
-<li><a href="#">16-bit Task State Segment</a>
+<li><a href="#node104">16-bit Task State Segment</a>
 </li>
-<li><a href="#">32-bit Task State Segment</a>
+<li><a href="#node105">32-bit Task State Segment</a>
 </li>
 </ol></li>
-<li><a href="#">Descriptor Tables</a>
+<li><a href="#node106">Descriptor Tables</a>
 <ol>
 <li><a href="#gdt">Intel Global Descriptor Table</a>
 </li>
@@ -10375,9 +10471,11 @@
 <li><a href="#debinfo">Borland Debug Information</a>
 </li><li><a href="#_references">References</a></li>
 </ol>
+<a id="node101"/>
 <h2>Overall layout</h1>
 <p>This format comes in two models: flat model and multi-segmented model.</p>
 <p>The '.exp' file can also be combined with an MS-DOS stub into an '.exe' file that loads the image following the MZ structure.</p>
+<a id="node102"/>
 <h3>Flat model</h2>
 <p>The program consists of a header, followed by the run-time parameter block, an optional symbol table and the program image. (TODO: not sure about the position of the symbol table)</p>
 <table border='1' align='center'>
@@ -10392,6 +10490,7 @@
 <tr>
 <td><a href="#debinfo">Borland Debug Information</a> (optional)</td></tr>
 </table>
+<a id="node103"/>
 <h3>Multi-segmented model</h2>
 <p>The program consists of a header, followed by the segment information table, relocations, run-time parameter block, an optional symbol table and the program image.<a href="#OW"><sup title="OpenWatcom sources">[3]</sup></a> (TODO: not sure about the position of the symbol table)</p>
 <p>The program image consists of multiple segment images. It also contains some low level Intel 80286/80386 specific entries such as the task state segment and descriptor tables.</p>
@@ -10760,6 +10859,7 @@
 <h2>Intel Task State Segment</h1>
 <p>Only for multi-segmented programs.<a href="#RB"><sup title="Ralf Brown's interrupt list (Int 21/AH=4Bh)">[2]</sup></a><a href="#OW"><sup title="OpenWatcom sources">[3]</sup></a> This is part of the program image and reflects an Intel 80286/80386 Task State Segment (TSS).</p>
 <p>The Intel 80286/80386 architecture contains a structure that permits hardware assisted task switching. It contains entries for each register, stack segment and offset values for switching between different levels of privilege and some other administrative information. There are separate 16-bit and 32-bit versions (and later, 64-bit version) introduced for the 80286 and 80386, respectively.</p>
+<a id="node104"/>
 <h3>16-bit Task State Segment</h2>
 <p>This is the 16-bit version<a href="#286"><sup title="Intel 80286 Reference Programmer's Manual">[4]</sup></a>, presumably used for 'P2' files. (TODO)</p>
 <table border='1' align='center'>
@@ -10830,6 +10930,7 @@
 <td><tt><sub>x</sub>2A</tt></td>	<td>i16le</td>
 <td>LDTR</td></tr>
 </table>
+<a id="node105"/>
 <h3>32-bit Task State Segment</h2>
 <p>This is the 32-bit version<a href="#386"><sup title="Intel 80386 Reference Programmer's Manual">[5]</sup></a>, used for 'P3' files.<a href="#OW"><sup title="OpenWatcom sources">[3]</sup></a></p>
 <table border='1' align='center'>
@@ -10954,6 +11055,7 @@
 <td><tt><sub>x</sub>66</tt></td>	<td>i16le</td>
 <td>I/O permission map offset from TSS start</td></tr>
 </table>
+<a id="node106"/>
 <h2>Descriptor Tables</h1>
 <p>The Intel architecture defines a wide range of descriptor types. The following gives a general overview of the structure.</p>
 <table border='1' align='center'>
@@ -11274,7 +11376,7 @@
 <ol>
 <li><a href="#_contents">Contents</a>
 </li>
-<li><a href="#">Overall layout</a>
+<li><a href="#node107">Overall layout</a>
 </li>
 <li><a href="#rsrchdr">Resource header</a>
 </li>
@@ -11289,28 +11391,29 @@
 <li><a href="#namelist">Resource name list</a>
 </li>
 </ol></li>
-<li><a href="#"><tt>'CODE'</tt> resources</a>
+<li><a href="#node108"><tt>'CODE'</tt> resources</a>
 <ol>
-<li><a href="#">Runtime view</a>
+<li><a href="#node109">Runtime view</a>
 <ol>
-<li><a href="#">Jump table entries</a>
+<li><a href="#node110">Jump table entries</a>
 <ol>
-<li><a href="#">Near model jump table</a>
+<li><a href="#node111">Near model jump table</a>
 </li>
-<li><a href="#">Far model jump table</a>
+<li><a href="#node112">Far model jump table</a>
 </li>
-<li><a href="#">CFM-68K jump table</a>
+<li><a href="#node113">CFM-68K jump table</a>
 </li>
 </ol></li>
-<li><a href="#">Format of near <tt>'CODE'</tt> segments</a>
+<li><a href="#node114">Format of near <tt>'CODE'</tt> segments</a>
 </li>
-<li><a href="#">Format of far <tt>'CODE'</tt> segments</a>
+<li><a href="#node115">Format of far <tt>'CODE'</tt> segments</a>
 </li>
-<li><a href="#">Format of CFM-68K <tt>'CODE'</tt> segments</a>
+<li><a href="#node116">Format of CFM-68K <tt>'CODE'</tt> segments</a>
 </ol></li>
 </ol></li>
 </li><li><a href="#_references">References</a></li>
 </ol>
+<a id="node107"/>
 <h2>Overall layout</h1>
 <p>Classic Macintosh executables are stored together with other resources, as <tt>'CODE'</tt> resources. The first part will be an overview of the resource file format in general.</p>
 <table border='1' align='center'>
@@ -11435,10 +11538,13 @@
 <td><tt><sub>x</sub>01</tt></td>	<td>c[*]</td>
 <td>Resource name</td></tr>
 </table>
+<a id="node108"/>
 <h2><tt>'CODE'</tt> resources</h1>
+<a id="node109"/>
 <h3>Runtime view</h2>
 <p>Every Classic Macintosh application consists of code segments, a stack and an area of memory addressed via the <tt>A5</tt> register, referred to as the <b>A5 world</b>. The A5 world contains global variables as well as the <b>jump table</b> that permits code transfers between different code segments.</p>
 <p>Code segments and the jump table are loaded from the <tt>'CODE'</tt> resources. The jump table is stored as the <tt>'CODE'</tt> resource with resource ID 0.</p>
+<a id="node110"/>
 <h4>Jump table entries</h3>
 <p>The jump table stored in the <tt>'CODE'0</tt> resource has the following layout.</p>
 <table border='1' align='center'>
@@ -11457,6 +11563,7 @@
 </table>
 <p>This is then followed by a sequence of (unloaded) jump table entries. There are two types of jump table entries: near model jump table entries (offset fits 16 bits) and far model jump table entries (offset requires 32 bits). Jump table entries (near and far) are grouped according to their segment.</p>
 <p>A jump table entry is accessed via the instruction <tt>jsr offset(a5)</tt> for some offset.</p>
+<a id="node111"/>
 <h5>Near model jump table</h4>
 <p>A near model jump table consists of a sequence of near model jump table entries. The format of an unloaded jump table entry is as follows:</p>
 <table border='1' align='center'>
@@ -11497,6 +11604,7 @@
 </table>
 </td></tr>
 </table>
+<a id="node112"/>
 <h5>Far model jump table</h4>
 <p>A far model jump table being with a sequence of near model jump table entries, followed by a flag and a sequence of far model jump table entries. It would typically start with a single near model jump table entry, addressing a bootstrap code that patches the <tt>_LoadSeg</tt> command.</p>
 <p>Far model jump table entries are separated by a flag entry of the following format:</p>
@@ -11523,6 +11631,7 @@
 <td><tt><sub>x</sub>04</tt></td>	<td>i32be</td>
 <td>Segment offset</td></tr>
 </table>
+<a id="node113"/>
 <h5>CFM-68K jump table</h4>
 <p>A CFM-68K application is very similar to a far model jump table but with a different flag entry:</p>
 <table border='1' align='center'>
@@ -11537,6 +11646,7 @@
 <td><tt><sub>x</sub>00000000</tt></td></tr>
 </table>
 <p>Note: it is unclear if the <tt>'CODE'0</tt> resource only contains a single near jump table entry and no flag.</p>
+<a id="node114"/>
 <h4>Format of near <tt>'CODE'</tt> segments</h3>
 <p>All other <tt>'CODE'</tt> resources are loadable segments, and their resource ID is the number of the segment. Near model segments have a 4 byte header referencing the jump table data:</p>
 <table border='1' align='center'>
@@ -11547,6 +11657,7 @@
 <td><tt><sub>x</sub>02</tt></td>	<td>i16be</td>
 <td>Number of jump table entries</td></tr>
 </table>
+<a id="node115"/>
 <h4>Format of far <tt>'CODE'</tt> segments</h3>
 <p>Far model segments have a different header format:</p>
 <table border='1' align='center'>
@@ -11600,6 +11711,7 @@
 <td><tt><sub>x</sub>00</tt> <tt><sub>x</sub>00</tt></td>
 <td>End of relocation information</td></tr>
 </table>
+<a id="node116"/>
 <h4>Format of CFM-68K <tt>'CODE'</tt> segments</h3>
 <p>CFM-68K model segments have a format similar to that of far segments:</p>
 <table border='1' align='center'>
@@ -11667,7 +11779,7 @@
 <ol>
 <li><a href="#_contents">Contents</a>
 </li>
-<li><a href="#">Overall layout</a>
+<li><a href="#node117">Overall layout</a>
 </li>
 <li><a href="#header">Header</a>
 </li>
@@ -11685,13 +11797,13 @@
 </li>
 <li><a href="#FileInfo">File Info</a>
 <ol>
-<li><a href="#">Macintosh</a>
+<li><a href="#node118">Macintosh</a>
 </li>
-<li><a href="#">A/UX File Info</a>
+<li><a href="#node119">A/UX File Info</a>
 </li>
-<li><a href="#">MS-DOS File Info</a>
+<li><a href="#node120">MS-DOS File Info</a>
 </li>
-<li><a href="#">ProDOS File Info</a>
+<li><a href="#node121">ProDOS File Info</a>
 </li>
 </ol></li>
 <li><a href="#FileDatesInfo">File Dates Info</a>
@@ -11711,6 +11823,7 @@
 <li><a href="#AFPDirectoryID">AFP Directory ID</a>
 </li><li><a href="#_references">References</a></li>
 </ol>
+<a id="node117"/>
 <h3>Overall layout</h1>
 <a id="header"/>
 <h3>Header</h1>
@@ -11854,6 +11967,7 @@
 <a id="FileInfo"/>
 <h3>File Info</h1>
 <p>Version 1 only. The exact layout depends on the home file system.</p>
+<a id="node118"/>
 <h4>Macintosh</h2>
 <table border='1' align='center'>
 <tr>
@@ -11878,6 +11992,7 @@
 </table>
 </td></tr>
 </table>
+<a id="node119"/>
 <h4>A/UX File Info</h2>
 <table border='1' align='center'>
 <tr>
@@ -11890,6 +12005,7 @@
 <td><tt><sub>x</sub>08</tt></td>	<td>i32be</td>
 <td>Last modification date &amp; time (moved to <a href="#FileDatesInfo">File Dates Info</a> in Version 2)</td></tr>
 </table>
+<a id="node120"/>
 <h4>MS-DOS File Info</h2>
 <table border='1' align='center'>
 <tr>
@@ -11899,6 +12015,7 @@
 <td><tt><sub>x</sub>00</tt></td>	<td>i16be</td>
 <td>MS-DOS attributes (moved to <a href="#MSDOSFileInfo">MS-DOS File Info</a> in Version 2)</td></tr>
 </table>
+<a id="node121"/>
 <h4>ProDOS File Info</h2>
 <table border='1' align='center'>
 <tr>
@@ -12146,14 +12263,15 @@
 <ol>
 <li><a href="#_contents">Contents</a>
 </li>
-<li><a href="#">Overall layout</a>
+<li><a href="#node122">Overall layout</a>
 </li>
 <li><a href="#header">Header</a>
 <ol>
-<li><a href="#">CRC calculation</a>
+<li><a href="#node123">CRC calculation</a>
 </ol></li>
 </li><li><a href="#_references">References</a></li>
 </ol>
+<a id="node122"/>
 <h3>Overall layout</h1>
 <p>The MacBinary is an alternative to the AppleSingle format to transfer Macintosh files to other systems, combining the resource and data forks into a single file.</p>
 <table border='1' align='center'>
@@ -12311,6 +12429,7 @@
 <td><tt><sub>x</sub>7E</tt></td>	<td>i16be</td>
 <td>reserved</td></tr>
 </table>
+<a id="node123"/>
 <h4>CRC calculation</h2>
 <p>CRC calculation for the field at offset <tt><sub>x</sub>7C</tt> is done using the CRC16-CCITT algorithm.</p>
 <p>Start with <tt><sub>x</sub>1021</tt>.</p>
@@ -12350,36 +12469,37 @@
 <ol>
 <li><a href="#_contents">Contents</a>
 </li>
-<li><a href="#">Overall layout</a>
+<li><a href="#node124">Overall layout</a>
 </li>
 <li><a href="#seghdr">Segment header</a>
 </li>
 <li><a href="#segrec">Segment record</a>
 <ol>
-<li><a href="#">Records used in all modules</a>
+<li><a href="#node125">Records used in all modules</a>
 </li>
-<li><a href="#">Records used in load modules only</a>
+<li><a href="#node126">Records used in load modules only</a>
 <ol>
-<li><a href="#">Super-compressed records</a>
+<li><a href="#node127">Super-compressed records</a>
 </li>
 </ol></li>
-<li><a href="#">Records used in run-time library dictionaries only</a>
+<li><a href="#node128">Records used in run-time library dictionaries only</a>
 </li>
-<li><a href="#">Records used in object files only</a>
+<li><a href="#node129">Records used in object files only</a>
 </li>
 </ol></li>
 <li><a href="#Expressions">Expressions</a>
 </li>
 <li><a href="#Jump-table segment">Jump-table segment</a>
 <ol>
-<li><a href="#">Unloaded state</a>
+<li><a href="#node130">Unloaded state</a>
 </li>
-<li><a href="#">Loaded state</a>
+<li><a href="#node131">Loaded state</a>
 </li>
 </ol></li>
 <li><a href="#Initialization segment">Initialization segment</a>
 </li><li><a href="#_references">References</a></li>
 </ol>
+<a id="node124"/>
 <h2>Overall layout</h1>
 <p>An file in the Object Module Format can be an object (type <tt><sub>x</sub>B1</tt>), library (type <tt><sub>x</sub>B2</tt>) or a load file (types <tt><sub>x</sub>B3</tt>-<tt><sub>x</sub>BE</tt>). The general structure of an OMF file is a sequence of segment headers and segment records.</p>
 <table border='1' align='center'>
@@ -12595,6 +12715,7 @@
 <a id="segrec"/>
 <h2>Segment record</h1>
 <p>The segment body starts at <tt>DISPDATA</tt> (stored in <a href="#seghdr">Segment header</a>), and it is a sequence of records. The first byte defines the record type. The number fields length <tt>NUMLEN</tt> and byte ordering <tt>NUMSEX</tt>, the offsets are indicated with assuming a value of 4, as dictated by Apple IIGS. The label fields have length <tt>LABLEN</tt>.</p>
+<a id="node125"/>
 <h3>Records used in all modules</h2>
 <table border='1' align='center'>
 <tr>
@@ -12634,6 +12755,7 @@
 <td><tt><sub>x</sub>05</tt></td>	<td>c[*]</td>
 <td>Data</td></tr>
 </table>
+<a id="node126"/>
 <h3>Records used in load modules only</h2>
 <p></p>
 <table border='1' align='center'>
@@ -12740,6 +12862,7 @@
 </table>
 </td></tr>
 </table>
+<a id="node127"/>
 <h4>Super-compressed records</h3>
 <p>For super-compressed records, only the addresses of the patches are provided. The way it will be patched depends on the type of the record and the value stored at the address at the time of patching.</p>
 <table border='1' align='center'>
@@ -12800,6 +12923,7 @@
 <td>i16</td>
 <td>Offset from 0 that should be written<br>for dynamic segments, this references a call to the System Loader for that reference</td></tr>
 </table>
+<a id="node128"/>
 <h3>Records used in run-time library dictionaries only</h2>
 <p></p>
 <table border='1' align='center'>
@@ -12816,6 +12940,7 @@
 <td><tt><sub>x</sub>07</tt></td>	<td>label</td>
 <td>Label</td></tr>
 </table>
+<a id="node129"/>
 <h3>Records used in object files only</h2>
 <p></p>
 <table border='1' align='center'>
@@ -13003,6 +13128,7 @@
 <a id="Jump-table segment"/>
 <h2>Jump-table segment</h1>
 <p>The jump-table begins with 8 zero bytes. Afterwards, each jump-table entry is 14 bytes long.</p>
+<a id="node130"/>
 <h3>Unloaded state</h2>
 <p>This is the format stored in files.</p>
 <table border='1' align='center'>
@@ -13022,6 +13148,7 @@
 <td><tt><sub>x</sub>0A</tt></td>	<td>c[4]</td>
 <td>A long subroutine jump to the load function using <tt>JSL</tt>, the actual address is filled in after loading</td></tr>
 </table>
+<a id="node131"/>
 <h3>Loaded state</h2>
 <p>This format is only used for the image in memory.</p>
 <table border='1' align='center'>
@@ -13100,9 +13227,10 @@
 <ol>
 <li><a href="#_contents">Contents</a>
 </li>
-<li><a href="#">Further work</a>
+<li><a href="#node132">Further work</a>
 </li><li><a href="#_references">References</a></li>
 </ol>
+<a id="node132"/>
 <h2>Further work</h1>
 <p>This format requires documentation.</p>
 <a id="_references"/>
@@ -13136,16 +13264,17 @@
 <ol>
 <li><a href="#_contents">Contents</a>
 </li>
-<li><a href="#">Overall layout</a>
+<li><a href="#node133">Overall layout</a>
 </li>
 <li><a href="#header">Executable Header</a>
 <ol>
-<li><a href="#">Executable Header for the version 3.5 beta</a>
+<li><a href="#node134">Executable Header for the version 3.5 beta</a>
 </li>
 </ol></li>
 <li><a href="#relocs">Relocations</a>
 </li><li><a href="#_references">References</a></li>
 </ol>
+<a id="node133"/>
 <h2>Overall layout</h1>
 <table border='1' align='center'>
 <tr>
@@ -13213,6 +13342,7 @@
 <td><tt><sub>x</sub>28</tt></td>	<td>i32le</td>
 <td>Size of relocations<a href="#WDOSX"><sup title="dos32.asm - Wuschel's DOS eXtender sources">[2]</sup></a>, apparently not used</td></tr>
 </table>
+<a id="node134"/>
 <h3>Executable Header for the version 3.5 beta</h2>
 <p>According to Michael Tippach's research<a href="#WDOSX"><sup title="dos32.asm - Wuschel's DOS eXtender sources">[2]</sup></a>, version 3.5 uses a different header format.</p>
 <table border='1' align='center'>

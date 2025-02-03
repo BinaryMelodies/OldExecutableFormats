@@ -6434,7 +6434,7 @@
 <td>Number of entries in <a href="#segtab">Segment Table</a></td></tr>
 <tr>
 <td><tt><sub>x</sub>1E</tt></td>	<td>i16le</td>
-<td>Number of entries in <a href="#modreftab">Module Reference Table</a></td></tr>
+<td>Number of entries in <a href="#modreftab">Module Reference Table</a><br>(official Windows 2.0 documentation mistakenly has this field missing and the other fields shifted)</td></tr>
 <tr>
 <td><tt><sub>x</sub>20</tt></td>	<td>i16le</td>
 <td>Size of <a href="#nrntab">Non-Resident Name Table</a> in bytes</td></tr>
@@ -6504,10 +6504,10 @@
 <td>(OS/2) Supports long filenames<a href="#OW"><sup title="OpenWatcom sources">[3]</sup></a><a href="#RB"><sup title="Ralf Brown's interrupt list">[4]</sup></a></td></tr>
 <tr>
 <td>Bit 1</td>
-<td>Windows 2.x application running in Windows 3.x protected mode<a href="#WIN3.1"><sup title="Windows 3.1 16-bit NE Executable Format">[2]</sup></a><a href="#RB"><sup title="Ralf Brown's interrupt list">[4]</sup></a><br>(<a href="#OW"><sup title="OpenWatcom sources">[3]</sup></a> claims this is bit 2)</td></tr>
+<td>Windows 2.x application supporting proportional fonts<a href="#OW"><sup title="OpenWatcom sources">[3]</sup></a><br>(The official documentation<a href="#WIN3.1"><sup title="Windows 3.1 16-bit NE Executable Format">[2]</sup></a><a href="#RB"><sup title="Ralf Brown's interrupt list">[4]</sup></a> mistakenly claims this is bit 2)</td></tr>
 <tr>
 <td>Bit 2</td>
-<td>Windows 2.x application supporting proportional fonts<a href="#WIN3.1"><sup title="Windows 3.1 16-bit NE Executable Format">[2]</sup></a><a href="#RB"><sup title="Ralf Brown's interrupt list">[4]</sup></a><br>(<a href="#OW"><sup title="OpenWatcom sources">[3]</sup></a> claims this is bit 1)</td></tr>
+<td>Windows 2.x application running in Windows 3.x protected mode<a href="#OW"><sup title="OpenWatcom sources">[3]</sup></a><br>(The official documentation<a href="#WIN3.1"><sup title="Windows 3.1 16-bit NE Executable Format">[2]</sup></a><a href="#RB"><sup title="Ralf Brown's interrupt list">[4]</sup></a> mistakenly claims this is bit 1)</td></tr>
 <tr>
 <td>Bit 3</td>
 <td>(Windows) Contains fast-load (gangload) area</td></tr>
@@ -6739,7 +6739,7 @@
 <td>Offset to resource data from file start, must be shifted by alignment shift count to get offset</td></tr>
 <tr>
 <td><tt><sub>x</sub>02</tt></td>	<td>i16le</td>
-<td>Length of resource, shifted by alignment shift count<a href="#OW"><sup title="OpenWatcom sources">[3]</sup></a> (<a href="#WIN3.0"><sup title="Windows 3.0 16-bit NE Executable Format">[1]</sup></a> and <a href="#WIN3.1"><sup title="Windows 3.1 16-bit NE Executable Format">[2]</sup></a> claim it is in bytes)</td></tr>
+<td>Length of resource, shifted by alignment shift count<a href="#OW"><sup title="OpenWatcom sources">[3]</sup></a> (<a href="#WIN3.0"><sup title="Windows 3.0 16-bit NE Executable Format">[1]</sup></a> and <a href="#WIN3.1"><sup title="Windows 3.1 16-bit NE Executable Format">[2]</sup></a> mistakenly claim it is in bytes)</td></tr>
 <tr>
 <td><tt><sub>x</sub>04</tt></td>	<td>i16le</td>
 <td>Flags, similar to segment flags
@@ -8513,7 +8513,7 @@
 <td>DEC Alpha AXP 64-bit<a href="#PE99"><sup title="Microsoft Portable Executable and Common Object File Format Specification, Revision 6.0, 1999-02">[2]</sup></a></td></tr>
 <tr>
 <td>0x01D3</td>
-<td>Matsushiba AM33<a href="#PE08"><sup title="Microsoft Portable Executable and Common Object File Format Specification, Revision 8.1, 2008-02-15">[3]</sup></a><a href="#PE"><sup title="PE Format - Microsoft">[5]</sup></a></td></tr>
+<td>Matsushita AM33<a href="#PE08"><sup title="Microsoft Portable Executable and Common Object File Format Specification, Revision 8.1, 2008-02-15">[3]</sup></a><a href="#PE"><sup title="PE Format - Microsoft">[5]</sup></a></td></tr>
 <tr>
 <td>0x0EBC</td>
 <td>EFI byte code<a href="#PE08"><sup title="Microsoft Portable Executable and Common Object File Format Specification, Revision 8.1, 2008-02-15">[3]</sup></a><a href="#PE"><sup title="PE Format - Microsoft">[5]</sup></a></td></tr>
@@ -8550,6 +8550,12 @@
 <tr>
 <td>0x0290</td>
 <td>PA-RISC<a href="#MAGIC"><sup title="UNIX file magic numbers">[6]</sup></a></td></tr>
+<tr>
+<td>0x6232</td>
+<td>LoongArch 32-bit<a href="#PE"><sup title="PE Format - Microsoft">[5]</sup></a></td></tr>
+<tr>
+<td>0x6264</td>
+<td>LoongArch 64-bit<a href="#PE"><sup title="PE Format - Microsoft">[5]</sup></a></td></tr>
 </table>
 </td></tr>
 <tr>

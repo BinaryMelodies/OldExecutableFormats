@@ -2731,7 +2731,7 @@ SECTION segexehdr:Segmented EXE Header
 @18	i16le	Initial SP (stack)
 @1A	i16le	Segment of initial SS (stack), starting at 1. If SS is the automatic data segment and SP is 0, SP is set to top of the automatic segment below the initial heap
 @1C	i16le	Number of entries in {segtab}
-@1E	i16le	Number of entries in {modreftab}
+@1E	i16le	Number of entries in {modreftab}<br>(official Windows 2.0 documentation mistakenly has this field missing and the other fields shifted)
 @20	i16le	Size of {nrntab} in bytes
 @22	i16le	Offset of {segtab} from {segexehdr} start in bytes
 @24	i16le	Offset of {restab} from {segexehdr} start in bytes
@@ -2753,8 +2753,8 @@ SECTION segexehdr:Segmented EXE Header
 		=81	Phar Lap 286|DOS-Extender, Windows{RB}
 @37	i8	Additional information{WIN3.1}
 		%0	(OS/2) Supports long filenames{OW}{RB}
-		%1	Windows 2.x application running in Windows 3.x protected mode{WIN3.1}{RB}<br>({OW} claims this is bit 2)
-		%2	Windows 2.x application supporting proportional fonts{WIN3.1}{RB}<br>({OW} claims this is bit 1)
+		%1	Windows 2.x application supporting proportional fonts{OW}<br>(The official documentation{WIN3.1}{RB} mistakenly claims this is bit 2)
+		%2	Windows 2.x application running in Windows 3.x protected mode{OW}<br>(The official documentation{WIN3.1}{RB} mistakenly claims this is bit 1)
 		%3	(Windows) Contains fast-load (gangload) area
 @38	i16le	(Windows) Offset of fast-load area (gangload area{RB}{OW}) in sectors{WIN3.1}
 @3A	i16le	(Windows) Size of fast-load area (gangload area{RB}{OW}) in sectors{WIN3.1}
@@ -2837,7 +2837,7 @@ SECTION 1/:Windows resource table
 > Each resource has one entry for it:
 
 @00	i16le	Offset to resource data from file start, must be shifted by alignment shift count to get offset
-@02	i16le	Length of resource, shifted by alignment shift count{OW} ({WIN3.0} and {WIN3.1} claim it is in bytes)
+@02	i16le	Length of resource, shifted by alignment shift count{OW} ({WIN3.0} and {WIN3.1} mistakenly claim it is in bytes)
 @04	i16le	Flags, similar to segment flags
 		%4	MOVEABLE
 		%5	PURE, can be shared
@@ -3512,7 +3512,7 @@ SECTION coffhdr:COFF File Header
 		=0x0183	DEC Alpha AXP{TOUR}
 		=0x0184	DEC Alpha AXP{PE99}
 		=0x0284	DEC Alpha AXP 64-bit{PE99}
-		=0x01D3	Matsushiba AM33{PE08}{PE}
+		=0x01D3	Matsushita AM33{PE08}{PE}
 		=0x0EBC	EFI byte code{PE08}{PE}
 		=0x9041	Mitsubishi M32R{PE08}{PE}
 		=0x01F0	PowerPC{PE08}{PE99} little endian{PE}
@@ -3526,6 +3526,8 @@ SECTION coffhdr:COFF File Header
 		=0x0550	Hitachi SH little endian{MAGIC}
 #		=0x01DF	RISC System/6000 V3.1{MAGIC} # TODO
 		=0x0290	PA-RISC{MAGIC}
+		=0x6232	LoongArch 32-bit{PE}
+		=0x6264	LoongArch 64-bit{PE}
 @02	i16le	Number of Sections (COFF)
 @04	i32le	Time Date Stamp, seconds since 1970-01-01 midnight (COFF)
 @08	i32le	Offset to symbol table (COFF)<br>Should be 0 in PE image

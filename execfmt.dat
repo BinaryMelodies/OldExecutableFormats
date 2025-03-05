@@ -2685,7 +2685,7 @@ Old-style {segexefmt} stub
 {impntab}
 {enttab}
 {nrntab}
-Segment data and {reloc}
+{segdata} and {reloc}
 
 SECTION segexefmt:Segmented EXE Format
 
@@ -2703,14 +2703,14 @@ SECTION segexehdr:Segmented EXE Header
 @03	i8	Linker revision number
 @04	i16le	Offset of {enttab} from {segexehdr} start in bytes
 @06	i16le	Size of {enttab} in bytes
-@08	i32le	32-bit CRC of entire file{WIN3.0}
-@0C	i16le	Flag word
+@08	i32le	32-bit CRC of entire file{WIN3.0}, calculated with this field being 0{DOSENC}
+@0C	i16le	Module flag word
 		%0:1	Executable file format
-			=0	NOAUTODATA, no automatic data segment
+			=0	NOAUTODATA, no automatic data segment. Only for DLLs{DOSENC}
 			=1	SINGLEDATA, one{WIN3.1} shared{WIN3.0} automatic data segment. Set for DLLs
 			=2	MULTIPLEDATA, multiple{WIN3.1} or instanced{WIN3.0} automatic data segments. Set for Windows applications
-		%2	For DLLs, per-process initialization{OW}<br>({RB} claims global initialization)
-		%3	Protected mode only{OW}{RB}
+		%2	For DLLs, per-process initialization{OW}<br>({RB} claims global initialization)<br>1 if module runs in real mode{DOSENC}
+		%3	Runs in protected mode{DOSENC}, protected mode only{OW}{RB}
 		%4	(Windows) Uses LIM EMS directly{OW}<br>({RB} claims 8086 instructions)
 		%5	(OS/2) Requires 80286{OW}{RB}<br>(Windows) Each instance has separate EMS bank{OW}
 		%6	(OS/2) Requires 80386{OW}{RB}<br>(Windows) For DLLs, global memory above EMS line{OW}
@@ -2721,15 +2721,15 @@ SECTION segexehdr:Segmented EXE Header
 			=3	Requires Presentation Manager
 		%11	(Windows) First segment contains code that loads application{WIN3.1}<br>(OS/2) Family Application, runs in DOS as well{RB}
 		%13	Errors detected during linking, module will not load
-		%14	(Windows) For DLLs, set if private DLL and only one program can access it{OW}<br>Non-conforming program, valid stack is not maintained{RB}
+		%14	(Windows) For DLLs, set if private DLL and only one program can access it{OW}<br>Non-conforming program, valid stack is not maintained{RB}{DOSENC}
 		%15	Library module. SS:SP is invalid{WIN3.0}. CS:IP points to initialization procedure, called with AX set to the module handle, return far with nonzero AX on success. DS is set to the automatic data segment for SINGLEDATA, to caller data otherwise
 @0E	i16le	Automatic segment number, starting at 1. Set to 0 for NOAUTODATA
 @10	i16le	Size of initial heap in bytes, added to the automatic data segment following initial stack
 @12	i16le	Size of initial stack in bytes, added to the automatic data segment
 @14	i16le	Initial IP (entry)
 @16	i16le	Segment of initial CS (entry), starting at 1
-@18	i16le	Initial SP (stack)
-@1A	i16le	Segment of initial SS (stack), starting at 1. If SS is the automatic data segment and SP is 0, SP is set to top of the automatic segment below the initial heap
+@18	i16le	Initial SP (stack). If SS is the automatic data segment and SP is 0, SP is set to top of the automatic segment below the initial heap
+@1A	i16le	Segment of initial SS (stack), starting at 1. 0 for library modules
 @1C	i16le	Number of entries in {segtab}
 @1E	i16le	Number of entries in {modreftab}<br>(official Windows 2.0 documentation mistakenly has this field missing and the other fields shifted)
 @20	i16le	Size of {nrntab} in bytes
@@ -2740,7 +2740,7 @@ SECTION segexehdr:Segmented EXE Header
 @2A	i16le	Offset of {impntab} from {segexehdr} start in bytes
 @2C	i32le	Offset of {nrntab} from file start in bytes
 @30	i16le	Number of movable entries in {enttab}
-@32	i16le	Logical sector alignment shift count
+@32	i16le	Logical sector alignment shift count. A 0 value represents 9{DOSENC}
 @34	i16le	Number of resource segments, and entries in {restab}{WIN3.1}<br>Under OS/2, the last segments correspond to resources{OW}
 @36	i8	Executable type
 		=00	unknown{WIN3.1}
@@ -2776,25 +2776,25 @@ SECTION segtab:Segment Table
 		%2
 			=1	Segment is loaded{WIN3.1}<br>Real mode segment{RB}
 		%3
-			=1	Iterated data{OW}{RB}
+			=1	Iterated data{DOSENC}{OW}{RB}
 		%4
-			=0	FIXED{WIN3.1}
-			=1	MOVABLE
+			=0	FIXED{WIN3.1}{DOSENC}
+			=1	MOVABLE{WIN3.1}{DOSENC}
 		%5
-			=0	IMPURE or NONSHAREABLE{WIN3.1}
-			=1	PURE or SHAREABLE{WIN3.1}{OW}{RB}
+			=0	IMPURE or NONSHAREABLE{WIN3.1}{DOSENC}
+			=1	PURE or SHAREABLE{WIN3.1}{DOSENC}{OW}{RB}
 		%6
-			=0	LOADONCALL{WIN3.1}
-			=1	PRELOAD
+			=0	LOADONCALL{WIN3.1}{DOSENC}
+			=1	PRELOAD{WIN3.1}{DOSENC}
 		%7
-			=1	Code segment: EXECUTEONLY{WIN3.1}{RB}<br>Data segment: READONLY{WIN3.1}{OW}{RB}
+			=1	Code segment: EXECUTEONLY{WIN3.1}{DOSENC}{RB}<br>Data segment: READONLY{WIN3.1}{DOSENC}{OW}{RB}
 		%8
 			=1	Relocation information is present, follows segment data
 		%9
-			=1	Debugging information is present (former meaning){OW}{RB}<br>Conforming code segment{OW}
-		%10:11	Descriptor privilege level (DPL){OW}{RB}
+			=1	Debugging information is present (former meaning){DOSENC}{OW}{RB}<br>Conforming code segment{OW}
+		%10:11	Descriptor privilege level (DPL){DOSENC}{OW}{RB}
 		%12	Discardable segment{WIN3.1}{OW}{RB}
-		%12:15	Discard priority{WIN3.0}
+		%12:15	Discard priority{DOSENC}{WIN3.0}
 		%13:15	Discard priority{RB}
 		%13	32-bit segment{OW}
 		%14	Part of huge segment{OW}
@@ -2837,11 +2837,12 @@ SECTION 1/:Windows resource table
 > Each resource has one entry for it:
 
 @00	i16le	Offset to resource data from file start, must be shifted by alignment shift count to get offset
-@02	i16le	Length of resource, shifted by alignment shift count{OW} ({WIN3.0} and {WIN3.1} mistakenly claim it is in bytes)
+@02	i16le	Length of resource, shifted by alignment shift count{DOSENC}{OW} ({WIN3.0} and {WIN3.1} mistakenly claim it is in bytes)
 @04	i16le	Flags, similar to segment flags
 		%4	MOVEABLE
 		%5	PURE, can be shared
 		%6	PRELOAD
+		%12:15	Discard priority{DOSENC}
 @06	i16le	Resource ID<br>If the high order bit is clear, it is an offset to a resource string, relative to the beginning of the resource table<br>Otherwise, it is an integer
 @08	i16le	Handle, reserved
 @0A	i16le	Usage, reserved
@@ -2920,6 +2921,14 @@ SECTION nrntab:Non-Resident Name Table
 @01	c[*]	ASCII text of the string name, not terminated with null
 @...	i16le	Ordinal number
 
+SECTION segdata:Segment Data
+
+> For iterated data, the file has the following structure{DOSENC}:
+
+@00	i16le	Number of iterations
+@02	i16le	Pattern length
+@04	c[*]	Pattern to be repeated
+
 SECTION reloc:Relocations
 
 > Every segment data may optionally have a sequence of relocations followed, if specified in the {segtab}.
@@ -2996,6 +3005,7 @@ SECTION 1/:OSFIXUP
 
 REFERENCE {WIN3.0} "Windows 3.0 16-bit NE Executable Format" https://web.archive.org/web/20240422070115/http://bytepointer.com/resources/win16_ne_exe_format_win3.0.htm
 REFERENCE {WIN3.1} "Windows 3.1 16-bit NE Executable Format" https://web.archive.org/web/20240615140011/http://bytepointer.com/resources/win16_ne_exe_format_win3.1.htm
+REFERENCE {DOSENC} "The MS-DOS Encyclopedia: Appendix K: Segmented (New) .EXE File Header Format" https://www.pcjs.org/documents/books/mspl13/msdos/encyclopedia/appendix-k/
 REFERENCE {OW} "OpenWatcom sources" https://github.com/open-watcom/open-watcom-v2
 REFERENCE {RB} "Ralf Brown's interrupt list" http://www.delorie.com/djgpp/doc/rbinter/ix/
 REFERENCE {QB} "QB CULT MAGAZINE - Vol. 4 Iss. 1 - January 2004" http://qbcm.hybd.net/issues/4-1/

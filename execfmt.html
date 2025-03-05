@@ -6331,6 +6331,8 @@
 </ol></li>
 <li><a href="#ne_nrntab">Non-Resident Name Table</a>
 </li>
+<li><a href="#ne_segdata">Segment Data</a>
+</li>
 <li><a href="#ne_reloc">Relocations</a>
 <ol>
 <li><a href="#ne_node67">Internal reference to a fixed segment</a>
@@ -6367,11 +6369,11 @@
 <tr>
 <td><a href="#ne_nrntab">Non-Resident Name Table</a></td></tr>
 <tr>
-<td>Segment data and <a href="#ne_reloc">Relocations</a></td></tr>
+<td><a href="#ne_segdata">Segment Data</a> and <a href="#ne_reloc">Relocations</a></td></tr>
 </table>
 <a id="ne_segexefmt"/>
 <h2>Segmented EXE Format</h1>
-<p>After Windows 1.0 Development Release 5 (where a <tt>.mod</tt> file until Development Release 4, or <tt>.exe</tt> file in Development Release 5 starts immediately with an earlier version of the <a href="#ne_segexehdr">Segmented EXE Header</a><a href="#ne_BETA"><sup title="https://betawiki.net/wiki/Windows_1.0_Development_Release_5">[6]</sup></a>), a new executable file starts with an MZ stub program, with the following additional or modified field.</p>
+<p>After Windows 1.0 Development Release 5 (where a <tt>.mod</tt> file until Development Release 4, or <tt>.exe</tt> file in Development Release 5 starts immediately with an earlier version of the <a href="#ne_segexehdr">Segmented EXE Header</a><a href="#ne_BETA"><sup title="https://betawiki.net/wiki/Windows_1.0_Development_Release_5">[7]</sup></a>), a new executable file starts with an MZ stub program, with the following additional or modified field.</p>
 <table border='1' align='center'>
 <tr>
 <td><tt><sub>x</sub>18</tt></td>	<td>i16le</td>
@@ -6401,10 +6403,10 @@
 <td>Size of <a href="#ne_enttab">Entry Table</a> in bytes</td></tr>
 <tr>
 <td><tt><sub>x</sub>08</tt></td>	<td>i32le</td>
-<td>32-bit CRC of entire file<a href="#ne_WIN3.0"><sup title="Windows 3.0 16-bit NE Executable Format">[1]</sup></a></td></tr>
+<td>32-bit CRC of entire file<a href="#ne_WIN3.0"><sup title="Windows 3.0 16-bit NE Executable Format">[1]</sup></a>, calculated with this field being 0<a href="#ne_DOSENC"><sup title="The MS-DOS Encyclopedia: Appendix K: Segmented (New) .EXE File Header Format">[3]</sup></a></td></tr>
 <tr>
 <td><tt><sub>x</sub>0C</tt></td>	<td>i16le</td>
-<td>Flag word
+<td>Module flag word
 <table border='1'>
 <tr>
 <td>Bits 0:1</td>
@@ -6412,7 +6414,7 @@
 <table border='1'>
 <tr>
 <td>0</td>
-<td>NOAUTODATA, no automatic data segment</td></tr>
+<td>NOAUTODATA, no automatic data segment. Only for DLLs<a href="#ne_DOSENC"><sup title="The MS-DOS Encyclopedia: Appendix K: Segmented (New) .EXE File Header Format">[3]</sup></a></td></tr>
 <tr>
 <td>1</td>
 <td>SINGLEDATA, one<a href="#ne_WIN3.1"><sup title="Windows 3.1 16-bit NE Executable Format">[2]</sup></a> shared<a href="#ne_WIN3.0"><sup title="Windows 3.0 16-bit NE Executable Format">[1]</sup></a> automatic data segment. Set for DLLs</td></tr>
@@ -6423,29 +6425,29 @@
 </td></tr>
 <tr>
 <td>Bit 2</td>
-<td>For DLLs, per-process initialization<a href="#ne_OW"><sup title="OpenWatcom sources">[3]</sup></a><br>(<a href="#ne_RB"><sup title="Ralf Brown's interrupt list">[4]</sup></a> claims global initialization)</td></tr>
+<td>For DLLs, per-process initialization<a href="#ne_OW"><sup title="OpenWatcom sources">[4]</sup></a><br>(<a href="#ne_RB"><sup title="Ralf Brown's interrupt list">[5]</sup></a> claims global initialization)<br>1 if module runs in real mode<a href="#ne_DOSENC"><sup title="The MS-DOS Encyclopedia: Appendix K: Segmented (New) .EXE File Header Format">[3]</sup></a></td></tr>
 <tr>
 <td>Bit 3</td>
-<td>Protected mode only<a href="#ne_OW"><sup title="OpenWatcom sources">[3]</sup></a><a href="#ne_RB"><sup title="Ralf Brown's interrupt list">[4]</sup></a></td></tr>
+<td>Runs in protected mode<a href="#ne_DOSENC"><sup title="The MS-DOS Encyclopedia: Appendix K: Segmented (New) .EXE File Header Format">[3]</sup></a>, protected mode only<a href="#ne_OW"><sup title="OpenWatcom sources">[4]</sup></a><a href="#ne_RB"><sup title="Ralf Brown's interrupt list">[5]</sup></a></td></tr>
 <tr>
 <td>Bit 4</td>
-<td>(Windows) Uses LIM EMS directly<a href="#ne_OW"><sup title="OpenWatcom sources">[3]</sup></a><br>(<a href="#ne_RB"><sup title="Ralf Brown's interrupt list">[4]</sup></a> claims 8086 instructions)</td></tr>
+<td>(Windows) Uses LIM EMS directly<a href="#ne_OW"><sup title="OpenWatcom sources">[4]</sup></a><br>(<a href="#ne_RB"><sup title="Ralf Brown's interrupt list">[5]</sup></a> claims 8086 instructions)</td></tr>
 <tr>
 <td>Bit 5</td>
-<td>(OS/2) Requires 80286<a href="#ne_OW"><sup title="OpenWatcom sources">[3]</sup></a><a href="#ne_RB"><sup title="Ralf Brown's interrupt list">[4]</sup></a><br>(Windows) Each instance has separate EMS bank<a href="#ne_OW"><sup title="OpenWatcom sources">[3]</sup></a></td></tr>
+<td>(OS/2) Requires 80286<a href="#ne_OW"><sup title="OpenWatcom sources">[4]</sup></a><a href="#ne_RB"><sup title="Ralf Brown's interrupt list">[5]</sup></a><br>(Windows) Each instance has separate EMS bank<a href="#ne_OW"><sup title="OpenWatcom sources">[4]</sup></a></td></tr>
 <tr>
 <td>Bit 6</td>
-<td>(OS/2) Requires 80386<a href="#ne_OW"><sup title="OpenWatcom sources">[3]</sup></a><a href="#ne_RB"><sup title="Ralf Brown's interrupt list">[4]</sup></a><br>(Windows) For DLLs, global memory above EMS line<a href="#ne_OW"><sup title="OpenWatcom sources">[3]</sup></a></td></tr>
+<td>(OS/2) Requires 80386<a href="#ne_OW"><sup title="OpenWatcom sources">[4]</sup></a><a href="#ne_RB"><sup title="Ralf Brown's interrupt list">[5]</sup></a><br>(Windows) For DLLs, global memory above EMS line<a href="#ne_OW"><sup title="OpenWatcom sources">[4]</sup></a></td></tr>
 <tr>
 <td>Bit 7</td>
-<td>Needs 80x87<a href="#ne_OW"><sup title="OpenWatcom sources">[3]</sup></a><a href="#ne_RB"><sup title="Ralf Brown's interrupt list">[4]</sup></a></td></tr>
+<td>Needs 80x87<a href="#ne_OW"><sup title="OpenWatcom sources">[4]</sup></a><a href="#ne_RB"><sup title="Ralf Brown's interrupt list">[5]</sup></a></td></tr>
 <tr>
 <td>Bits 8:9</td>
-<td>Presentation Manager compatibility (OS/2 GUI)<a href="#ne_OW"><sup title="OpenWatcom sources">[3]</sup></a><a href="#ne_RB"><sup title="Ralf Brown's interrupt list">[4]</sup></a>
+<td>Presentation Manager compatibility (OS/2 GUI)<a href="#ne_OW"><sup title="OpenWatcom sources">[4]</sup></a><a href="#ne_RB"><sup title="Ralf Brown's interrupt list">[5]</sup></a>
 <table border='1'>
 <tr>
 <td>1</td>
-<td>Incompatible<a href="#ne_OW"><sup title="OpenWatcom sources">[3]</sup></a>, fullscreen<a href="#ne_RB"><sup title="Ralf Brown's interrupt list">[4]</sup></a></td></tr>
+<td>Incompatible<a href="#ne_OW"><sup title="OpenWatcom sources">[4]</sup></a>, fullscreen<a href="#ne_RB"><sup title="Ralf Brown's interrupt list">[5]</sup></a></td></tr>
 <tr>
 <td>2</td>
 <td>Compatible</td></tr>
@@ -6456,13 +6458,13 @@
 </td></tr>
 <tr>
 <td>Bit 11</td>
-<td>(Windows) First segment contains code that loads application<a href="#ne_WIN3.1"><sup title="Windows 3.1 16-bit NE Executable Format">[2]</sup></a><br>(OS/2) Family Application, runs in DOS as well<a href="#ne_RB"><sup title="Ralf Brown's interrupt list">[4]</sup></a></td></tr>
+<td>(Windows) First segment contains code that loads application<a href="#ne_WIN3.1"><sup title="Windows 3.1 16-bit NE Executable Format">[2]</sup></a><br>(OS/2) Family Application, runs in DOS as well<a href="#ne_RB"><sup title="Ralf Brown's interrupt list">[5]</sup></a></td></tr>
 <tr>
 <td>Bit 13</td>
 <td>Errors detected during linking, module will not load</td></tr>
 <tr>
 <td>Bit 14</td>
-<td>(Windows) For DLLs, set if private DLL and only one program can access it<a href="#ne_OW"><sup title="OpenWatcom sources">[3]</sup></a><br>Non-conforming program, valid stack is not maintained<a href="#ne_RB"><sup title="Ralf Brown's interrupt list">[4]</sup></a></td></tr>
+<td>(Windows) For DLLs, set if private DLL and only one program can access it<a href="#ne_OW"><sup title="OpenWatcom sources">[4]</sup></a><br>Non-conforming program, valid stack is not maintained<a href="#ne_RB"><sup title="Ralf Brown's interrupt list">[5]</sup></a><a href="#ne_DOSENC"><sup title="The MS-DOS Encyclopedia: Appendix K: Segmented (New) .EXE File Header Format">[3]</sup></a></td></tr>
 <tr>
 <td>Bit 15</td>
 <td>Library module. SS:SP is invalid<a href="#ne_WIN3.0"><sup title="Windows 3.0 16-bit NE Executable Format">[1]</sup></a>. CS:IP points to initialization procedure, called with AX set to the module handle, return far with nonzero AX on success. DS is set to the automatic data segment for SINGLEDATA, to caller data otherwise</td></tr>
@@ -6485,10 +6487,10 @@
 <td>Segment of initial CS (entry), starting at 1</td></tr>
 <tr>
 <td><tt><sub>x</sub>18</tt></td>	<td>i16le</td>
-<td>Initial SP (stack)</td></tr>
+<td>Initial SP (stack). If SS is the automatic data segment and SP is 0, SP is set to top of the automatic segment below the initial heap</td></tr>
 <tr>
 <td><tt><sub>x</sub>1A</tt></td>	<td>i16le</td>
-<td>Segment of initial SS (stack), starting at 1. If SS is the automatic data segment and SP is 0, SP is set to top of the automatic segment below the initial heap</td></tr>
+<td>Segment of initial SS (stack), starting at 1. 0 for library modules</td></tr>
 <tr>
 <td><tt><sub>x</sub>1C</tt></td>	<td>i16le</td>
 <td>Number of entries in <a href="#ne_segtab">Segment Table</a></td></tr>
@@ -6521,10 +6523,10 @@
 <td>Number of movable entries in <a href="#ne_enttab">Entry Table</a></td></tr>
 <tr>
 <td><tt><sub>x</sub>32</tt></td>	<td>i16le</td>
-<td>Logical sector alignment shift count</td></tr>
+<td>Logical sector alignment shift count. A 0 value represents 9<a href="#ne_DOSENC"><sup title="The MS-DOS Encyclopedia: Appendix K: Segmented (New) .EXE File Header Format">[3]</sup></a></td></tr>
 <tr>
 <td><tt><sub>x</sub>34</tt></td>	<td>i16le</td>
-<td>Number of resource segments, and entries in <a href="#ne_restab">Resource Table</a><a href="#ne_WIN3.1"><sup title="Windows 3.1 16-bit NE Executable Format">[2]</sup></a><br>Under OS/2, the last segments correspond to resources<a href="#ne_OW"><sup title="OpenWatcom sources">[3]</sup></a></td></tr>
+<td>Number of resource segments, and entries in <a href="#ne_restab">Resource Table</a><a href="#ne_WIN3.1"><sup title="Windows 3.1 16-bit NE Executable Format">[2]</sup></a><br>Under OS/2, the last segments correspond to resources<a href="#ne_OW"><sup title="OpenWatcom sources">[4]</sup></a></td></tr>
 <tr>
 <td><tt><sub>x</sub>36</tt></td>	<td>i8</td>
 <td>Executable type
@@ -6534,25 +6536,25 @@
 <td>unknown<a href="#ne_WIN3.1"><sup title="Windows 3.1 16-bit NE Executable Format">[2]</sup></a></td></tr>
 <tr>
 <td>01</td>
-<td>OS/2<a href="#ne_OW"><sup title="OpenWatcom sources">[3]</sup></a><a href="#ne_RB"><sup title="Ralf Brown's interrupt list">[4]</sup></a></td></tr>
+<td>OS/2<a href="#ne_OW"><sup title="OpenWatcom sources">[4]</sup></a><a href="#ne_RB"><sup title="Ralf Brown's interrupt list">[5]</sup></a></td></tr>
 <tr>
 <td>02</td>
 <td>Windows</td></tr>
 <tr>
 <td>03</td>
-<td>Multitasking (a.k.a. "European") MS-DOS 4.0<a href="#ne_RB"><sup title="Ralf Brown's interrupt list">[4]</sup></a><a href="#ne_OW"><sup title="OpenWatcom sources">[3]</sup></a></td></tr>
+<td>Multitasking (a.k.a. "European") MS-DOS 4.0<a href="#ne_RB"><sup title="Ralf Brown's interrupt list">[5]</sup></a><a href="#ne_OW"><sup title="OpenWatcom sources">[4]</sup></a></td></tr>
 <tr>
 <td>04</td>
-<td>Windows 386<a href="#ne_RB"><sup title="Ralf Brown's interrupt list">[4]</sup></a></td></tr>
+<td>Windows 386<a href="#ne_RB"><sup title="Ralf Brown's interrupt list">[5]</sup></a></td></tr>
 <tr>
 <td>05</td>
-<td>BOSS (Borland Operating System Services)<a href="#ne_RB"><sup title="Ralf Brown's interrupt list">[4]</sup></a></td></tr>
+<td>BOSS (Borland Operating System Services)<a href="#ne_RB"><sup title="Ralf Brown's interrupt list">[5]</sup></a></td></tr>
 <tr>
 <td>81</td>
-<td>Phar Lap 286|DOS-Extender, OS/2<a href="#ne_RB"><sup title="Ralf Brown's interrupt list">[4]</sup></a></td></tr>
+<td>Phar Lap 286|DOS-Extender, OS/2<a href="#ne_RB"><sup title="Ralf Brown's interrupt list">[5]</sup></a></td></tr>
 <tr>
 <td>81</td>
-<td>Phar Lap 286|DOS-Extender, Windows<a href="#ne_RB"><sup title="Ralf Brown's interrupt list">[4]</sup></a></td></tr>
+<td>Phar Lap 286|DOS-Extender, Windows<a href="#ne_RB"><sup title="Ralf Brown's interrupt list">[5]</sup></a></td></tr>
 </table>
 </td></tr>
 <tr>
@@ -6561,13 +6563,13 @@
 <table border='1'>
 <tr>
 <td>Bit 0</td>
-<td>(OS/2) Supports long filenames<a href="#ne_OW"><sup title="OpenWatcom sources">[3]</sup></a><a href="#ne_RB"><sup title="Ralf Brown's interrupt list">[4]</sup></a></td></tr>
+<td>(OS/2) Supports long filenames<a href="#ne_OW"><sup title="OpenWatcom sources">[4]</sup></a><a href="#ne_RB"><sup title="Ralf Brown's interrupt list">[5]</sup></a></td></tr>
 <tr>
 <td>Bit 1</td>
-<td>Windows 2.x application supporting proportional fonts<a href="#ne_OW"><sup title="OpenWatcom sources">[3]</sup></a><br>(The official documentation<a href="#ne_WIN3.1"><sup title="Windows 3.1 16-bit NE Executable Format">[2]</sup></a><a href="#ne_RB"><sup title="Ralf Brown's interrupt list">[4]</sup></a> mistakenly claims this is bit 2)</td></tr>
+<td>Windows 2.x application supporting proportional fonts<a href="#ne_OW"><sup title="OpenWatcom sources">[4]</sup></a><br>(The official documentation<a href="#ne_WIN3.1"><sup title="Windows 3.1 16-bit NE Executable Format">[2]</sup></a><a href="#ne_RB"><sup title="Ralf Brown's interrupt list">[5]</sup></a> mistakenly claims this is bit 2)</td></tr>
 <tr>
 <td>Bit 2</td>
-<td>Windows 2.x application running in Windows 3.x protected mode<a href="#ne_OW"><sup title="OpenWatcom sources">[3]</sup></a><br>(The official documentation<a href="#ne_WIN3.1"><sup title="Windows 3.1 16-bit NE Executable Format">[2]</sup></a><a href="#ne_RB"><sup title="Ralf Brown's interrupt list">[4]</sup></a> mistakenly claims this is bit 1)</td></tr>
+<td>Windows 2.x application running in Windows 3.x protected mode<a href="#ne_OW"><sup title="OpenWatcom sources">[4]</sup></a><br>(The official documentation<a href="#ne_WIN3.1"><sup title="Windows 3.1 16-bit NE Executable Format">[2]</sup></a><a href="#ne_RB"><sup title="Ralf Brown's interrupt list">[5]</sup></a> mistakenly claims this is bit 1)</td></tr>
 <tr>
 <td>Bit 3</td>
 <td>(Windows) Contains fast-load (gangload) area</td></tr>
@@ -6575,13 +6577,13 @@
 </td></tr>
 <tr>
 <td><tt><sub>x</sub>38</tt></td>	<td>i16le</td>
-<td>(Windows) Offset of fast-load area (gangload area<a href="#ne_RB"><sup title="Ralf Brown's interrupt list">[4]</sup></a><a href="#ne_OW"><sup title="OpenWatcom sources">[3]</sup></a>) in sectors<a href="#ne_WIN3.1"><sup title="Windows 3.1 16-bit NE Executable Format">[2]</sup></a></td></tr>
+<td>(Windows) Offset of fast-load area (gangload area<a href="#ne_RB"><sup title="Ralf Brown's interrupt list">[5]</sup></a><a href="#ne_OW"><sup title="OpenWatcom sources">[4]</sup></a>) in sectors<a href="#ne_WIN3.1"><sup title="Windows 3.1 16-bit NE Executable Format">[2]</sup></a></td></tr>
 <tr>
 <td><tt><sub>x</sub>3A</tt></td>	<td>i16le</td>
-<td>(Windows) Size of fast-load area (gangload area<a href="#ne_RB"><sup title="Ralf Brown's interrupt list">[4]</sup></a><a href="#ne_OW"><sup title="OpenWatcom sources">[3]</sup></a>) in sectors<a href="#ne_WIN3.1"><sup title="Windows 3.1 16-bit NE Executable Format">[2]</sup></a></td></tr>
+<td>(Windows) Size of fast-load area (gangload area<a href="#ne_RB"><sup title="Ralf Brown's interrupt list">[5]</sup></a><a href="#ne_OW"><sup title="OpenWatcom sources">[4]</sup></a>) in sectors<a href="#ne_WIN3.1"><sup title="Windows 3.1 16-bit NE Executable Format">[2]</sup></a></td></tr>
 <tr>
 <td><tt><sub>x</sub>3C</tt></td>	<td>i16le</td>
-<td>Minimum code swap area<a href="#ne_RB"><sup title="Ralf Brown's interrupt list">[4]</sup></a><a href="#ne_OW"><sup title="OpenWatcom sources">[3]</sup></a></td></tr>
+<td>Minimum code swap area<a href="#ne_RB"><sup title="Ralf Brown's interrupt list">[5]</sup></a><a href="#ne_OW"><sup title="OpenWatcom sources">[4]</sup></a></td></tr>
 <tr>
 <td><tt><sub>x</sub>3E</tt></td>	<td>i16le</td>
 <td>(Windows) Expected Windows version number<a href="#ne_WIN3.1"><sup title="Windows 3.1 16-bit NE Executable Format">[2]</sup></a></td></tr>
@@ -6627,7 +6629,7 @@
 <table border='1'>
 <tr>
 <td>1</td>
-<td>Segment is loaded<a href="#ne_WIN3.1"><sup title="Windows 3.1 16-bit NE Executable Format">[2]</sup></a><br>Real mode segment<a href="#ne_RB"><sup title="Ralf Brown's interrupt list">[4]</sup></a></td></tr>
+<td>Segment is loaded<a href="#ne_WIN3.1"><sup title="Windows 3.1 16-bit NE Executable Format">[2]</sup></a><br>Real mode segment<a href="#ne_RB"><sup title="Ralf Brown's interrupt list">[5]</sup></a></td></tr>
 </table>
 </td></tr>
 <tr>
@@ -6636,7 +6638,7 @@
 <table border='1'>
 <tr>
 <td>1</td>
-<td>Iterated data<a href="#ne_OW"><sup title="OpenWatcom sources">[3]</sup></a><a href="#ne_RB"><sup title="Ralf Brown's interrupt list">[4]</sup></a></td></tr>
+<td>Iterated data<a href="#ne_DOSENC"><sup title="The MS-DOS Encyclopedia: Appendix K: Segmented (New) .EXE File Header Format">[3]</sup></a><a href="#ne_OW"><sup title="OpenWatcom sources">[4]</sup></a><a href="#ne_RB"><sup title="Ralf Brown's interrupt list">[5]</sup></a></td></tr>
 </table>
 </td></tr>
 <tr>
@@ -6645,10 +6647,10 @@
 <table border='1'>
 <tr>
 <td>0</td>
-<td>FIXED<a href="#ne_WIN3.1"><sup title="Windows 3.1 16-bit NE Executable Format">[2]</sup></a></td></tr>
+<td>FIXED<a href="#ne_WIN3.1"><sup title="Windows 3.1 16-bit NE Executable Format">[2]</sup></a><a href="#ne_DOSENC"><sup title="The MS-DOS Encyclopedia: Appendix K: Segmented (New) .EXE File Header Format">[3]</sup></a></td></tr>
 <tr>
 <td>1</td>
-<td>MOVABLE</td></tr>
+<td>MOVABLE<a href="#ne_WIN3.1"><sup title="Windows 3.1 16-bit NE Executable Format">[2]</sup></a><a href="#ne_DOSENC"><sup title="The MS-DOS Encyclopedia: Appendix K: Segmented (New) .EXE File Header Format">[3]</sup></a></td></tr>
 </table>
 </td></tr>
 <tr>
@@ -6657,10 +6659,10 @@
 <table border='1'>
 <tr>
 <td>0</td>
-<td>IMPURE or NONSHAREABLE<a href="#ne_WIN3.1"><sup title="Windows 3.1 16-bit NE Executable Format">[2]</sup></a></td></tr>
+<td>IMPURE or NONSHAREABLE<a href="#ne_WIN3.1"><sup title="Windows 3.1 16-bit NE Executable Format">[2]</sup></a><a href="#ne_DOSENC"><sup title="The MS-DOS Encyclopedia: Appendix K: Segmented (New) .EXE File Header Format">[3]</sup></a></td></tr>
 <tr>
 <td>1</td>
-<td>PURE or SHAREABLE<a href="#ne_WIN3.1"><sup title="Windows 3.1 16-bit NE Executable Format">[2]</sup></a><a href="#ne_OW"><sup title="OpenWatcom sources">[3]</sup></a><a href="#ne_RB"><sup title="Ralf Brown's interrupt list">[4]</sup></a></td></tr>
+<td>PURE or SHAREABLE<a href="#ne_WIN3.1"><sup title="Windows 3.1 16-bit NE Executable Format">[2]</sup></a><a href="#ne_DOSENC"><sup title="The MS-DOS Encyclopedia: Appendix K: Segmented (New) .EXE File Header Format">[3]</sup></a><a href="#ne_OW"><sup title="OpenWatcom sources">[4]</sup></a><a href="#ne_RB"><sup title="Ralf Brown's interrupt list">[5]</sup></a></td></tr>
 </table>
 </td></tr>
 <tr>
@@ -6669,10 +6671,10 @@
 <table border='1'>
 <tr>
 <td>0</td>
-<td>LOADONCALL<a href="#ne_WIN3.1"><sup title="Windows 3.1 16-bit NE Executable Format">[2]</sup></a></td></tr>
+<td>LOADONCALL<a href="#ne_WIN3.1"><sup title="Windows 3.1 16-bit NE Executable Format">[2]</sup></a><a href="#ne_DOSENC"><sup title="The MS-DOS Encyclopedia: Appendix K: Segmented (New) .EXE File Header Format">[3]</sup></a></td></tr>
 <tr>
 <td>1</td>
-<td>PRELOAD</td></tr>
+<td>PRELOAD<a href="#ne_WIN3.1"><sup title="Windows 3.1 16-bit NE Executable Format">[2]</sup></a><a href="#ne_DOSENC"><sup title="The MS-DOS Encyclopedia: Appendix K: Segmented (New) .EXE File Header Format">[3]</sup></a></td></tr>
 </table>
 </td></tr>
 <tr>
@@ -6681,7 +6683,7 @@
 <table border='1'>
 <tr>
 <td>1</td>
-<td>Code segment: EXECUTEONLY<a href="#ne_WIN3.1"><sup title="Windows 3.1 16-bit NE Executable Format">[2]</sup></a><a href="#ne_RB"><sup title="Ralf Brown's interrupt list">[4]</sup></a><br>Data segment: READONLY<a href="#ne_WIN3.1"><sup title="Windows 3.1 16-bit NE Executable Format">[2]</sup></a><a href="#ne_OW"><sup title="OpenWatcom sources">[3]</sup></a><a href="#ne_RB"><sup title="Ralf Brown's interrupt list">[4]</sup></a></td></tr>
+<td>Code segment: EXECUTEONLY<a href="#ne_WIN3.1"><sup title="Windows 3.1 16-bit NE Executable Format">[2]</sup></a><a href="#ne_DOSENC"><sup title="The MS-DOS Encyclopedia: Appendix K: Segmented (New) .EXE File Header Format">[3]</sup></a><a href="#ne_RB"><sup title="Ralf Brown's interrupt list">[5]</sup></a><br>Data segment: READONLY<a href="#ne_WIN3.1"><sup title="Windows 3.1 16-bit NE Executable Format">[2]</sup></a><a href="#ne_DOSENC"><sup title="The MS-DOS Encyclopedia: Appendix K: Segmented (New) .EXE File Header Format">[3]</sup></a><a href="#ne_OW"><sup title="OpenWatcom sources">[4]</sup></a><a href="#ne_RB"><sup title="Ralf Brown's interrupt list">[5]</sup></a></td></tr>
 </table>
 </td></tr>
 <tr>
@@ -6699,30 +6701,30 @@
 <table border='1'>
 <tr>
 <td>1</td>
-<td>Debugging information is present (former meaning)<a href="#ne_OW"><sup title="OpenWatcom sources">[3]</sup></a><a href="#ne_RB"><sup title="Ralf Brown's interrupt list">[4]</sup></a><br>Conforming code segment<a href="#ne_OW"><sup title="OpenWatcom sources">[3]</sup></a></td></tr>
+<td>Debugging information is present (former meaning)<a href="#ne_DOSENC"><sup title="The MS-DOS Encyclopedia: Appendix K: Segmented (New) .EXE File Header Format">[3]</sup></a><a href="#ne_OW"><sup title="OpenWatcom sources">[4]</sup></a><a href="#ne_RB"><sup title="Ralf Brown's interrupt list">[5]</sup></a><br>Conforming code segment<a href="#ne_OW"><sup title="OpenWatcom sources">[4]</sup></a></td></tr>
 </table>
 </td></tr>
 <tr>
 <td>Bits 10:11</td>
-<td>Descriptor privilege level (DPL)<a href="#ne_OW"><sup title="OpenWatcom sources">[3]</sup></a><a href="#ne_RB"><sup title="Ralf Brown's interrupt list">[4]</sup></a></td></tr>
+<td>Descriptor privilege level (DPL)<a href="#ne_DOSENC"><sup title="The MS-DOS Encyclopedia: Appendix K: Segmented (New) .EXE File Header Format">[3]</sup></a><a href="#ne_OW"><sup title="OpenWatcom sources">[4]</sup></a><a href="#ne_RB"><sup title="Ralf Brown's interrupt list">[5]</sup></a></td></tr>
 <tr>
 <td>Bit 12</td>
-<td>Discardable segment<a href="#ne_WIN3.1"><sup title="Windows 3.1 16-bit NE Executable Format">[2]</sup></a><a href="#ne_OW"><sup title="OpenWatcom sources">[3]</sup></a><a href="#ne_RB"><sup title="Ralf Brown's interrupt list">[4]</sup></a></td></tr>
+<td>Discardable segment<a href="#ne_WIN3.1"><sup title="Windows 3.1 16-bit NE Executable Format">[2]</sup></a><a href="#ne_OW"><sup title="OpenWatcom sources">[4]</sup></a><a href="#ne_RB"><sup title="Ralf Brown's interrupt list">[5]</sup></a></td></tr>
 <tr>
 <td>Bits 12:15</td>
-<td>Discard priority<a href="#ne_WIN3.0"><sup title="Windows 3.0 16-bit NE Executable Format">[1]</sup></a></td></tr>
+<td>Discard priority<a href="#ne_DOSENC"><sup title="The MS-DOS Encyclopedia: Appendix K: Segmented (New) .EXE File Header Format">[3]</sup></a><a href="#ne_WIN3.0"><sup title="Windows 3.0 16-bit NE Executable Format">[1]</sup></a></td></tr>
 <tr>
 <td>Bits 13:15</td>
-<td>Discard priority<a href="#ne_RB"><sup title="Ralf Brown's interrupt list">[4]</sup></a></td></tr>
+<td>Discard priority<a href="#ne_RB"><sup title="Ralf Brown's interrupt list">[5]</sup></a></td></tr>
 <tr>
 <td>Bit 13</td>
-<td>32-bit segment<a href="#ne_OW"><sup title="OpenWatcom sources">[3]</sup></a></td></tr>
+<td>32-bit segment<a href="#ne_OW"><sup title="OpenWatcom sources">[4]</sup></a></td></tr>
 <tr>
 <td>Bit 14</td>
-<td>Part of huge segment<a href="#ne_OW"><sup title="OpenWatcom sources">[3]</sup></a></td></tr>
+<td>Part of huge segment<a href="#ne_OW"><sup title="OpenWatcom sources">[4]</sup></a></td></tr>
 <tr>
 <td>Bit 15</td>
-<td><tt>RESRC_HIGH</tt><a href="#ne_OW"><sup title="OpenWatcom sources">[3]</sup></a></td></tr>
+<td><tt>RESRC_HIGH</tt><a href="#ne_OW"><sup title="OpenWatcom sources">[4]</sup></a></td></tr>
 </table>
 </td></tr>
 <tr>
@@ -6743,7 +6745,7 @@
 <table border='1' align='center'>
 <tr>
 <td><tt><sub>x</sub>00</tt></td>	<td>i16le</td>
-<td>Type ID<br>A value of 0 terminates the resource table<br>If the high order bit is clear, it is an offset to a type string, relative to the beginning of the resource table<br>Otherwise, it is a resource type value:<a href="#ne_FFENC"><sup title="File Format Encyclopedia: Windows Resource (.RES) Files">[7]</sup></a>
+<td>Type ID<br>A value of 0 terminates the resource table<br>If the high order bit is clear, it is an offset to a type string, relative to the beginning of the resource table<br>Otherwise, it is a resource type value:<a href="#ne_FFENC"><sup title="File Format Encyclopedia: Windows Resource (.RES) Files">[8]</sup></a>
 <table border='1'>
 <tr>
 <td>01</td>
@@ -6800,7 +6802,7 @@
 <td>Offset to resource data from file start, must be shifted by alignment shift count to get offset</td></tr>
 <tr>
 <td><tt><sub>x</sub>02</tt></td>	<td>i16le</td>
-<td>Length of resource, shifted by alignment shift count<a href="#ne_OW"><sup title="OpenWatcom sources">[3]</sup></a> (<a href="#ne_WIN3.0"><sup title="Windows 3.0 16-bit NE Executable Format">[1]</sup></a> and <a href="#ne_WIN3.1"><sup title="Windows 3.1 16-bit NE Executable Format">[2]</sup></a> mistakenly claim it is in bytes)</td></tr>
+<td>Length of resource, shifted by alignment shift count<a href="#ne_DOSENC"><sup title="The MS-DOS Encyclopedia: Appendix K: Segmented (New) .EXE File Header Format">[3]</sup></a><a href="#ne_OW"><sup title="OpenWatcom sources">[4]</sup></a> (<a href="#ne_WIN3.0"><sup title="Windows 3.0 16-bit NE Executable Format">[1]</sup></a> and <a href="#ne_WIN3.1"><sup title="Windows 3.1 16-bit NE Executable Format">[2]</sup></a> mistakenly claim it is in bytes)</td></tr>
 <tr>
 <td><tt><sub>x</sub>04</tt></td>	<td>i16le</td>
 <td>Flags, similar to segment flags
@@ -6814,6 +6816,9 @@
 <tr>
 <td>Bit 6</td>
 <td>PRELOAD</td></tr>
+<tr>
+<td>Bits 12:15</td>
+<td>Discard priority<a href="#ne_DOSENC"><sup title="The MS-DOS Encyclopedia: Appendix K: Segmented (New) .EXE File Header Format">[3]</sup></a></td></tr>
 </table>
 </td></tr>
 <tr>
@@ -6837,7 +6842,7 @@
 </table>
 <a id="ne_node66"/>
 <h3>OS/2 resource table</h2>
-<p>Contains a series of resources, identified by their type and name IDs. Each entry corresponds to a segment, and the last segments (out of the total list of segments) are the resources.<a href="#ne_OW"><sup title="OpenWatcom sources">[3]</sup></a></p>
+<p>Contains a series of resources, identified by their type and name IDs. Each entry corresponds to a segment, and the last segments (out of the total list of segments) are the resources.<a href="#ne_OW"><sup title="OpenWatcom sources">[4]</sup></a></p>
 <table border='1' align='center'>
 <tr>
 <td><tt><sub>x</sub>00</tt></td>	<td>i16le</td>
@@ -6972,6 +6977,20 @@
 <td><tt>...</tt></td>	<td>i16le</td>
 <td>Ordinal number</td></tr>
 </table>
+<a id="ne_segdata"/>
+<h2>Segment Data</h1>
+<p>For iterated data, the file has the following structure<a href="#ne_DOSENC"><sup title="The MS-DOS Encyclopedia: Appendix K: Segmented (New) .EXE File Header Format">[3]</sup></a>:</p>
+<table border='1' align='center'>
+<tr>
+<td><tt><sub>x</sub>00</tt></td>	<td>i16le</td>
+<td>Number of iterations</td></tr>
+<tr>
+<td><tt><sub>x</sub>02</tt></td>	<td>i16le</td>
+<td>Pattern length</td></tr>
+<tr>
+<td><tt><sub>x</sub>04</tt></td>	<td>c[*]</td>
+<td>Pattern to be repeated</td></tr>
+</table>
 <a id="ne_reloc"/>
 <h2>Relocations</h1>
 <p>Every segment data may optionally have a sequence of relocations followed, if specified in the <a href="#ne_segtab">Segment Table</a>.</p>
@@ -7105,11 +7124,11 @@
 </table>
 <a id="ne_node71"/>
 <h3>OSFIXUP</h2>
-<p>Represents a floating point instruction that Windows will "fix up" when the coprocessor is emulated.<a href="#ne_QB"><sup title="QB CULT MAGAZINE - Vol. 4 Iss. 1 - January 2004">[5]</sup></a></p>
+<p>Represents a floating point instruction that Windows will "fix up" when the coprocessor is emulated.<a href="#ne_QB"><sup title="QB CULT MAGAZINE - Vol. 4 Iss. 1 - January 2004">[6]</sup></a></p>
 <table border='1' align='center'>
 <tr>
 <td><tt><sub>x</sub>04</tt></td>	<td>i16le</td>
-<td>Fixup type<br>(apparently the relocations containing the J are supposed to refer to the second byte of the command sequence<a href="#ne_OW"><sup title="OpenWatcom sources">[3]</sup></a>)<br>(including relocations and interrupts supported by other platforms for completeness sake)
+<td>Fixup type<br>(apparently the relocations containing the J are supposed to refer to the second byte of the command sequence<a href="#ne_OW"><sup title="OpenWatcom sources">[4]</sup></a>)<br>(including relocations and interrupts supported by other platforms for completeness sake)
 <table border='1'>
 <tr>
 <td>0x0001</td>
@@ -7131,22 +7150,22 @@
 <td><tt>FIWRQQ</tt> &mdash; <tt>nop; wait</tt> turns into <tt>int <tt><sub>x</sub>3D</tt></tt> by adding <tt><sub>x</sub>A23D</tt></td></tr>
 <tr>
 <td>&mdash;</td>
-<td><tt>FIFRQQ, FJFRQQ</tt> &mdash; <tt>wait; FS: esc</tt><a href="#ne_OW"><sup title="OpenWatcom sources">[3]</sup></a></td></tr>
+<td><tt>FIFRQQ, FJFRQQ</tt> &mdash; <tt>wait; FS: esc</tt><a href="#ne_OW"><sup title="OpenWatcom sources">[4]</sup></a></td></tr>
 <tr>
 <td>&mdash;</td>
-<td><tt>FIGRQQ, FJGRQQ</tt> &mdash; <tt>wait; GS: esc</tt><a href="#ne_OW"><sup title="OpenWatcom sources">[3]</sup></a></td></tr>
+<td><tt>FIGRQQ, FJGRQQ</tt> &mdash; <tt>wait; GS: esc</tt><a href="#ne_OW"><sup title="OpenWatcom sources">[4]</sup></a></td></tr>
 <tr>
 <td>&mdash;</td>
-<td>the sequence <tt>int <tt><sub>x</sub>3E</tt>; byte <tt><sub>x</sub>DC</tt>, <tt><sub>x</sub>01</tt>-<tt><sub>x</sub>08</tt></tt><br>Load 8087 registers to 8086 stack, count specified in byte<a href="#ne_RB"><sup title="Ralf Brown's interrupt list">[4]</sup></a></td></tr>
+<td>the sequence <tt>int <tt><sub>x</sub>3E</tt>; byte <tt><sub>x</sub>DC</tt>, <tt><sub>x</sub>01</tt>-<tt><sub>x</sub>08</tt></tt><br>Load 8087 registers to 8086 stack, count specified in byte<a href="#ne_RB"><sup title="Ralf Brown's interrupt list">[5]</sup></a></td></tr>
 <tr>
 <td>&mdash;</td>
-<td>the sequence <tt>int <tt><sub>x</sub>3E</tt>; byte <tt><sub>x</sub>DE</tt>, <tt><sub>x</sub>01</tt>-<tt><sub>x</sub>08</tt></tt><br>Load 8086 stack to 8087 registers, count specified in byte<a href="#ne_RB"><sup title="Ralf Brown's interrupt list">[4]</sup></a></td></tr>
+<td>the sequence <tt>int <tt><sub>x</sub>3E</tt>; byte <tt><sub>x</sub>DE</tt>, <tt><sub>x</sub>01</tt>-<tt><sub>x</sub>08</tt></tt><br>Load 8086 stack to 8087 registers, count specified in byte<a href="#ne_RB"><sup title="Ralf Brown's interrupt list">[5]</sup></a></td></tr>
 <tr>
 <td>&mdash;</td>
-<td>the sequence <tt>int <tt><sub>x</sub>3E</tt>; byte <tt><sub>x</sub>E0</tt>; nop</tt><br>Round, compare and pop the two top elements on the<br>8087 stack as single precision, store status word in<br>AX and condition bits in FLAGS<a href="#ne_RB"><sup title="Ralf Brown's interrupt list">[4]</sup></a></td></tr>
+<td>the sequence <tt>int <tt><sub>x</sub>3E</tt>; byte <tt><sub>x</sub>E0</tt>; nop</tt><br>Round, compare and pop the two top elements on the<br>8087 stack as single precision, store status word in<br>AX and condition bits in FLAGS<a href="#ne_RB"><sup title="Ralf Brown's interrupt list">[5]</sup></a></td></tr>
 <tr>
 <td>&mdash;</td>
-<td>the sequence <tt>int <tt><sub>x</sub>3E</tt>; byte <tt><sub>x</sub>E2</tt>; nop</tt><br>Round, compare and pop the two top elements on the<br>8087 stack as double precision, store status word in<br>AX and condition bits in FLAGS<a href="#ne_RB"><sup title="Ralf Brown's interrupt list">[4]</sup></a></td></tr>
+<td>the sequence <tt>int <tt><sub>x</sub>3E</tt>; byte <tt><sub>x</sub>E2</tt>; nop</tt><br>Round, compare and pop the two top elements on the<br>8087 stack as double precision, store status word in<br>AX and condition bits in FLAGS<a href="#ne_RB"><sup title="Ralf Brown's interrupt list">[5]</sup></a></td></tr>
 </table>
 </td></tr>
 <tr>
@@ -7158,11 +7177,12 @@
 <ul>
 <li id="ne_WIN3.0">[1] <a href="https://web.archive.org/web/20240422070115/http://bytepointer.com/resources/win16_ne_exe_format_win3.0.htm" target='_blank'>Windows 3.0 16-bit NE Executable Format</a></li>
 <li id="ne_WIN3.1">[2] <a href="https://web.archive.org/web/20240615140011/http://bytepointer.com/resources/win16_ne_exe_format_win3.1.htm" target='_blank'>Windows 3.1 16-bit NE Executable Format</a></li>
-<li id="ne_OW">[3] <a href="https://github.com/open-watcom/open-watcom-v2" target='_blank'>OpenWatcom sources</a></li>
-<li id="ne_RB">[4] <a href="http://www.delorie.com/djgpp/doc/rbinter/ix/" target='_blank'>Ralf Brown's interrupt list</a></li>
-<li id="ne_QB">[5] <a href="http://qbcm.hybd.net/issues/4-1/" target='_blank'>QB CULT MAGAZINE - Vol. 4 Iss. 1 - January 2004</a></li>
-<li id="ne_BETA">[6] <a href="https://betawiki.net/wiki/Windows_1.0_Development_Release_5" target='_blank'>https://betawiki.net/wiki/Windows_1.0_Development_Release_5</a></li>
-<li id="ne_FFENC">[7] <a href="https://ffenc.blogspot.com/2008/04/windows-resource-res-files.html" target='_blank'>File Format Encyclopedia: Windows Resource (.RES) Files</a></li>
+<li id="ne_DOSENC">[3] <a href="https://www.pcjs.org/documents/books/mspl13/msdos/encyclopedia/appendix-k/" target='_blank'>The MS-DOS Encyclopedia: Appendix K: Segmented (New) .EXE File Header Format</a></li>
+<li id="ne_OW">[4] <a href="https://github.com/open-watcom/open-watcom-v2" target='_blank'>OpenWatcom sources</a></li>
+<li id="ne_RB">[5] <a href="http://www.delorie.com/djgpp/doc/rbinter/ix/" target='_blank'>Ralf Brown's interrupt list</a></li>
+<li id="ne_QB">[6] <a href="http://qbcm.hybd.net/issues/4-1/" target='_blank'>QB CULT MAGAZINE - Vol. 4 Iss. 1 - January 2004</a></li>
+<li id="ne_BETA">[7] <a href="https://betawiki.net/wiki/Windows_1.0_Development_Release_5" target='_blank'>https://betawiki.net/wiki/Windows_1.0_Development_Release_5</a></li>
+<li id="ne_FFENC">[8] <a href="https://ffenc.blogspot.com/2008/04/windows-resource-res-files.html" target='_blank'>File Format Encyclopedia: Windows Resource (.RES) Files</a></li>
 </ul>
 <hr/>
 <h1 id="le">Linear executable (LE, LX)</h1>

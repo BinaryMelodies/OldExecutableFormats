@@ -7340,7 +7340,7 @@
 <table border='1'>
 <tr>
 <td><tt>'LE'</tt></td>
-<td>original version<a href="#le_OW"><sup title="OpenWatcom sources">[3]</sup></a><a href="#le_RB"><sup title="Ralf Brown's interrupt list">[4]</sup></a><a href="#le_VXD"><sup title="LINEAR-EXECUTABLE (LE) File Header Layout">[5]</sup></a></td></tr>
+<td>original version<a href="#le_OW"><sup title="OpenWatcom sources">[3]</sup></a><a href="#le_RB"><sup title="Ralf Brown's interrupt list">[4]</sup></a><a href="#le_VXD"><sup title="(.vxd) LINEAR-EXECUTABLE (LE) File Header Layout (new header and object table only)">[6]</sup></a></td></tr>
 <tr>
 <td><tt>'LX'</tt></td>
 <td>OS/2 2.0 optimizations</td></tr>
@@ -7388,22 +7388,22 @@
 <td>Intel 80486 or upward compatible</td></tr>
 <tr>
 <td>0x04</td>
-<td>Intel Pentium (80586) or upward compatible<a href="#le_RB"><sup title="Ralf Brown's interrupt list">[4]</sup></a><a href="#le_VXD"><sup title="LINEAR-EXECUTABLE (LE) File Header Layout">[5]</sup></a></td></tr>
+<td>Intel Pentium (80586) or upward compatible<a href="#le_RB"><sup title="Ralf Brown's interrupt list">[4]</sup></a><a href="#le_LEEXE"><sup title="LINEAR-EXECUTABLE File Header Layout">[5]</sup></a><a href="#le_VXD"><sup title="(.vxd) LINEAR-EXECUTABLE (LE) File Header Layout (new header and object table only)">[6]</sup></a></td></tr>
 <tr>
 <td>0x20</td>
-<td>Intel i860 (N10) or compatible<a href="#le_RB"><sup title="Ralf Brown's interrupt list">[4]</sup></a><a href="#le_VXD"><sup title="LINEAR-EXECUTABLE (LE) File Header Layout">[5]</sup></a></td></tr>
+<td>Intel i860 (N10) or compatible<a href="#le_RB"><sup title="Ralf Brown's interrupt list">[4]</sup></a><a href="#le_LEEXE"><sup title="LINEAR-EXECUTABLE File Header Layout">[5]</sup></a><a href="#le_VXD"><sup title="(.vxd) LINEAR-EXECUTABLE (LE) File Header Layout (new header and object table only)">[6]</sup></a></td></tr>
 <tr>
 <td>0x21</td>
-<td>Intel "N11" or compatible<a href="#le_RB"><sup title="Ralf Brown's interrupt list">[4]</sup></a><a href="#le_VXD"><sup title="LINEAR-EXECUTABLE (LE) File Header Layout">[5]</sup></a></td></tr>
+<td>Intel "N11" or compatible<a href="#le_RB"><sup title="Ralf Brown's interrupt list">[4]</sup></a><a href="#le_LEEXE"><sup title="LINEAR-EXECUTABLE File Header Layout">[5]</sup></a><a href="#le_VXD"><sup title="(.vxd) LINEAR-EXECUTABLE (LE) File Header Layout (new header and object table only)">[6]</sup></a></td></tr>
 <tr>
 <td>0x40</td>
-<td>MIPS I (R2000, R3000) or compatible<a href="#le_RB"><sup title="Ralf Brown's interrupt list">[4]</sup></a><a href="#le_VXD"><sup title="LINEAR-EXECUTABLE (LE) File Header Layout">[5]</sup></a></td></tr>
+<td>MIPS I (R2000, R3000) or compatible<a href="#le_RB"><sup title="Ralf Brown's interrupt list">[4]</sup></a><a href="#le_LEEXE"><sup title="LINEAR-EXECUTABLE File Header Layout">[5]</sup></a><a href="#le_VXD"><sup title="(.vxd) LINEAR-EXECUTABLE (LE) File Header Layout (new header and object table only)">[6]</sup></a></td></tr>
 <tr>
 <td>0x41</td>
-<td>MIPS II (R6000) or compatible<a href="#le_RB"><sup title="Ralf Brown's interrupt list">[4]</sup></a><a href="#le_VXD"><sup title="LINEAR-EXECUTABLE (LE) File Header Layout">[5]</sup></a></td></tr>
+<td>MIPS II (R6000) or compatible<a href="#le_RB"><sup title="Ralf Brown's interrupt list">[4]</sup></a><a href="#le_LEEXE"><sup title="LINEAR-EXECUTABLE File Header Layout">[5]</sup></a><a href="#le_VXD"><sup title="(.vxd) LINEAR-EXECUTABLE (LE) File Header Layout (new header and object table only)">[6]</sup></a></td></tr>
 <tr>
 <td>0x42</td>
-<td>MIPS III (R4000) or compatible<a href="#le_RB"><sup title="Ralf Brown's interrupt list">[4]</sup></a><a href="#le_VXD"><sup title="LINEAR-EXECUTABLE (LE) File Header Layout">[5]</sup></a></td></tr>
+<td>MIPS III (R4000) or compatible<a href="#le_RB"><sup title="Ralf Brown's interrupt list">[4]</sup></a><a href="#le_LEEXE"><sup title="LINEAR-EXECUTABLE File Header Layout">[5]</sup></a><a href="#le_VXD"><sup title="(.vxd) LINEAR-EXECUTABLE (LE) File Header Layout (new header and object table only)">[6]</sup></a></td></tr>
 </table>
 </td></tr>
 <tr>
@@ -7462,6 +7462,9 @@
 <td>Bits 8:9</td>
 <td>Application type
 <table border='1'>
+<tr>
+<td>00</td>
+<td>Unknown<a href="#le_LEEXE"><sup title="LINEAR-EXECUTABLE File Header Layout">[5]</sup></a></td></tr>
 <tr>
 <td>01</td>
 <td>Incompatible with PM windowing</td></tr>
@@ -7537,7 +7540,7 @@
 <td>Size of a single page in bytes. Should be 4096</td></tr>
 <tr>
 <td><tt><sub>x</sub>2C</tt></td>	<td>i32le</td>
-<td>(LE) Byte count of final page<a href="#le_RB"><sup title="Ralf Brown's interrupt list">[4]</sup></a><a href="#le_VXD"><sup title="LINEAR-EXECUTABLE (LE) File Header Layout">[5]</sup></a><br>(LX) Page offset shift for <a href="#le_objpgtbl">Object Page Table</a> entry offsets<a href="#le_IBM92"><sup title="LX - Linear eXecutable Module Format Description">[1]</sup></a><a href="#le_IBM96"><sup title="IBM OS/2 16/32-bit Object Module Format (OMF) and Linear eXecutable Module Format (LX)">[2]</sup></a><a href="#le_RB"><sup title="Ralf Brown's interrupt list">[4]</sup></a></td></tr>
+<td>(LE) Byte count of final page<a href="#le_RB"><sup title="Ralf Brown's interrupt list">[4]</sup></a><a href="#le_VXD"><sup title="(.vxd) LINEAR-EXECUTABLE (LE) File Header Layout (new header and object table only)">[6]</sup></a><br>(LX) Page offset shift for <a href="#le_objpgtbl">Object Page Table</a> entry offsets<a href="#le_IBM92"><sup title="LX - Linear eXecutable Module Format Description">[1]</sup></a><a href="#le_IBM96"><sup title="IBM OS/2 16/32-bit Object Module Format (OMF) and Linear eXecutable Module Format (LX)">[2]</sup></a><a href="#le_RB"><sup title="Ralf Brown's interrupt list">[4]</sup></a></td></tr>
 <tr>
 <td><tt><sub>x</sub>30</tt></td>	<td>i32le</td>
 <td>Size of <a href="#le_fixsect">Fixup Section (resident)</a> in bytes</td></tr>
@@ -7711,6 +7714,24 @@
 <td>Bit 7</td>
 <td>Object has Invalid pages</td></tr>
 <tr>
+<td>Bits 8:9</td>
+<td>(LE) Type<a href="#le_LEEXE"><sup title="LINEAR-EXECUTABLE File Header Layout">[5]</sup></a>
+<table border='1'>
+<tr>
+<td>00</td>
+<td>Normal</td></tr>
+<tr>
+<td>01</td>
+<td>Zero-filled</td></tr>
+<tr>
+<td>02</td>
+<td>Resident</td></tr>
+<tr>
+<td>03</td>
+<td>Resident/contiguous</td></tr>
+</table>
+</td></tr>
+<tr>
 <td>Bit 8</td>
 <td>(LE) Object is Permanent and Swappable<a href="#le_OW"><sup title="OpenWatcom sources">[3]</sup></a><br>(LX) Object has Zero Filled pages (non-Contiguous)<a href="#le_OW"><sup title="OpenWatcom sources">[3]</sup></a><a href="#le_IBM92"><sup title="LX - Linear eXecutable Module Format Description">[1]</sup></a></td></tr>
 <tr>
@@ -7718,7 +7739,7 @@
 <td>(device drivers only) Object is Resident<a href="#le_OW"><sup title="OpenWatcom sources">[3]</sup></a><a href="#le_IBM92"><sup title="LX - Linear eXecutable Module Format Description">[1]</sup></a></td></tr>
 <tr>
 <td>Bit 10</td>
-<td>(device drivers only) Object is Resident and long-lockable<a href="#le_OW"><sup title="OpenWatcom sources">[3]</sup></a><a href="#le_IBM92"><sup title="LX - Linear eXecutable Module Format Description">[1]</sup></a></td></tr>
+<td>(device drivers only) Object is Resident and long-lockable<a href="#le_OW"><sup title="OpenWatcom sources">[3]</sup></a><a href="#le_IBM92"><sup title="LX - Linear eXecutable Module Format Description">[1]</sup></a><a href="#le_LEEXE"><sup title="LINEAR-EXECUTABLE File Header Layout">[5]</sup></a></td></tr>
 <tr>
 <td>Bit 11</td>
 <td>Object is marked as an IBM Microkernel extension<a href="#le_IBM96"><sup title="IBM OS/2 16/32-bit Object Module Format (OMF) and Linear eXecutable Module Format (LX)">[2]</sup></a></td></tr>
@@ -7753,10 +7774,40 @@
 <table border='1' align='center'>
 <tr>
 <td><tt><sub>x</sub>00</tt></td>	<td>i24be</td>
-<td>Index into <a href="#le_fixpgtbl">Fixup Page Table</a><a href="#le_RB"><sup title="Ralf Brown's interrupt list">[4]</sup></a><a href="#le_OW"><sup title="OpenWatcom sources">[3]</sup></a></td></tr>
+<td>Index into <a href="#le_fixpgtbl">Fixup Page Table</a><a href="#le_RB"><sup title="Ralf Brown's interrupt list">[4]</sup></a><a href="#le_OW"><sup title="OpenWatcom sources">[3]</sup></a><a href="#le_LEEXE"><sup title="LINEAR-EXECUTABLE File Header Layout">[5]</sup></a><br>Note: all sources agree that the third byte stores the low order byte.<br><a href="#le_OW"><sup title="OpenWatcom sources">[3]</sup></a> handles this as a 24-bit big endian value.<br><a href="#le_RB"><sup title="Ralf Brown's interrupt list">[4]</sup></a> only documents the second and third bytes, and indicates that the first one is usually 0.<br><a href="#le_LEEXE"><sup title="LINEAR-EXECUTABLE File Header Layout">[5]</sup></a> clarifies that the first two bytes contain the "high page number", but does not detail its structure.</td></tr>
 <tr>
 <td><tt><sub>x</sub>03</tt></td>	<td>i8</td>
-<td>Flags<a href="#le_RB"><sup title="Ralf Brown's interrupt list">[4]</sup></a><a href="#le_OW"><sup title="OpenWatcom sources">[3]</sup></a></td></tr>
+<td>Flags<a href="#le_RB"><sup title="Ralf Brown's interrupt list">[4]</sup></a><a href="#le_OW"><sup title="OpenWatcom sources">[3]</sup></a><a href="#le_LEEXE"><sup title="LINEAR-EXECUTABLE File Header Layout">[5]</sup></a><br>Note: the sources disagree on its format.<br><a href="#le_OW"><sup title="OpenWatcom sources">[3]</sup></a> treats it as identical to LX flags, always generates 0.<br><a href="#le_RB"><sup title="Ralf Brown's interrupt list">[4]</sup></a> only defines values 0 and 3, with 3 being relocations required.<br><a href="#le_LEEXE"><sup title="LINEAR-EXECUTABLE File Header Layout">[5]</sup></a> provides a bit field:
+<table border='1'>
+<tr>
+<td>Bits 0:1</td>
+<td>
+<table border='1'>
+<tr>
+<td>03</td>
+<td>Last page in file</td></tr>
+</table>
+</td></tr>
+<tr>
+<td>Bits 6:7</td>
+<td>
+<table border='1'>
+<tr>
+<td>00</td>
+<td>Legal page</td></tr>
+<tr>
+<td>01</td>
+<td>Iterated page</td></tr>
+<tr>
+<td>02</td>
+<td>Invalid page</td></tr>
+<tr>
+<td>03</td>
+<td>Zero filled page</td></tr>
+</table>
+</td></tr>
+</table>
+</td></tr>
 </table>
 <p>This is the format of an LX entry.</p>
 <table border='1' align='center'>
@@ -7788,6 +7839,9 @@
 <tr>
 <td>05</td>
 <td>Compressed page, offset from Preload pages<a href="#le_IBM96"><sup title="IBM OS/2 16/32-bit Object Module Format (OMF) and Linear eXecutable Module Format (LX)">[2]</sup></a></td></tr>
+<tr>
+<td>08</td>
+<td>M3-packed<a href="#le_OW"><sup title="OpenWatcom sources">[3]</sup></a></td></tr>
 </table>
 </td></tr>
 </table>
@@ -7953,7 +8007,10 @@
 <td>Bit 0</td>
 <td>Exported entry</td></tr>
 <tr>
-<td>Bits 4:7</td>
+<td>Bit 1</td>
+<td>(LE) Segment uses a global/shared data segment<a href="#le_LEEXE"><sup title="LINEAR-EXECUTABLE File Header Layout">[5]</sup></a></td></tr>
+<tr>
+<td>Bits 3:7</td>
 <td>Parameter word count</td></tr>
 </table>
 </td></tr>
@@ -7979,7 +8036,7 @@
 <td>Bit 0</td>
 <td>Exported entry</td></tr>
 <tr>
-<td>Bits 4:7</td>
+<td>Bits 3:7</td>
 <td>Parameter word count</td></tr>
 </table>
 </td></tr>
@@ -8008,7 +8065,10 @@
 <td>Bit 0</td>
 <td>Exported entry</td></tr>
 <tr>
-<td>Bits 4:7</td>
+<td>Bit 1</td>
+<td>(LE) Segment uses a global/shared data segment<a href="#le_LEEXE"><sup title="LINEAR-EXECUTABLE File Header Layout">[5]</sup></a></td></tr>
+<tr>
+<td>Bits 3:7</td>
 <td>Parameter word count</td></tr>
 </table>
 </td></tr>
@@ -8072,7 +8132,7 @@
 <tr>
 <td><a href="#le_impproctbl">Import Procedure Name Table</a></td></tr>
 <tr>
-<td><a href="#le_perpgcks">Per-Page Checksum</a> (LE only)<a href="#le_VXD"><sup title="LINEAR-EXECUTABLE (LE) File Header Layout">[5]</sup></a></td></tr>
+<td><a href="#le_perpgcks">Per-Page Checksum</a> (LE only)<a href="#le_VXD"><sup title="(.vxd) LINEAR-EXECUTABLE (LE) File Header Layout (new header and object table only)">[6]</sup></a></td></tr>
 </table>
 <a id="le_fixpgtbl"/>
 <h3>Fixup Page Table</h2>
@@ -8338,7 +8398,8 @@
 <li id="le_IBM96">[2] <a href="http://www.edm2.com/index.php/IBM_OS/2_16/32-bit_Object_Module_Format_(OMF)_and_Linear_eXecutable_Module_Format_(LX)" target='_blank'>IBM OS/2 16/32-bit Object Module Format (OMF) and Linear eXecutable Module Format (LX)</a></li>
 <li id="le_OW">[3] <a href="https://github.com/open-watcom/open-watcom-v2" target='_blank'>OpenWatcom sources</a></li>
 <li id="le_RB">[4] <a href="http://www.delorie.com/djgpp/doc/rbinter/ix/" target='_blank'>Ralf Brown's interrupt list</a></li>
-<li id="le_VXD">[5] <a href="https://faydoc.tripod.com/formats/exe-LE.htm" target='_blank'>LINEAR-EXECUTABLE (LE) File Header Layout</a></li>
+<li id="le_LEEXE">[5] <a href="https://www.ecsdump.net/?page_id=1151" target='_blank'>LINEAR-EXECUTABLE File Header Layout</a></li>
+<li id="le_VXD">[6] <a href="https://faydoc.tripod.com/formats/exe-LE.htm" target='_blank'>(.vxd) LINEAR-EXECUTABLE (LE) File Header Layout (new header and object table only)</a></li>
 </ul>
 <hr/>
 <h1 id="pe">Portable executable (PE)</h1>

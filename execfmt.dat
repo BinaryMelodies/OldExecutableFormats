@@ -3063,12 +3063,12 @@ Table Offset Info
 		=0x01	Intel 80286 or upward compatible
 		=0x02	Intel 80386 or upward compatible
 		=0x03	Intel 80486 or upward compatible
-		=0x04	Intel Pentium (80586) or upward compatible{RB}{VXD}
-		=0x20	Intel i860 (N10) or compatible{RB}{VXD}
-		=0x21	Intel "N11" or compatible{RB}{VXD}
-		=0x40	MIPS I (R2000, R3000) or compatible{RB}{VXD}
-		=0x41	MIPS II (R6000) or compatible{RB}{VXD}
-		=0x42	MIPS III (R4000) or compatible{RB}{VXD}
+		=0x04	Intel Pentium (80586) or upward compatible{RB}{LEEXE}{VXD}
+		=0x20	Intel i860 (N10) or compatible{RB}{LEEXE}{VXD}
+		=0x21	Intel "N11" or compatible{RB}{LEEXE}{VXD}
+		=0x40	MIPS I (R2000, R3000) or compatible{RB}{LEEXE}{VXD}
+		=0x41	MIPS II (R6000) or compatible{RB}{LEEXE}{VXD}
+		=0x42	MIPS III (R4000) or compatible{RB}{LEEXE}{VXD}
 @0A	i16le	OS Type
 		=0x00	Unknown
 		=0x01	OS/2
@@ -3085,6 +3085,7 @@ Table Offset Info
 		%4	Internal fixups have been applied. If set, each object has a preferred address at which it can be loaded without internal fixups
 		%5	External fixups have been applied
 		%8:9	Application type
+			=00	Unknown{LEEXE}
 			=01	Incompatible with PM windowing
 			=02	Compatible with PM windowing
 			=03	Uses PM windowing API
@@ -3172,9 +3173,14 @@ SECTION 1/objtbl:Object Table
 		%5	Shared
 		%6	Object has Preload pages
 		%7	Object has Invalid pages
+		%8:9	(LE) Type{LEEXE}
+			=00	Normal
+			=01	Zero-filled
+			=02	Resident
+			=03	Resident/contiguous
 		%8	(LE) Object is Permanent and Swappable{OW}<br>(LX) Object has Zero Filled pages (non-Contiguous){OW}{IBM92}
 		%9	(device drivers only) Object is Resident{OW}{IBM92}
-		%10	(device drivers only) Object is Resident and long-lockable{OW}{IBM92}
+		%10	(device drivers only) Object is Resident and long-lockable{OW}{IBM92}{LEEXE}
 		%11	Object is marked as an IBM Microkernel extension{IBM96}
 		%12	(x86 specific) 16:16 alias required
 		%13	(x86 specific) the Big bit for data segments and the Default bit for code segments
@@ -3190,8 +3196,15 @@ SECTION 1/objpgtbl:Object Page Table
 
 > This is the format of an LE entry.
 
-@00	i24be	Index into {fixpgtbl}{RB}{OW}
-@03	i8	Flags{RB}{OW}
+@00	i24be	Index into {fixpgtbl}{RB}{OW}{LEEXE}<br>Note: all sources agree that the third byte stores the low order byte.<br>{OW} handles this as a 24-bit big endian value.<br>{RB} only documents the second and third bytes, and indicates that the first one is usually 0.<br>{LEEXE} clarifies that the first two bytes contain the "high page number", but does not detail its structure.
+@03	i8	Flags{RB}{OW}{LEEXE}<br>Note: the sources disagree on its format.<br>{OW} treats it as identical to LX flags, always generates 0.<br>{RB} only defines values 0 and 3, with 3 being relocations required.<br>{LEEXE} provides a bit field:
+		%0:1
+			=03	Last page in file
+		%6:7
+			=00	Legal page
+			=01	Iterated page
+			=02	Invalid page
+			=03	Zero filled page
 
 > This is the format of an LX entry.
 
@@ -3204,6 +3217,7 @@ SECTION 1/objpgtbl:Object Page Table
 		=03	Zero filled page
 		=04	Range of pages
 		=05	Compressed page, offset from Preload pages{IBM96}
+		=08	M3-packed{OW}
 
 > The two formats encode different information. The LE format contains the offset into the fixup page table. For LX, the fixup page table goes in parallel with the object page table, and each entry corresponds to the accompanying other entry.
 
@@ -3276,7 +3290,8 @@ SECTION 2/16ent:16-bit entry
 
 @00	i8	Flags
 		%0	Exported entry
-		%4:7	Parameter word count
+		%1	(LE) Segment uses a global/shared data segment{LEEXE}
+		%3:7	Parameter word count
 @01	i16le	Offset in object
 
 SECTION 2/286ent:286 call gate entry
@@ -3289,7 +3304,7 @@ SECTION 2/286ent:286 call gate entry
 
 @00	i8	Flags
 		%0	Exported entry
-		%4:7	Parameter word count
+		%3:7	Parameter word count
 @01	i16le	Offset in object
 @03	i16le	Call gate selector, reserved
 
@@ -3303,7 +3318,8 @@ SECTION 2/32ent:32-bit entry
 
 @00	i8	Flags
 		%0	Exported entry
-		%4:7	Parameter word count
+		%1	(LE) Segment uses a global/shared data segment{LEEXE}
+		%3:7	Parameter word count
 @01	i32le	Offset in object
 
 SECTION 2/forwent:Forwarder entry
@@ -3457,7 +3473,8 @@ REFERENCE {IBM92} "LX - Linear eXecutable Module Format Description" http://www.
 REFERENCE {IBM96} "IBM OS/2 16/32-bit Object Module Format (OMF) and Linear eXecutable Module Format (LX)" http://www.edm2.com/index.php/IBM_OS/2_16/32-bit_Object_Module_Format_(OMF)_and_Linear_eXecutable_Module_Format_(LX)
 REFERENCE {OW} "OpenWatcom sources" https://github.com/open-watcom/open-watcom-v2
 REFERENCE {RB} "Ralf Brown's interrupt list" http://www.delorie.com/djgpp/doc/rbinter/ix/
-REFERENCE {VXD} "LINEAR-EXECUTABLE (LE) File Header Layout" https://faydoc.tripod.com/formats/exe-LE.htm
+REFERENCE {LEEXE} "LINEAR-EXECUTABLE File Header Layout" https://www.ecsdump.net/?page_id=1151
+REFERENCE {VXD} "(.vxd) LINEAR-EXECUTABLE (LE) File Header Layout (new header and object table only)" https://faydoc.tripod.com/formats/exe-LE.htm
 
 ######## PE
 

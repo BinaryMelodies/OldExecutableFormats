@@ -4579,7 +4579,7 @@
 <td>=0</td></tr>
 <tr>
 <td><tt><sub>x</sub>0A</tt></td>	<td>i16le</td>
-<td>Base address of code group, only used with LINK-80</td></tr>
+<td>The length of the code group, only used for <tt>.spr</tt> in banked systems<br>The data segment is aligned to the following <tt><sub>x</sub>0100</tt> byte page<a href="#prl_PUG"><sup title="Digital Research Programmer's Utilities Guide For the CP/M Family of Operating Systems (1982-09)">[2]</sup></a><br>(<a href="#prl_JE"><sup title="PRL file format (John Elliot's homepage)">[1]</sup></a> claims this is the base address of the code group, this could not be verified by executing LINK)</td></tr>
 <tr>
 <td><tt><sub>x</sub>0C</tt></td>	<td>c[0xF4]</td>
 <td>Reserved, must be 0</td></tr>
@@ -4592,6 +4592,7 @@
 <h2>References</h1>
 <ul>
 <li id="prl_JE">[1] <a href="http://www.seasip.info/Cpm/prl.html" target='_blank'>PRL file format (John Elliot's homepage)</a></li>
+<li>[2] Digital Research Programmer's Utilities Guide For the CP/M Family of Operating Systems (1982-09)</li>
 </ul>
 <hr/>
 <h1 id="cpm3">CP/M-80 Plus executable (.COM)</h1>

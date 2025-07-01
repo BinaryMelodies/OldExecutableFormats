@@ -2049,7 +2049,7 @@ SECTION header:Executable Header
 @06	i8	=0
 @07	i16le	Load address, only used for <tt>.ovl</tt>, 0 for other files.<br><tt>.prl</tt> and <tt>.rsp</tt> files are assembled to be loaded at 0x0100, <tt>.spr</tt> files at 0x0000.
 @09	i8	=0
-@0A	i16le	Base address of code group, only used with LINK-80
+@0A	i16le	The length of the code group, only used for <tt>.spr</tt> in banked systems<br>The data segment is aligned to the following 0x0100 byte page{PUG}<br>({JE} claims this is the base address of the code group, this could not be verified by executing LINK)
 @0C	c[0xF4]	Reserved, must be 0
 
 SECTION relocs:Relocation information
@@ -2059,6 +2059,7 @@ SECTION relocs:Relocation information
 > The first byte of the image corresponds to the most significant bit of the first byte of the relocations.
 
 REFERENCE {JE} "PRL file format (John Elliot's homepage)" http://www.seasip.info/Cpm/prl.html
+REFERENCE {PUG} "Digital Research Programmer's Utilities Guide For the CP/M Family of Operating Systems (1982-09)"
 
 ######## CPM3
 

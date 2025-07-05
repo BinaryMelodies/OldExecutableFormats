@@ -2143,10 +2143,17 @@ SECTION header:Executable Header
 		=0xFE	{fastload}{OWN}
 @5A	c[6]	Reserved
 @60	c[0x10]	(FlexOS only): {srtlid}, present for shared run-time libraries{FLEXOS}
-@70	c[0x0B]	Reserved
+@70	c[0x0A]	Reserved
+@7A	i8	Bit field
+		%0	F1, when the program opens a file in locked mode, other programs may also open it{CDOSRG}{OWN}
+		%1	F2, program may access a file even after closing it{CDOSRG}{OWN}
+		%2	F3, ignore checksum errors on closing a file, used when program modifies the FCB before closing it{CDOSRG}{OWN}
+		%3	F4, ignore checksum errors on reading or writing a file, used when program modifies the FCB before closing it{CDOSRG}{OWN}
 @7B	i16le	Offset to {rsxindex} in 128 byte records{JE}
 @7D	i16le	Offset to {relocs} in 128 byte records
 @7F	i8	Bit field
+		%1	Set when the program cannot be run in banked memory{CDOSRG}{OWN}
+		%2	The program uses MP/M-86 record locking functions instead of Concurrent DOS ones{CDOSRG}{OWN}
 		%3	Must be suspended when running in background, used for applications with direct video access{CDOSXM}
 		%4	This is an RSX (system extension) file, not a CMD (command) file{JE}
 		%5:6	8087 usage
@@ -2186,7 +2193,7 @@ SECTION srtl:Shared run-time library group
 @00	c[8]	{srtlid}
 @10	i16le	Number of relocations for this library (0){POSTLINK}
 @12	i16le	Index of first selector referencing this library{POSTLINK}
-@14	i16le	=1 (unknown){POSTLINK}
+@14	i16le	unknown{POSTLINK}
 
 SECTION fastload:FASTLOAD group
 
@@ -2261,6 +2268,7 @@ IP	0x0100	0x0000
 
 REFERENCE {CPMSG} "CP/M-86 System Guide" http://www.bitsavers.org/pdf/digitalResearch/cpm-86/CPM-86_System_Guide_Jun83.pdf
 REFERENCE {CDOSXM} "Concurrent DOS Programmer's Guide" http://bitsavers.org/pdf/digitalResearch/concurrent/Concurrent_DOS_Programmers_Guide_XM_6.0_386_2.0_1987.pdf
+REFERENCE {CDOSRG} "Concurrent DOS Reference Guide" http://bitsavers.org/pdf/digitalResearch/concurrent/1126-2064-001_Concurrent_DOS_386_Reference_Guide_Nov87.pdf
 REFERENCE {JE} "CP/M-86 executables (.CMD) (John Elliot's homepage)" http://www.seasip.info/Cpm/cmdfile.html
 REFERENCE {FLEXOS} "FlexOS 286 Supplement" http://bitsavers.org/pdf/digitalResearch/flexos/flexos_286/FlexOS_Supplement_for_Intel_iAPX_286-based_Computers_198611.pdf
 REFERENCE {POSTLINK} "POSTLINK.EXE"

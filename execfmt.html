@@ -4817,7 +4817,7 @@
 <td>Auxiliary 3 (not FlexOS)</td></tr>
 <tr>
 <td>0x08</td>
-<td>Auxiliary 4 (not FlexOS)<br>Relocations<a href="#cmd_FLEXOS"><sup title="FlexOS 286 Supplement">[4]</sup></a> (FlexOS, group is optional)</td></tr>
+<td>Auxiliary 4 (not FlexOS)<br>Relocations<a href="#cmd_FLEXOS"><sup title="FlexOS 286 Supplement">[5]</sup></a> (FlexOS, group is optional)</td></tr>
 <tr>
 <td>0x09</td>
 <td>Pure code, can be shared between processes (loaded into CS)</td></tr>
@@ -4832,7 +4832,7 @@
 <td>FASTLOAD group descriptor (must appear at <tt><sub>x</sub>51</tt>)</td></tr>
 <tr>
 <td>0xFF</td>
-<td>Shared run-time library group descriptor (must appear at <tt><sub>x</sub>48</tt>)<a href="#cmd_FLEXOS"><sup title="FlexOS 286 Supplement">[4]</sup></a></td></tr>
+<td>Shared run-time library group descriptor (must appear at <tt><sub>x</sub>48</tt>)<a href="#cmd_FLEXOS"><sup title="FlexOS 286 Supplement">[5]</sup></a></td></tr>
 </table>
 </td></tr>
 <tr>
@@ -4855,7 +4855,7 @@
 <table border='1'>
 <tr>
 <td>0xFF</td>
-<td><a href="#cmd_srtl">Shared run-time library group</a> present, program includes shared libraries<a href="#cmd_FLEXOS"><sup title="FlexOS 286 Supplement">[4]</sup></a> (the group sizes seem to be filled<a href="#cmd_OWN"><sup title="own research">[6]</sup></a>)</td></tr>
+<td><a href="#cmd_srtl">Shared run-time library group</a> present, program includes shared libraries<a href="#cmd_FLEXOS"><sup title="FlexOS 286 Supplement">[5]</sup></a> (the group sizes seem to be filled<a href="#cmd_OWN"><sup title="own research">[7]</sup></a>)</td></tr>
 </table>
 </td></tr>
 <tr>
@@ -4864,7 +4864,7 @@
 <table border='1'>
 <tr>
 <td>0xFE</td>
-<td><a href="#cmd_fastload">FASTLOAD group</a><a href="#cmd_OWN"><sup title="own research">[6]</sup></a></td></tr>
+<td><a href="#cmd_fastload">FASTLOAD group</a><a href="#cmd_OWN"><sup title="own research">[7]</sup></a></td></tr>
 </table>
 </td></tr>
 <tr>
@@ -4872,13 +4872,31 @@
 <td>Reserved</td></tr>
 <tr>
 <td><tt><sub>x</sub>60</tt></td>	<td>c[0x10]</td>
-<td>(FlexOS only): <a href="#cmd_srtlid">SRTL identifier</a>, present for shared run-time libraries<a href="#cmd_FLEXOS"><sup title="FlexOS 286 Supplement">[4]</sup></a></td></tr>
+<td>(FlexOS only): <a href="#cmd_srtlid">SRTL identifier</a>, present for shared run-time libraries<a href="#cmd_FLEXOS"><sup title="FlexOS 286 Supplement">[5]</sup></a></td></tr>
 <tr>
-<td><tt><sub>x</sub>70</tt></td>	<td>c[0x0B]</td>
+<td><tt><sub>x</sub>70</tt></td>	<td>c[0x0A]</td>
 <td>Reserved</td></tr>
 <tr>
+<td><tt><sub>x</sub>7A</tt></td>	<td>i8</td>
+<td>Bit field
+<table border='1'>
+<tr>
+<td>Bit 0</td>
+<td>F1, when the program opens a file in locked mode, other programs may also open it<a href="#cmd_CDOSRG"><sup title="Concurrent DOS Reference Guide">[3]</sup></a><a href="#cmd_OWN"><sup title="own research">[7]</sup></a></td></tr>
+<tr>
+<td>Bit 1</td>
+<td>F2, program may access a file even after closing it<a href="#cmd_CDOSRG"><sup title="Concurrent DOS Reference Guide">[3]</sup></a><a href="#cmd_OWN"><sup title="own research">[7]</sup></a></td></tr>
+<tr>
+<td>Bit 2</td>
+<td>F3, ignore checksum errors on closing a file, used when program modifies the FCB before closing it<a href="#cmd_CDOSRG"><sup title="Concurrent DOS Reference Guide">[3]</sup></a><a href="#cmd_OWN"><sup title="own research">[7]</sup></a></td></tr>
+<tr>
+<td>Bit 3</td>
+<td>F4, ignore checksum errors on reading or writing a file, used when program modifies the FCB before closing it<a href="#cmd_CDOSRG"><sup title="Concurrent DOS Reference Guide">[3]</sup></a><a href="#cmd_OWN"><sup title="own research">[7]</sup></a></td></tr>
+</table>
+</td></tr>
+<tr>
 <td><tt><sub>x</sub>7B</tt></td>	<td>i16le</td>
-<td>Offset to <a href="#cmd_rsxindex">RSX index</a> in 128 byte records<a href="#cmd_JE"><sup title="CP/M-86 executables (.CMD) (John Elliot's homepage)">[3]</sup></a></td></tr>
+<td>Offset to <a href="#cmd_rsxindex">RSX index</a> in 128 byte records<a href="#cmd_JE"><sup title="CP/M-86 executables (.CMD) (John Elliot's homepage)">[4]</sup></a></td></tr>
 <tr>
 <td><tt><sub>x</sub>7D</tt></td>	<td>i16le</td>
 <td>Offset to <a href="#cmd_relocs">Relocation data</a> in 128 byte records</td></tr>
@@ -4887,11 +4905,17 @@
 <td>Bit field
 <table border='1'>
 <tr>
+<td>Bit 1</td>
+<td>Set when the program cannot be run in banked memory<a href="#cmd_CDOSRG"><sup title="Concurrent DOS Reference Guide">[3]</sup></a><a href="#cmd_OWN"><sup title="own research">[7]</sup></a></td></tr>
+<tr>
+<td>Bit 2</td>
+<td>The program uses MP/M-86 record locking functions instead of Concurrent DOS ones<a href="#cmd_CDOSRG"><sup title="Concurrent DOS Reference Guide">[3]</sup></a><a href="#cmd_OWN"><sup title="own research">[7]</sup></a></td></tr>
+<tr>
 <td>Bit 3</td>
 <td>Must be suspended when running in background, used for applications with direct video access<a href="#cmd_CDOSXM"><sup title="Concurrent DOS Programmer's Guide">[2]</sup></a></td></tr>
 <tr>
 <td>Bit 4</td>
-<td>This is an RSX (system extension) file, not a CMD (command) file<a href="#cmd_JE"><sup title="CP/M-86 executables (.CMD) (John Elliot's homepage)">[3]</sup></a></td></tr>
+<td>This is an RSX (system extension) file, not a CMD (command) file<a href="#cmd_JE"><sup title="CP/M-86 executables (.CMD) (John Elliot's homepage)">[4]</sup></a></td></tr>
 <tr>
 <td>Bits 5:6</td>
 <td>8087 usage
@@ -4915,7 +4939,7 @@
 </table>
 <a id="cmd_srtlid"/>
 <h3>SRTL identifier</h2>
-<p>This record can be found in the header as well as in the Shared runtime library group.<a href="#cmd_FLEXOS"><sup title="FlexOS 286 Supplement">[4]</sup></a></p>
+<p>This record can be found in the header as well as in the Shared runtime library group.<a href="#cmd_FLEXOS"><sup title="FlexOS 286 Supplement">[5]</sup></a></p>
 <table border='1' align='center'>
 <tr>
 <td><tt><sub>x</sub>00</tt></td>	<td>c[8]</td>
@@ -4932,7 +4956,7 @@
 </table>
 <a id="cmd_srtl"/>
 <h2>Shared run-time library group</h1>
-<p>This group stores the shared run-time libraries required for execution.<a href="#cmd_FLEXOS"><sup title="FlexOS 286 Supplement">[4]</sup></a></p>
+<p>This group stores the shared run-time libraries required for execution.<a href="#cmd_FLEXOS"><sup title="FlexOS 286 Supplement">[5]</sup></a></p>
 <table border='1' align='center'>
 <tr>
 <td><tt><sub>x</sub>00</tt></td>	<td>i16le</td>
@@ -4957,30 +4981,30 @@
 <td><a href="#cmd_srtlid">SRTL identifier</a></td></tr>
 <tr>
 <td><tt><sub>x</sub>10</tt></td>	<td>i16le</td>
-<td>Number of relocations for this library (0)<a href="#cmd_POSTLINK"><sup title="POSTLINK.EXE">[5]</sup></a></td></tr>
+<td>Number of relocations for this library (0)<a href="#cmd_POSTLINK"><sup title="POSTLINK.EXE">[6]</sup></a></td></tr>
 <tr>
 <td><tt><sub>x</sub>12</tt></td>	<td>i16le</td>
-<td>Index of first selector referencing this library<a href="#cmd_POSTLINK"><sup title="POSTLINK.EXE">[5]</sup></a></td></tr>
+<td>Index of first selector referencing this library<a href="#cmd_POSTLINK"><sup title="POSTLINK.EXE">[6]</sup></a></td></tr>
 <tr>
 <td><tt><sub>x</sub>14</tt></td>	<td>i16le</td>
-<td>=1 (unknown)<a href="#cmd_POSTLINK"><sup title="POSTLINK.EXE">[5]</sup></a></td></tr>
+<td>unknown<a href="#cmd_POSTLINK"><sup title="POSTLINK.EXE">[6]</sup></a></td></tr>
 </table>
 <a id="cmd_fastload"/>
 <h2>FASTLOAD group</h1>
-<p>The FASTLOAD group is typically <tt><sub>x</sub>650</tt> bytes, it starts with an 8 byte header:<a href="#cmd_OWN"><sup title="own research">[6]</sup></a></p>
+<p>The FASTLOAD group is typically <tt><sub>x</sub>650</tt> bytes, it starts with an 8 byte header:<a href="#cmd_OWN"><sup title="own research">[7]</sup></a></p>
 <table border='1' align='center'>
 <tr>
 <td><tt><sub>x</sub>00</tt></td>	<td>i16le</td>
-<td>Maximum allowed LDT entries<a href="#cmd_POSTLINK"><sup title="POSTLINK.EXE">[5]</sup></a>, typically <tt><sub>x</sub>C8</tt> or 2 after the first free index after LDT</td></tr>
+<td>Maximum allowed LDT entries<a href="#cmd_POSTLINK"><sup title="POSTLINK.EXE">[6]</sup></a>, typically <tt><sub>x</sub>C8</tt> or 2 after the first free index after LDT</td></tr>
 <tr>
 <td><tt><sub>x</sub>02</tt></td>	<td>i16le</td>
-<td>First free index after LDT<a href="#cmd_POSTLINK"><sup title="POSTLINK.EXE">[5]</sup></a></td></tr>
+<td>First free index after LDT<a href="#cmd_POSTLINK"><sup title="POSTLINK.EXE">[6]</sup></a></td></tr>
 <tr>
 <td><tt><sub>x</sub>04</tt></td>	<td>i16le</td>
-<td>Index base<a href="#cmd_POSTLINK"><sup title="POSTLINK.EXE">[5]</sup></a>, typically <tt><sub>x</sub>0C</tt></td></tr>
+<td>Index base<a href="#cmd_POSTLINK"><sup title="POSTLINK.EXE">[6]</sup></a>, typically <tt><sub>x</sub>0C</tt></td></tr>
 <tr>
 <td><tt><sub>x</sub>06</tt></td>	<td>i16le</td>
-<td>First used index<a href="#cmd_POSTLINK"><sup title="POSTLINK.EXE">[5]</sup></a>, typically <tt><sub>x</sub>00</tt> or <tt><sub>x</sub>0C</tt></td></tr>
+<td>First used index<a href="#cmd_POSTLINK"><sup title="POSTLINK.EXE">[6]</sup></a>, typically <tt><sub>x</sub>00</tt> or <tt><sub>x</sub>0C</tt></td></tr>
 </table>
 <p>Then a descriptor table follows, similar to a 286 LDT structure.</p>
 <table border='1' align='center'>
@@ -4992,14 +5016,14 @@
 <td>Base address of first byte in 286 segment</td></tr>
 <tr>
 <td><tt><sub>x</sub>05</tt></td>	<td>i8</td>
-<td>Segment group type of 286 segment<a href="#cmd_POSTLINK"><sup title="POSTLINK.EXE">[5]</sup></a><br>SRTL fixups also reference the code group, with 0 for the limit</td></tr>
+<td>Segment group type of 286 segment<a href="#cmd_POSTLINK"><sup title="POSTLINK.EXE">[6]</sup></a><br>SRTL fixups also reference the code group, with 0 for the limit</td></tr>
 <tr>
 <td><tt><sub>x</sub>06</tt></td>	<td>i16le</td>
 <td>0</td></tr>
 </table>
 <a id="cmd_relocs"/>
 <h2>Relocation data</h1>
-<p>The relocation data appears on a 128 byte record boundary, and it is a collection of 4 byte structures.<a href="#cmd_JE"><sup title="CP/M-86 executables (.CMD) (John Elliot's homepage)">[3]</sup></a></p>
+<p>The relocation data appears on a 128 byte record boundary, and it is a collection of 4 byte structures.<a href="#cmd_JE"><sup title="CP/M-86 executables (.CMD) (John Elliot's homepage)">[4]</sup></a></p>
 <table border='1' align='center'>
 <tr>
 <td><tt><sub>x</sub>00</tt></td>	<td>i8</td>
@@ -5020,7 +5044,7 @@
 <td><tt><sub>x</sub>03</tt></td>	<td>i8</td>
 <td>Byte offset from paragraph within source group</td></tr>
 </table>
-<p>If there are any shared libraries, they can also have relocations. Each group of shared library relocations is separated by a 4 byte sequence of 0 that terminates the previous list. The format for these relocations is almost identical to those of internal relocations.<a href="#cmd_OWN"><sup title="own research">[6]</sup></a></p>
+<p>If there are any shared libraries, they can also have relocations. Each group of shared library relocations is separated by a 4 byte sequence of 0 that terminates the previous list. The format for these relocations is almost identical to those of internal relocations.<a href="#cmd_OWN"><sup title="own research">[7]</sup></a></p>
 <table border='1' align='center'>
 <tr>
 <td><tt><sub>x</sub>00</tt></td>	<td>i8</td>
@@ -5043,7 +5067,7 @@
 </table>
 <a id="cmd_rsxindex"/>
 <h2>RSX index</h1>
-<p>The RSX index may contain up to 7 RSX record entries plus a terminator.<a href="#cmd_JE"><sup title="CP/M-86 executables (.CMD) (John Elliot's homepage)">[3]</sup></a></p>
+<p>The RSX index may contain up to 7 RSX record entries plus a terminator.<a href="#cmd_JE"><sup title="CP/M-86 executables (.CMD) (John Elliot's homepage)">[4]</sup></a></p>
 <table border='1' align='center'>
 <tr>
 <td><tt><sub>x</sub>00</tt></td>	<td>i16le</td>
@@ -5066,7 +5090,7 @@
 </table>
 <a id="cmd_node59"/>
 <h2>CP/M-86 runtime layout</h1>
-<p>Documentation<a href="#cmd_CPMSG"><sup title="CP/M-86 System Guide">[1]</sup></a> describe 3 modes of operation: 8080 model, small model and compact model. However the real difference is between the 8080 model and the other models. The 8080 model is selected when there is no data group. In CP/M-86, only a single code group is permitted.<a href="#cmd_OWN"><sup title="own research">[6]</sup></a> Later versions allow other groups as well.</p>
+<p>Documentation<a href="#cmd_CPMSG"><sup title="CP/M-86 System Guide">[1]</sup></a> describe 3 modes of operation: 8080 model, small model and compact model. However the real difference is between the 8080 model and the other models. The 8080 model is selected when there is no data group. In CP/M-86, only a single code group is permitted.<a href="#cmd_OWN"><sup title="own research">[7]</sup></a> Later versions allow other groups as well.</p>
 <p>When starting the program, the first 256 bytes of one of the groups is overwritten by a structure called the zero page. For an 8080 model program, it is the first 256 bytes of the code group, otherwise the data group.</p>
 <p>Then the segment registers are initialized: the CS to the start segment of the code group, the DS to the start of the data group if available, otherwise CS, the ES to the start of the extra group if available, otherwise DS. The IP is loaded with <tt><sub>x</sub>0100</tt> for 8080 model programs and <tt><sub>x</sub>0000</tt> otherwise. Notably, the SS:SP registers are not loaded with the stack segment, the rationale being that the actual length of the stack group cannot be known at compile time, and it might exceed 64 KiB. Instead it points to a small memory range allocated by the system.</p>
 <table border='1' align='center'>
@@ -5104,10 +5128,11 @@
 <ul>
 <li id="cmd_CPMSG">[1] <a href="http://www.bitsavers.org/pdf/digitalResearch/cpm-86/CPM-86_System_Guide_Jun83.pdf" target='_blank'>CP/M-86 System Guide</a></li>
 <li id="cmd_CDOSXM">[2] <a href="http://bitsavers.org/pdf/digitalResearch/concurrent/Concurrent_DOS_Programmers_Guide_XM_6.0_386_2.0_1987.pdf" target='_blank'>Concurrent DOS Programmer's Guide</a></li>
-<li id="cmd_JE">[3] <a href="http://www.seasip.info/Cpm/cmdfile.html" target='_blank'>CP/M-86 executables (.CMD) (John Elliot's homepage)</a></li>
-<li id="cmd_FLEXOS">[4] <a href="http://bitsavers.org/pdf/digitalResearch/flexos/flexos_286/FlexOS_Supplement_for_Intel_iAPX_286-based_Computers_198611.pdf" target='_blank'>FlexOS 286 Supplement</a></li>
-<li>[5] POSTLINK.EXE</li>
-<li>[6] own research</li>
+<li id="cmd_CDOSRG">[3] <a href="http://bitsavers.org/pdf/digitalResearch/concurrent/1126-2064-001_Concurrent_DOS_386_Reference_Guide_Nov87.pdf" target='_blank'>Concurrent DOS Reference Guide</a></li>
+<li id="cmd_JE">[4] <a href="http://www.seasip.info/Cpm/cmdfile.html" target='_blank'>CP/M-86 executables (.CMD) (John Elliot's homepage)</a></li>
+<li id="cmd_FLEXOS">[5] <a href="http://bitsavers.org/pdf/digitalResearch/flexos/flexos_286/FlexOS_Supplement_for_Intel_iAPX_286-based_Computers_198611.pdf" target='_blank'>FlexOS 286 Supplement</a></li>
+<li>[6] POSTLINK.EXE</li>
+<li>[7] own research</li>
 </ul>
 <hr/>
 <h1 id="68k">CP/M-68K executable (.68K)</h1>

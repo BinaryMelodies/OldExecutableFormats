@@ -236,6 +236,7 @@
 .title_comment:(.68K)
 .title_target:Atari etc.
 .ext:<tt>.68k</tt> CP/M-68K and Concurrent DOS 68K executables (Concurrent DOS also uses COFF)
+.ext:<tt>.rel</tt> CP/M-68K relocatable executables
 .ext:<tt>.prg</tt> for GEMDOS text applications, TOS graphical applications
 .ext:<tt>.app</tt> for GEMDOS and Atari TOS graphical applications
 .ext:<tt>.acc</tt> for GEMDOS and Atari TOS graphical accessories

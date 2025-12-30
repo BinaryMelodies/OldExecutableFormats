@@ -1265,13 +1265,28 @@ SECTION relocs:Relocation information
 
 @00	i32	<tt>r_vaddr</tt> - Virtual address of reference
 @04	i32	<tt>r_symndx</tt> - Symbol table index
-@08	i16	<tt>r_type</tt> - Symbol type
+@08	i16	<tt>r_type</tt> - Relocation type
 		0x00	<tt>R_ABS</tt> - Absolute reference, no relocation necessary{SCO}
-		0x01	<tt>R_DIR16</tt> - (80286 only) Direct 16-bit reference to symbol's virtual address{SCO}
-		0x02	<tt>R_REL16</tt> - (80286 only) PC-relative 16-bit reference to symbol's virtual address{SCO}
-		0x06	<tt>R_DIR32</tt> - Direct 32-bit reference to symbol's virtual address{SCO}<br><tt>RELOC_ADDR32</tt> for DJGPP{DJGPP}
-		0x09	<tt>R_SEG12</tt> - (80286 only) Direct 16-bit reference to symbol's segment-selector bits of a 32-bit virtual address{SCO}
-		0x14	<tt>R_PCRLONG</tt> - (80386 only) PC-relative 32-bit reference to symbol's virtual address{SCO}<br><tt>RELOC_REL32</tt> for DJGPP{DJGPP}
+		0x01	<tt>R_DIR16</tt> - (8086/80286 only) Direct 16-bit reference to symbol's virtual address{SCO}
+		0x02	<tt>R_REL16</tt> - (8086/80286 only) PC-relative 16-bit reference to symbol's virtual address{SCO}
+		0x03	<tt>R_IND16</tt> - (8086 only) Indirect 16-bit reference via transfer vector
+		0x04	<tt>R_DIR24</tt> - (WE32K only) Direct 24-bit reference to symbol's virtual address
+		0x05	<tt>R_REL24</tt> - (WE32K only) PC-relative 24-bit reference to symbol's virtual address
+		0x06	<tt>R_DIR32</tt> - (80286/80386/WE32K) Direct 32-bit reference to symbol's virtual address{SCO}<br><tt>RELOC_ADDR32</tt> for DJGPP{DJGPP}
+		0x07	<tt>R_OFF8</tt> - (8086 only) Lower 8 bits of symbol's virtual address
+		0x08	<tt>R_OFF16</tt> - (8086 only) Higher 8 bits of symbol's 16-bit virtual address
+		0x09	<tt>R_SEG12</tt> - (8086/80286 only) Direct 16-bit reference to symbol's segment-selector bits of a 32-bit virtual address{SCO}
+		0x0A	<tt>R_DIR32S</tt> - (WE32K only) Byte swapped direct 32-bit reference to symbol's virtual address
+		0x0B	<tt>R_AUX</tt> - (8086 only) Auxiliary relocation (details unknown)
+		0x0C	<tt>R_OPT16</tt> - (WE32K only) Optimized indirect 16-bit reference via transfer vector
+		0x0D	<tt>R_IND24</tt> - (WE32K only) Indirect 24-bit reference via transfer vector
+		0x0E	<tt>R_IND32</tt> - (WE32K only) Indirect 32-bit reference via transfer vector
+		0x0F	<tt>R_RELBYTE</tt> - (VAX/68K only) Direct 8-bit reference ("symbol relative") to symbol's virtual address
+		0x10	<tt>R_RELWORD</tt> - (VAX/68K only) Direct 16-bit reference ("symbol relative") to symbol's virtual address
+		0x11	<tt>R_RELLONG</tt> - (VAX/68K only) Direct 32-bit reference ("symbol relative") to symbol's virtual address
+		0x12	<tt>R_PCRBYTE</tt> - (VAX/68K only) PC-relative 8-bit reference to symbol's virtual address
+		0x13	<tt>R_PCRWORD</tt> - (VAX/68K only) PC-relative 16-bit reference to symbol's virtual address
+		0x14	<tt>R_PCRLONG</tt> - (80386/VAX/68K) PC-relative 32-bit reference to symbol's virtual address{SCO}<br><tt>RELOC_REL32</tt> for DJGPP{DJGPP}
 
 SECTION 1/:Concurrent DOS 68K relocation information
 
@@ -3206,8 +3221,8 @@ SECTION 1/objpgtbl:Object Page Table
 
 > This is the format of an LE entry.
 
-@00	i24be	Index into {fixpgtbl}{RB}{OW}{LEEXE}<br>Note: all sources agree that the third byte stores the low order byte.<br>{OW} handles this as a 24-bit big endian value.<br>{RB} only documents the second and third bytes, and indicates that the first one is usually 0.<br>{LEEXE} clarifies that the first two bytes contain the "high page number", but does not detail its structure.
-@03	i8	Flags{RB}{OW}{LEEXE}<br>Note: the sources disagree on its format.<br>{OW} treats it as identical to LX flags, always generates 0.<br>{RB} only defines values 0 and 3, with 3 being relocations required.<br>{LEEXE} provides a bit field:
+@00	i24be	Page number{LEEXE} and index into {fixpgtbl}{RB}{OW}{LEEXE}<br>Note: all sources agree that the third byte stores the low order byte.<br>{OW} handles this as a 24-bit big endian value.<br>{RB} only documents the second and third bytes, and indicates that the first one is usually 0.<br>{LEEXE} clarifies that the first two bytes contain the "high page number", but does not detail its structure.
+@03	i8	Flags{RB}{OW}{LEEXE}<br>Note: the sources disagree on its format.<br>Microsoft's own header files seem to imply it can contain values 0 to 4 as the LX entry.<br>{OW} treats it as identical to LX flags, always generates 0.<br>{RB} only defines values 0 and 3, with 3 being relocations required.<br>{LEEXE} provides a bit field:
 		%0:1
 			=03	Last page in file
 		%6:7
@@ -3229,7 +3244,7 @@ SECTION 1/objpgtbl:Object Page Table
 		=05	Compressed page, offset from Preload pages{IBM96}
 		=08	M3-packed{OW}
 
-> The two formats encode different information. The LE format contains the offset into the fixup page table. For LX, the fixup page table goes in parallel with the object page table, and each entry corresponds to the accompanying other entry.
+> The two formats encode different information. The LE format contains the page number and the offset into the fixup page table. For LX, the fixup page table goes in parallel with the object page table, and each entry corresponds to the accompanying other entry.
 
 > The LX format contains the offset and size of each page. For LE, every page but the last one in the file has the same size, and they come consecutively.
 

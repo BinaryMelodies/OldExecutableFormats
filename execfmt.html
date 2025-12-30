@@ -2342,26 +2342,71 @@
 <td><tt>r_symndx</tt> - Symbol table index</td></tr>
 <tr>
 <td><tt><sub>x</sub>08</tt></td>	<td>i16</td>
-<td><tt>r_type</tt> - Symbol type
+<td><tt>r_type</tt> - Relocation type
 <table border='1'>
 <tr>
 <td><tt><sub>x</sub>00</tt></td>
 <td><tt>R_ABS</tt> - Absolute reference, no relocation necessary<a href="#coff_SCO"><sup title="Common Object File Format (COFF) - SCO OpenServer 5 Documentation">[1]</sup></a></td></tr>
 <tr>
 <td><tt><sub>x</sub>01</tt></td>
-<td><tt>R_DIR16</tt> - (80286 only) Direct 16-bit reference to symbol's virtual address<a href="#coff_SCO"><sup title="Common Object File Format (COFF) - SCO OpenServer 5 Documentation">[1]</sup></a></td></tr>
+<td><tt>R_DIR16</tt> - (8086/80286 only) Direct 16-bit reference to symbol's virtual address<a href="#coff_SCO"><sup title="Common Object File Format (COFF) - SCO OpenServer 5 Documentation">[1]</sup></a></td></tr>
 <tr>
 <td><tt><sub>x</sub>02</tt></td>
-<td><tt>R_REL16</tt> - (80286 only) PC-relative 16-bit reference to symbol's virtual address<a href="#coff_SCO"><sup title="Common Object File Format (COFF) - SCO OpenServer 5 Documentation">[1]</sup></a></td></tr>
+<td><tt>R_REL16</tt> - (8086/80286 only) PC-relative 16-bit reference to symbol's virtual address<a href="#coff_SCO"><sup title="Common Object File Format (COFF) - SCO OpenServer 5 Documentation">[1]</sup></a></td></tr>
+<tr>
+<td><tt><sub>x</sub>03</tt></td>
+<td><tt>R_IND16</tt> - (8086 only) Indirect 16-bit reference via transfer vector</td></tr>
+<tr>
+<td><tt><sub>x</sub>04</tt></td>
+<td><tt>R_DIR24</tt> - (WE32K only) Direct 24-bit reference to symbol's virtual address</td></tr>
+<tr>
+<td><tt><sub>x</sub>05</tt></td>
+<td><tt>R_REL24</tt> - (WE32K only) PC-relative 24-bit reference to symbol's virtual address</td></tr>
 <tr>
 <td><tt><sub>x</sub>06</tt></td>
-<td><tt>R_DIR32</tt> - Direct 32-bit reference to symbol's virtual address<a href="#coff_SCO"><sup title="Common Object File Format (COFF) - SCO OpenServer 5 Documentation">[1]</sup></a><br><tt>RELOC_ADDR32</tt> for DJGPP<a href="#coff_DJGPP"><sup title="DJGPP COFF Spec">[4]</sup></a></td></tr>
+<td><tt>R_DIR32</tt> - (80286/80386/WE32K) Direct 32-bit reference to symbol's virtual address<a href="#coff_SCO"><sup title="Common Object File Format (COFF) - SCO OpenServer 5 Documentation">[1]</sup></a><br><tt>RELOC_ADDR32</tt> for DJGPP<a href="#coff_DJGPP"><sup title="DJGPP COFF Spec">[4]</sup></a></td></tr>
+<tr>
+<td><tt><sub>x</sub>07</tt></td>
+<td><tt>R_OFF8</tt> - (8086 only) Lower 8 bits of symbol's virtual address</td></tr>
+<tr>
+<td><tt><sub>x</sub>08</tt></td>
+<td><tt>R_OFF16</tt> - (8086 only) Higher 8 bits of symbol's 16-bit virtual address</td></tr>
 <tr>
 <td><tt><sub>x</sub>09</tt></td>
-<td><tt>R_SEG12</tt> - (80286 only) Direct 16-bit reference to symbol's segment-selector bits of a 32-bit virtual address<a href="#coff_SCO"><sup title="Common Object File Format (COFF) - SCO OpenServer 5 Documentation">[1]</sup></a></td></tr>
+<td><tt>R_SEG12</tt> - (8086/80286 only) Direct 16-bit reference to symbol's segment-selector bits of a 32-bit virtual address<a href="#coff_SCO"><sup title="Common Object File Format (COFF) - SCO OpenServer 5 Documentation">[1]</sup></a></td></tr>
+<tr>
+<td><tt><sub>x</sub>0A</tt></td>
+<td><tt>R_DIR32S</tt> - (WE32K only) Byte swapped direct 32-bit reference to symbol's virtual address</td></tr>
+<tr>
+<td><tt><sub>x</sub>0B</tt></td>
+<td><tt>R_AUX</tt> - (8086 only) Auxiliary relocation (details unknown)</td></tr>
+<tr>
+<td><tt><sub>x</sub>0C</tt></td>
+<td><tt>R_OPT16</tt> - (WE32K only) Optimized indirect 16-bit reference via transfer vector</td></tr>
+<tr>
+<td><tt><sub>x</sub>0D</tt></td>
+<td><tt>R_IND24</tt> - (WE32K only) Indirect 24-bit reference via transfer vector</td></tr>
+<tr>
+<td><tt><sub>x</sub>0E</tt></td>
+<td><tt>R_IND32</tt> - (WE32K only) Indirect 32-bit reference via transfer vector</td></tr>
+<tr>
+<td><tt><sub>x</sub>0F</tt></td>
+<td><tt>R_RELBYTE</tt> - (VAX/68K only) Direct 8-bit reference ("symbol relative") to symbol's virtual address</td></tr>
+<tr>
+<td><tt><sub>x</sub>10</tt></td>
+<td><tt>R_RELWORD</tt> - (VAX/68K only) Direct 16-bit reference ("symbol relative") to symbol's virtual address</td></tr>
+<tr>
+<td><tt><sub>x</sub>11</tt></td>
+<td><tt>R_RELLONG</tt> - (VAX/68K only) Direct 32-bit reference ("symbol relative") to symbol's virtual address</td></tr>
+<tr>
+<td><tt><sub>x</sub>12</tt></td>
+<td><tt>R_PCRBYTE</tt> - (VAX/68K only) PC-relative 8-bit reference to symbol's virtual address</td></tr>
+<tr>
+<td><tt><sub>x</sub>13</tt></td>
+<td><tt>R_PCRWORD</tt> - (VAX/68K only) PC-relative 16-bit reference to symbol's virtual address</td></tr>
 <tr>
 <td><tt><sub>x</sub>14</tt></td>
-<td><tt>R_PCRLONG</tt> - (80386 only) PC-relative 32-bit reference to symbol's virtual address<a href="#coff_SCO"><sup title="Common Object File Format (COFF) - SCO OpenServer 5 Documentation">[1]</sup></a><br><tt>RELOC_REL32</tt> for DJGPP<a href="#coff_DJGPP"><sup title="DJGPP COFF Spec">[4]</sup></a></td></tr>
+<td><tt>R_PCRLONG</tt> - (80386/VAX/68K) PC-relative 32-bit reference to symbol's virtual address<a href="#coff_SCO"><sup title="Common Object File Format (COFF) - SCO OpenServer 5 Documentation">[1]</sup></a><br><tt>RELOC_REL32</tt> for DJGPP<a href="#coff_DJGPP"><sup title="DJGPP COFF Spec">[4]</sup></a></td></tr>
 </table>
 </td></tr>
 </table>
@@ -7801,10 +7846,10 @@
 <table border='1' align='center'>
 <tr>
 <td><tt><sub>x</sub>00</tt></td>	<td>i24be</td>
-<td>Index into <a href="#le_fixpgtbl">Fixup Page Table</a><a href="#le_RB"><sup title="Ralf Brown's interrupt list">[4]</sup></a><a href="#le_OW"><sup title="OpenWatcom sources">[3]</sup></a><a href="#le_LEEXE"><sup title="LINEAR-EXECUTABLE File Header Layout">[5]</sup></a><br>Note: all sources agree that the third byte stores the low order byte.<br><a href="#le_OW"><sup title="OpenWatcom sources">[3]</sup></a> handles this as a 24-bit big endian value.<br><a href="#le_RB"><sup title="Ralf Brown's interrupt list">[4]</sup></a> only documents the second and third bytes, and indicates that the first one is usually 0.<br><a href="#le_LEEXE"><sup title="LINEAR-EXECUTABLE File Header Layout">[5]</sup></a> clarifies that the first two bytes contain the "high page number", but does not detail its structure.</td></tr>
+<td>Page number<a href="#le_LEEXE"><sup title="LINEAR-EXECUTABLE File Header Layout">[5]</sup></a> and index into <a href="#le_fixpgtbl">Fixup Page Table</a><a href="#le_RB"><sup title="Ralf Brown's interrupt list">[4]</sup></a><a href="#le_OW"><sup title="OpenWatcom sources">[3]</sup></a><a href="#le_LEEXE"><sup title="LINEAR-EXECUTABLE File Header Layout">[5]</sup></a><br>Note: all sources agree that the third byte stores the low order byte.<br><a href="#le_OW"><sup title="OpenWatcom sources">[3]</sup></a> handles this as a 24-bit big endian value.<br><a href="#le_RB"><sup title="Ralf Brown's interrupt list">[4]</sup></a> only documents the second and third bytes, and indicates that the first one is usually 0.<br><a href="#le_LEEXE"><sup title="LINEAR-EXECUTABLE File Header Layout">[5]</sup></a> clarifies that the first two bytes contain the "high page number", but does not detail its structure.</td></tr>
 <tr>
 <td><tt><sub>x</sub>03</tt></td>	<td>i8</td>
-<td>Flags<a href="#le_RB"><sup title="Ralf Brown's interrupt list">[4]</sup></a><a href="#le_OW"><sup title="OpenWatcom sources">[3]</sup></a><a href="#le_LEEXE"><sup title="LINEAR-EXECUTABLE File Header Layout">[5]</sup></a><br>Note: the sources disagree on its format.<br><a href="#le_OW"><sup title="OpenWatcom sources">[3]</sup></a> treats it as identical to LX flags, always generates 0.<br><a href="#le_RB"><sup title="Ralf Brown's interrupt list">[4]</sup></a> only defines values 0 and 3, with 3 being relocations required.<br><a href="#le_LEEXE"><sup title="LINEAR-EXECUTABLE File Header Layout">[5]</sup></a> provides a bit field:
+<td>Flags<a href="#le_RB"><sup title="Ralf Brown's interrupt list">[4]</sup></a><a href="#le_OW"><sup title="OpenWatcom sources">[3]</sup></a><a href="#le_LEEXE"><sup title="LINEAR-EXECUTABLE File Header Layout">[5]</sup></a><br>Note: the sources disagree on its format.<br>Microsoft's own header files seem to imply it can contain values 0 to 4 as the LX entry.<br><a href="#le_OW"><sup title="OpenWatcom sources">[3]</sup></a> treats it as identical to LX flags, always generates 0.<br><a href="#le_RB"><sup title="Ralf Brown's interrupt list">[4]</sup></a> only defines values 0 and 3, with 3 being relocations required.<br><a href="#le_LEEXE"><sup title="LINEAR-EXECUTABLE File Header Layout">[5]</sup></a> provides a bit field:
 <table border='1'>
 <tr>
 <td>Bits 0:1</td>
@@ -7872,7 +7917,7 @@
 </table>
 </td></tr>
 </table>
-<p>The two formats encode different information. The LE format contains the offset into the fixup page table. For LX, the fixup page table goes in parallel with the object page table, and each entry corresponds to the accompanying other entry.</p>
+<p>The two formats encode different information. The LE format contains the page number and the offset into the fixup page table. For LX, the fixup page table goes in parallel with the object page table, and each entry corresponds to the accompanying other entry.</p>
 <p>The LX format contains the offset and size of each page. For LE, every page but the last one in the file has the same size, and they come consecutively.</p>
 <a id="le_objitpgtbl"/>
 <h3>Object Iterated Page Table</h2>
